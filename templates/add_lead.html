@@ -5,7 +5,8 @@
 {% block content %}
 <div class="content-container" style="margin: 0; padding: 0; width: 100%;">
     <!-- Header -->
-    <div class="content-header" style="margin-bottom: 25px; padding: 20px; background: #0d6efd; border-radius: 12px; color: white; box-shadow: 0 4px 20px rgba(13, 110, 253, 0.2);">
+    <div class="content-header"
+        style="margin-bottom: 25px; padding: 20px; background: #0d6efd; border-radius: 12px; color: white; box-shadow: 0 4px 20px rgba(13, 110, 253, 0.2);">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
             <div>
                 <h2 style="margin: 0; font-weight: 700; font-size: 2rem; color: white;">
@@ -17,7 +18,8 @@
                 </div>
             </div>
             <div style="display: flex; gap: 10px;">
-                <a href="/leads" class="btn" style="padding: 10px 20px; background: rgba(255,255,255,0.2); border: none; border-radius: 8px; color: white; font-weight: 500; text-decoration: none; display: flex; align-items: center; gap: 8px;">
+                <a href="/leads" class="btn"
+                    style="padding: 10px 20px; background: rgba(255,255,255,0.2); border: none; border-radius: 8px; color: white; font-weight: 500; text-decoration: none; display: flex; align-items: center; gap: 8px;">
                     <i class="fas fa-arrow-left"></i> Back to Leads
                 </a>
             </div>
@@ -25,35 +27,43 @@
     </div>
 
     <!-- Error Message -->
-    <div id="errorMessage" style="display: none; background: #dc3545; color: white; padding: 15px 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(220, 53, 69, 0.2);">
+    <div id="errorMessage"
+        style="display: none; background: #dc3545; color: white; padding: 15px 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(220, 53, 69, 0.2);">
         <i class="fas fa-exclamation-circle"></i> <span id="errorText"></span>
     </div>
 
     <!-- Success Message -->
-    <div id="successMessage" style="display: none; background: #198754; color: white; padding: 15px 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(25, 135, 84, 0.2);">
+    <div id="successMessage"
+        style="display: none; background: #198754; color: white; padding: 15px 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(25, 135, 84, 0.2);">
         <i class="fas fa-check-circle"></i> <span id="successText"></span>
     </div>
 
     <!-- Success Modal -->
-    <div id="successModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 9999; align-items: center; justify-content: center;">
-        <div style="background: white; border-radius: 16px; padding: 40px; max-width: 500px; width: 90%; box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3); animation: slideUp 0.3s ease-out;">
+    <div id="successModal"
+        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 9999; align-items: center; justify-content: center;">
+        <div
+            style="background: white; border-radius: 16px; padding: 40px; max-width: 500px; width: 90%; box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3); animation: slideUp 0.3s ease-out;">
             <div style="text-align: center; margin-bottom: 30px;">
-                <div style="width: 80px; height: 80px; background: #198754; border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center;">
+                <div
+                    style="width: 80px; height: 80px; background: #198754; border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center;">
                     <i class="fas fa-check" style="color: white; font-size: 40px;"></i>
                 </div>
-                <h2 style="margin: 0 0 10px 0; color: #212529; font-size: 1.8rem;" id="successMessage">Lead Created Successfully!</h2>
+                <h2 style="margin: 0 0 10px 0; color: #212529; font-size: 1.8rem;" id="successMessage">Lead Created
+                    Successfully!</h2>
                 <p style="color: #6c757d; font-size: 1rem;">Your lead has been saved to the system</p>
             </div>
-            
+
             <div style="background: #f8f9fa; border-radius: 12px; padding: 20px; margin-bottom: 25px;">
-                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #dee2e6;">
+                <div
+                    style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #dee2e6;">
                     <i class="fas fa-hashtag" style="color: #0d6efd; font-size: 1.2rem;"></i>
                     <div>
                         <div style="font-size: 0.85rem; color: #6c757d;">Lead ID</div>
                         <div style="font-size: 1.2rem; font-weight: 700; color: #212529;" id="generatedLeadId">-</div>
                     </div>
                 </div>
-                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #dee2e6;">
+                <div
+                    style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #dee2e6;">
                     <i class="fas fa-building" style="color: #0d6efd; font-size: 1.2rem;"></i>
                     <div>
                         <div style="font-size: 0.85rem; color: #6c757d;">Company</div>
@@ -68,12 +78,14 @@
                     </div>
                 </div>
             </div>
-            
+
             <div style="display: flex; gap: 12px;">
-                <button onclick="viewCreatedLead()" style="flex: 1; background: #0d6efd; color: white; border: none; padding: 14px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                <button onclick="viewCreatedLead()"
+                    style="flex: 1; background: #0d6efd; color: white; border: none; padding: 14px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 8px;">
                     <i class="fas fa-eye"></i> View Lead
                 </button>
-                <button onclick="createAnotherLead()" style="flex: 1; background: white; color: #0d6efd; border: 2px solid #0d6efd; padding: 14px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                <button onclick="createAnotherLead()"
+                    style="flex: 1; background: white; color: #0d6efd; border: 2px solid #0d6efd; padding: 14px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 8px;">
                     <i class="fas fa-plus"></i> Create Another
                 </button>
             </div>
@@ -83,42 +95,84 @@
     <!-- Lead Form -->
     <form id="leadForm">
         <!-- Company Information -->
-        <div class="form-section" style="background: white; border-radius: 16px; padding: 30px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #dee2e6;">
-            <h3 style="margin: 0 0 25px 0; font-size: 1.4em; font-weight: 700; color: #212529; display: flex; align-items: center; gap: 12px; padding-bottom: 15px; border-bottom: 2px solid #dee2e6;">
+        <div class="form-section"
+            style="background: white; border-radius: 16px; padding: 30px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #dee2e6;">
+            <h3
+                style="margin: 0 0 25px 0; font-size: 1.4em; font-weight: 700; color: #212529; display: flex; align-items: center; gap: 12px; padding-bottom: 15px; border-bottom: 2px solid #dee2e6;">
                 <i class="fas fa-calendar-alt" style="color: #0d6efd; font-size: 1.2em;"></i>
                 Lead Information
             </h3>
-            
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 25px;">
+
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 25px;">
                 <!-- Lead Date -->
                 <div class="form-group">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-calendar-alt" style="color: #0d6efd;"></i>
                         Lead Date *
                     </label>
-                    <input type="date" id="lead_date" name="lead_date" required 
-                           style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <input type="date" id="lead_date" name="lead_date" required
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                     <div class="error-message" id="lead_date_error">Please select a valid date</div>
                 </div>
 
                 <!-- Staff Location (auto-detect) -->
                 <div class="form-group">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-location-arrow" style="color: #0d6efd;"></i>
-                        Staff Location (Auto)
+                        Staff Location
                     </label>
-                          <input type="text" id="staff_location" name="staff_location" placeholder="Detecting location..."
-                              style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: #f9fafb; color: #212529; transition: all 0.3s;">
-                    <div id="staff_location_status" style="font-size: 0.9em; color: #198754; margin-top: 6px; display: none;">Auto-detected</div>
+                    <select id="staff_location" name="staff_location"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                        <option value=""> Detecting location...</option>
+                        <option value="Andhra Pradesh">Andhra Pradesh</option>
+                        <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                        <option value="Assam">Assam</option>
+                        <option value="Bihar">Bihar</option>
+                        <option value="Chhattisgarh">Chhattisgarh</option>
+                        <option value="Delhi">Delhi</option>
+                        <option value="Goa">Goa</option>
+                        <option value="Gujarat">Gujarat</option>
+                        <option value="Haryana">Haryana</option>
+                        <option value="Himachal Pradesh">Himachal Pradesh</option>
+                        <option value="Jharkhand">Jharkhand</option>
+                        <option value="Karnataka">Karnataka</option>
+                        <option value="Kerala">Kerala</option>
+                        <option value="Madhya Pradesh">Madhya Pradesh</option>
+                        <option value="Maharashtra">Maharashtra</option>
+                        <option value="Manipur">Manipur</option>
+                        <option value="Meghalaya">Meghalaya</option>
+                        <option value="Mizoram">Mizoram</option>
+                        <option value="Nagaland">Nagaland</option>
+                        <option value="Odisha">Odisha</option>
+                        <option value="Punjab">Punjab</option>
+                        <option value="Rajasthan">Rajasthan</option>
+                        <option value="Sikkim">Sikkim</option>
+                        <option value="Tamil Nadu">Tamil Nadu</option>
+                        <option value="Telangana">Telangana</option>
+                        <option value="Tripura">Tripura</option>
+                        <option value="Uttar Pradesh">Uttar Pradesh</option>
+                        <option value="Uttarakhand">Uttarakhand</option>
+                        <option value="West Bengal">West Bengal</option>
+                        <option value="Jammu & Kashmir">Jammu & Kashmir</option>
+                        <option value="Ladakh">Ladakh</option>
+                        <option value="Chandigarh">Chandigarh</option>
+                        <option value="Puducherry">Puducherry</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <div id="staff_location_status" style="font-size: 0.9em; margin-top: 6px; display: none;"></div>
                 </div>
                 <!-- Lead Source -->
                 <div class="form-group">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-link" style="color: #0d6efd;"></i>
                         Lead Source *
                     </label>
-                    <select id="lead_source" name="lead_source" data-setting="sources" required 
-                            style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <select id="lead_source" name="lead_source" data-setting="sources" required
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                         <option value="">Select Source</option>
                     </select>
                     <div class="error-message" id="lead_source_error">Please select a lead source</div>
@@ -126,72 +180,83 @@
 
                 <!-- Sales Type -->
                 <div class="form-group">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-fire" style="color: #0d6efd;"></i>
                         Sales Type *
                     </label>
-                    <select id="lead_type" name="lead_type" data-setting="types" required 
-                            style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <select id="lead_type" name="lead_type" data-setting="types" required
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                         <option value="">Select Sales Type</option>
                     </select>
                     <div class="error-message" id="lead_type_error">Please select a sales type</div>
                 </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 25px;">
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 25px;">
                 <!-- Assign To -->
                 <div class="form-group">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-user-check" style="color: #0d6efd;"></i>
                         Assign To *
                     </label>
-                    <select id="assigned_to" name="assigned_to" required 
-                            style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <select id="assigned_to" name="assigned_to" required
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                         <option value="">Select User</option>
                     </select>
                     <div class="error-message" id="assigned_to_error">Please select an assignee</div>
-                    <div id="assigneeDetails" style="margin-top: 10px; color: #555; font-size: 0.95em; display: none;"></div>
+                    <div id="assigneeDetails" style="margin-top: 10px; color: #555; font-size: 0.95em; display: none;">
+                    </div>
                 </div>
 
                 <!-- Designation (auto from assignee) -->
                 <div class="form-group">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-briefcase" style="color: #0d6efd;"></i>
-                        Designation (auto)
+                        Designation 
                     </label>
-                    <input type="text" id="designation" name="designation" placeholder="Auto-filled from assignee" readonly
-                           style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: #f9fafb; color: #212529; transition: all 0.3s;">
+                    <input type="text" id="designation" name="designation" placeholder="Auto-filled from assign"
+                        readonly
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: #f9fafb; color: #212529; transition: all 0.3s;">
                 </div>
             </div>
         </div>
 
         <!-- Company Details -->
-        <div class="form-section" style="background: white; border-radius: 16px; padding: 30px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #dee2e6;">
-            <h3 style="margin: 0 0 25px 0; font-size: 1.4em; font-weight: 700; color: #212529; display: flex; align-items: center; gap: 12px; padding-bottom: 15px; border-bottom: 2px solid #dee2e6;">
+        <div class="form-section"
+            style="background: white; border-radius: 16px; padding: 30px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #dee2e6;">
+            <h3
+                style="margin: 0 0 25px 0; font-size: 1.4em; font-weight: 700; color: #212529; display: flex; align-items: center; gap: 12px; padding-bottom: 15px; border-bottom: 2px solid #dee2e6;">
                 <i class="fas fa-building" style="color: #0d6efd; font-size: 1.2em;"></i>
                 Company Details
             </h3>
-            
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 25px;">
+
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 25px;">
                 <!-- Company Name -->
                 <div class="form-group">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-building" style="color: #0d6efd;"></i>
                         Company Name *
                     </label>
                     <input type="text" id="company_name" name="company_name" required placeholder="Enter company name"
-                           style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                     <div class="error-message" id="company_name_error">Please enter company name</div>
                 </div>
 
                 <!-- Industry Type -->
                 <div class="form-group">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-industry" style="color: #0d6efd;"></i>
                         Industry Type *
                     </label>
-                    <select id="industry_type" name="industry_type" data-setting="industries" required 
-                            style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <select id="industry_type" name="industry_type" data-setting="industries" required
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                         <option value="">Select Industry Type</option>
                     </select>
                     <div class="error-message" id="industry_type_error">Please select an industry type</div>
@@ -199,26 +264,29 @@
 
                 <!-- Sub Industry -->
                 <div class="form-group">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-sitemap" style="color: #0d6efd;"></i>
                         Sub Industry
                     </label>
                     <select id="sub_industry" name="sub_industry"
-                            style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                         <option value="">Select Sub-Industry</option>
                     </select>
                 </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 25px;">
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 25px;">
                 <!-- System -->
                 <div class="form-group">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-cogs" style="color: #0d6efd;"></i>
-                        System *
+                        Customer Requirement
                     </label>
-                    <select id="system" name="system" data-setting="systems" required 
-                            style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <select id="system" name="system" data-setting="systems" required
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                         <option value="">Select System</option>
                     </select>
                     <div class="error-message" id="system_error">Please select a system</div>
@@ -226,12 +294,13 @@
 
                 <!-- Project/AMC -->
                 <div class="form-group">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-tasks" style="color: #0d6efd;"></i>
                         Project / AMC *
                     </label>
-                    <select id="project_amc" name="project_amc" data-setting="project_amc" required 
-                            style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <select id="project_amc" name="project_amc" data-setting="project_amc" required
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                         <option value="">Select Project/AMC</option>
                     </select>
                     <div class="error-message" id="project_amc_error">Please select project/AMC type</div>
@@ -239,69 +308,97 @@
 
                 <!-- GSTIN -->
                 <div class="form-group">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-file-invoice" style="color: #0d6efd;"></i>
                         GSTIN
                     </label>
                     <input type="text" id="gstin" name="gstin" placeholder="Enter GSTIN number"
-                           style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
-                    <div id="gstin_status" style="font-size: 0.9em; color: #198754; margin-top: 6px; display: none;"></div>
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <div id="gstin_status" style="font-size: 0.9em; color: #dc3545; margin-top: 6px; display: none;">
+                    </div>
                 </div>
+
             </div>
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 10px;">
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 10px;">
                 <!-- Company Website -->
                 <div class="form-group">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-globe" style="color: #0d6efd;"></i>
                         Company Website
                     </label>
                     <input type="url" id="company_website" name="company_website" placeholder="Enter website URL"
-                           style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
-                    <div id="company_website_status" style="font-size: 0.9em; color: #198754; margin-top: 6px; display: none;">Verified ✓</div>
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <div id="company_website_status"
+                        style="font-size: 0.9em; color: #198754; margin-top: 6px; display: none;">Verified ✓</div>
                 </div>
 
                 <!-- Company LinkedIn -->
                 <div class="form-group">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-building" style="color: #0d6efd;"></i>
                         Company LinkedIn
                     </label>
-                    <input type="url" id="company_linkedin_link" name="company_linkedin_link" placeholder="Enter LinkedIn company URL"
-                           style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
-                    <div id="company_linkedin_status" style="font-size: 0.9em; color: #198754; margin-top: 6px; display: none;">Verified ✓</div>
+                    <input type="url" id="company_linkedin_link" name="company_linkedin_link"
+                        placeholder="Enter LinkedIn company URL"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <div id="company_linkedin_status"
+                        style="font-size: 0.9em; color: #198754; margin-top: 6px; display: none;">Verified ✓</div>
                 </div>
             </div>
         </div>
 
         <!-- Address Information -->
-        <div class="form-section" style="background: white; border-radius: 16px; padding: 30px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #dee2e6;">
-            <h3 style="margin: 0 0 25px 0; font-size: 1.4em; font-weight: 700; color: #212529; display: flex; align-items: center; gap: 12px; padding-bottom: 15px; border-bottom: 2px solid #dee2e6;">
+        <div class="form-section"
+            style="background: white; border-radius: 16px; padding: 30px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #dee2e6;">
+            <h3
+                style="margin: 0 0 25px 0; font-size: 1.4em; font-weight: 700; color: #212529; display: flex; align-items: center; gap: 12px; padding-bottom: 15px; border-bottom: 2px solid #dee2e6;">
                 <i class="fas fa-map-marked-alt" style="color: #0d6efd; font-size: 1.2em;"></i>
                 Address Information
             </h3>
-            
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 25px;">
+
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 25px;">
+
+                <!-- PIN Code -->
+                <div class="form-group">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-mailbox" style="color: #0d6efd;"></i>
+                        PIN Code *
+                    </label>
+                    <input type="text" id="pin_code" name="pin_code" required placeholder="Enter 6-digit PIN code"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <div class="error-message" id="pin_code_error">Please enter a valid 6-digit PIN code</div>
+                    <div id="pin_code_status" style="font-size: 0.9em; color: #198754; margin-top: 6px; display: none;">
+                    </div>
+                </div>
                 <!-- State -->
                 <div class="form-group">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-map" style="color: #0d6efd;"></i>
                         State *
                     </label>
-                    <select id="state" name="state" required 
-                            style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <select id="state" name="state" required
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                         <option value="">Select State</option>
                     </select>
                     <div class="error-message" id="state_error">Please select state</div>
                 </div>
                 <!-- District -->
                 <div class="form-group">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-map-pin" style="color: #0d6efd;"></i>
                         District *
                     </label>
-                    <select id="district" name="district" required 
-                            style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <select id="district" name="district" required
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                         <option value="">Select District</option>
                     </select>
                     <div class="error-message" id="district_error">Please select district</div>
@@ -309,12 +406,13 @@
 
                 <!-- City -->
                 <div class="form-group">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-city" style="color: #0d6efd;"></i>
                         City *
                     </label>
-                    <select id="city" name="city" required 
-                            style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <select id="city" name="city" required
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                         <option value="">Select City</option>
                     </select>
                     <div class="error-message" id="city_error">Please select city</div>
@@ -322,141 +420,154 @@
 
                 <!-- Region (select) -->
 
-                <!-- PIN Code -->
-                <div class="form-group">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
-                        <i class="fas fa-mailbox" style="color: #0d6efd;"></i>
-                        PIN Code *
-                    </label>
-                    <input type="text" id="pin_code" name="pin_code" required placeholder="Enter 6-digit PIN code"
-                           style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
-                    <div class="error-message" id="pin_code_error">Please enter a valid 6-digit PIN code</div>
-                    <div id="pin_code_status" style="font-size: 0.9em; color: #198754; margin-top: 6px; display: none;"></div>
-                </div>
-
+                
                 <!-- Village Name (autofill) -->
             </div>
 
             <!-- Full Address -->
             <div class="form-group">
-                <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                <label
+                    style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                     <i class="fas fa-home" style="color: #0d6efd;"></i>
                     Full Address *
                 </label>
-                <textarea id="full_address" name="full_address" required placeholder="Enter complete address including street, area, landmark"
-                          style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s; min-height: 100px; resize: vertical;"></textarea>
+                <textarea id="full_address" name="full_address" required
+                    placeholder="Enter complete address including street, area, landmark"
+                    style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s; min-height: 100px; resize: vertical;"></textarea>
                 <div class="error-message" id="full_address_error">Please enter full address</div>
             </div>
         </div>
 
         <!-- Contact Information -->
-        <div class="form-section" style="background: white; border-radius: 16px; padding: 30px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #dee2e6;">
-            <h3 style="margin: 0 0 25px 0; font-size: 1.4em; font-weight: 700; color: #212529; display: flex; align-items: center; gap: 12px; padding-bottom: 15px; border-bottom: 2px solid #dee2e6;">
+        <div class="form-section"
+            style="background: white; border-radius: 16px; padding: 30px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #dee2e6;">
+            <h3
+                style="margin: 0 0 25px 0; font-size: 1.4em; font-weight: 700; color: #212529; display: flex; align-items: center; gap: 12px; padding-bottom: 15px; border-bottom: 2px solid #dee2e6;">
                 <i class="fas fa-users" style="color: #0d6efd; font-size: 1.2em;"></i>
                 Contact Information
             </h3>
-            
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 25px;">
+
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 25px;">
                 <!-- Customer Name -->
                 <div class="form-group">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-user" style="color: #0d6efd;"></i>
                         Customer Name *
                     </label>
-                    <input type="text" id="customer_name" name="customer_name" required placeholder="Enter contact person name"
-                           style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <input type="text" id="customer_name" name="customer_name" required
+                        placeholder="Enter contact person name"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                     <div class="error-message" id="customer_name_error">Please enter customer name</div>
                 </div>
 
                 <!-- Designation (Customer) -->
                 <div class="form-group">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-id-card" style="color: #0d6efd;"></i>
                         Designation
                     </label>
-                    <input type="text" id="designation_customer" name="designation_customer" placeholder="e.g., Manager, Director"
-                           style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <input type="text" id="designation_customer" name="designation_customer"
+                        placeholder="e.g., Manager, Director"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                 </div>
 
                 <!-- Contact Number -->
                 <div class="form-group">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-phone" style="color: #0d6efd;"></i>
                         Contact Number *
                     </label>
-                    <input type="tel" id="contact_no" name="contact_no" required placeholder="Enter 10-digit mobile number"
-                           style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <input type="tel" id="contact_no" name="contact_no" required
+                        placeholder="Enter 10-digit mobile number"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                     <div class="error-message" id="contact_no_error">Please enter a valid 10-digit phone number</div>
-                    <div id="contact_no_status" style="font-size: 0.9em; color: #198754; margin-top: 6px; display: none;"></div>
+                    <div id="contact_no_status"
+                        style="font-size: 0.9em; color: #198754; margin-top: 6px; display: none;"></div>
                 </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 25px;">
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 25px;">
                 <!-- Email -->
                 <div class="form-group">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-envelope" style="color: #0d6efd;"></i>
                         Email ID *
                     </label>
                     <input type="email" id="email_id" name="email_id" required placeholder="Enter email address"
-                           style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                     <div class="error-message" id="email_id_error">Please enter a valid email address</div>
-                    <div id="email_id_status" style="font-size: 0.9em; color: #198754; margin-top: 6px; display: none;"></div>
+                    <div id="email_id_status" style="font-size: 0.9em; color: #198754; margin-top: 6px; display: none;">
+                    </div>
                 </div>
 
                 <!-- LinkedIn Profile -->
                 <div class="form-group">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-linkedin" style="color: #0d6efd;"></i>
                         LinkedIn Profile
                     </label>
-                    <input type="url" id="linkedin_profile" name="linkedin_profile" placeholder="Enter LinkedIn profile URL"
-                           style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
-                    <div id="linkedin_profile_status" style="font-size: 0.9em; color: #198754; margin-top: 6px; display: none;"></div>
+                    <input type="url" id="linkedin_profile" name="linkedin_profile"
+                        placeholder="Enter LinkedIn profile URL"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <div id="linkedin_profile_status"
+                        style="font-size: 0.9em; color: #198754; margin-top: 6px; display: none;"></div>
                 </div>
 
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px;">
-                <!-- Lead Status -->
-                <div class="form-group">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
-                        <i class="fas fa-signal" style="color: #0d6efd;"></i>
-                        Lead Status
-                    </label>
-                    <select id="lead_status" name="lead_status" data-setting="statuses"
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px;">
+                    <!-- Lead Status -->
+                    <div class="form-group">
+                        <label
+                            style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                            <i class="fas fa-signal" style="color: #0d6efd;"></i>
+                            Lead Status
+                        </label>
+                        <select id="lead_status" name="lead_status" data-setting="statuses"
                             style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
-                        <option value="">Select Status</option>
-                    </select>
+                            <option value="">Select Status</option>
+                        </select>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Remarks -->
-        <div class="form-section" style="background: white; border-radius: 16px; padding: 30px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #dee2e6;">
-            <h3 style="margin: 0 0 25px 0; font-size: 1.4em; font-weight: 700; color: #212529; display: flex; align-items: center; gap: 12px; padding-bottom: 15px; border-bottom: 2px solid #dee2e6;">
-                <i class="fas fa-notes-medical" style="color: #0d6efd; font-size: 1.2em;"></i>
-                Additional Notes
-            </h3>
-            
-            <div class="form-group">
-                <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
-                    <i class="fas fa-comment" style="color: #0d6efd;"></i>
-                    Remarks
-                </label>
-                <textarea id="remarks" name="remarks" placeholder="Any additional remarks or notes"
-                          style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s; min-height: 100px; resize: vertical;"></textarea>
+            <!-- Remarks -->
+            <div class="form-section"
+                style="background: white; border-radius: 16px; padding: 30px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #dee2e6;">
+                <h3
+                    style="margin: 0 0 25px 0; font-size: 1.4em; font-weight: 700; color: #212529; display: flex; align-items: center; gap: 12px; padding-bottom: 15px; border-bottom: 2px solid #dee2e6;">
+                    <i class="fas fa-notes-medical" style="color: #0d6efd; font-size: 1.2em;"></i>
+                    Additional Notes
+                </h3>
+
+                <div class="form-group">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-comment" style="color: #0d6efd;"></i>
+                        Remarks
+                    </label>
+                    <textarea id="remarks" name="remarks" placeholder="Any additional remarks or notes"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s; min-height: 100px; resize: vertical;"></textarea>
+                </div>
             </div>
-        </div>
 
-        <!-- Form Actions -->
-        <div style="display: flex; justify-content: flex-end; gap: 15px; padding: 20px 0; margin-bottom: 30px;">
-            <button type="reset" class="btn-secondary" onclick="resetForm()" style="padding: 12px 30px; background: white; border: 2px solid #dee2e6; border-radius: 8px; color: #495057; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 1.1em; transition: all 0.3s;">
-                <i class="fas fa-redo"></i> Reset Form
-            </button>
-            <button type="submit" class="btn-primary" style="padding: 12px 30px; background: #0d6efd; border: none; border-radius: 8px; color: white; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 1.1em; transition: all 0.3s;">
-                <i class="fas fa-save"></i> Create Lead
-            </button>
-        </div>
+            <!-- Form Actions -->
+            <div style="display: flex; justify-content: flex-end; gap: 15px; padding: 20px 0; margin-bottom: 30px;">
+                <button type="reset" class="btn-secondary" onclick="resetForm()"
+                    style="padding: 12px 30px; background: white; border: 2px solid #dee2e6; border-radius: 8px; color: #495057; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 1.1em; transition: all 0.3s;">
+                    <i class="fas fa-redo"></i> Reset Form
+                </button>
+                <button type="submit" class="btn-primary"
+                    style="padding: 12px 30px; background: #0d6efd; border: none; border-radius: 8px; color: white; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 1.1em; transition: all 0.3s;">
+                    <i class="fas fa-save"></i> Create Lead
+                </button>
+            </div>
     </form>
 </div>
 
@@ -510,12 +621,13 @@
     .btn-secondary:hover {
         background: #f8f9fa !important;
         border-color: #adb5bd !important;
-    
+
         @keyframes slideUp {
             from {
                 transform: translateY(30px);
                 opacity: 0;
             }
+
             to {
                 transform: translateY(0);
                 opacity: 1;
@@ -526,80 +638,163 @@
 
 <script src="/static/js/add_lead.js?v=2.1.1"></script>
 <script>
-// --- Staff Location Auto-detect ---
-function detectStaffLocation() {
-    if (!navigator.geolocation) return;
-    navigator.geolocation.getCurrentPosition(function(pos) {
-        const lat = pos.coords.latitude;
-        const lon = pos.coords.longitude;
-        fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`)
+    // --- Staff Location Auto-detect ---
+    function detectStaffLocation() {
+        const locationSelect = document.getElementById('staff_location');
+        const locationStatus = document.getElementById('staff_location_status');
+
+        if (!navigator.geolocation) {
+            locationSelect.options[0].text = '📍 Select Location';
+            return;
+        }
+
+        // Detecting state
+        locationSelect.options[0].text = '⏳ Detecting your location...';
+        locationSelect.disabled = true;
+
+        navigator.geolocation.getCurrentPosition(
+            function (pos) {
+                const lat = pos.coords.latitude;
+                const lon = pos.coords.longitude;
+
+                fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`)
+                    .then(r => r.json())
+                    .then(data => {
+                        const address = data.address || {};
+
+                        const detectedState = address.state || '';
+                        const detectedCity = address.city || address.town || address.village || address.county || '';
+
+                        let matched = false;
+                        const options = locationSelect.options;
+
+                        for (let i = 0; i < options.length; i++) {
+                            const optVal = options[i].value.toLowerCase();
+                            const detState = detectedState.toLowerCase();
+
+                            if (detState && (detState.includes(optVal) || optVal.includes(detState))) {
+                                locationSelect.value = options[i].value;
+                                matched = true;
+                                break;
+                            }
+                        }
+
+                        locationSelect.disabled = false;
+                        locationSelect.options[0].text = '📍 Select Location';
+
+                        if (matched) {
+                            locationStatus.style.display = 'block';
+                            locationStatus.style.color = '#198754';
+                            locationStatus.innerHTML = `✓ Auto-detected: <strong>${detectedCity ? detectedCity + ', ' : ''}${detectedState}</strong>`;
+                        } else {
+                            locationStatus.style.display = 'none'; // 👈 no warning
+                        }
+                    })
+                    .catch(() => {
+                        locationSelect.disabled = false;
+                        locationSelect.options[0].text = '📍 Select Location';
+                        locationStatus.style.display = 'none'; // 👈 silent fail
+                    });
+            },
+            function () {
+                // 👇 SILENT fallback (no error message)
+                locationSelect.disabled = false;
+                locationSelect.options[0].text = 'Select Location';
+                locationStatus.style.display = 'none';
+            },
+            { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+        );
+    }
+
+    // Auto run
+    document.addEventListener('DOMContentLoaded', detectStaffLocation);
+
+    // --- Address Autofill by PIN code (hierarchy, no city-village duplicate) ---
+    function autofillAddressByPincode(pinCode) {
+        fetch(`https://api.postalpincode.in/pincode/${pinCode}`)
             .then(r => r.json())
             .then(data => {
-                let loc = data.display_name || '';
-                if (!loc) {
-                    loc = `Lat: ${lat}, Lon: ${lon}`;
+                if (data[0].Status === 'Success') {
+                    const postOffice = data[0].PostOffice[0];
+                    // State
+                    const stateSelect = document.getElementById('state');
+                    if (stateSelect && postOffice.State) {
+                        let exists = Array.from(stateSelect.options).some(opt => opt.value === postOffice.State);
+                        if (!exists) stateSelect.add(new Option(postOffice.State, postOffice.State));
+                        stateSelect.value = postOffice.State;
+                        stateSelect.dispatchEvent(new Event('change'));
+                    }
+                    // District
+                    const districtSelect = document.getElementById('district');
+                    if (districtSelect && postOffice.District) {
+                        let exists = Array.from(districtSelect.options).some(opt => opt.value === postOffice.District);
+                        if (!exists) districtSelect.add(new Option(postOffice.District, postOffice.District));
+                        districtSelect.value = postOffice.District;
+                        districtSelect.dispatchEvent(new Event('change'));
+                    }
+                    // City
+                    const citySelect = document.getElementById('city');
+                    if (citySelect && postOffice.Name) {
+                        let exists = Array.from(citySelect.options).some(opt => opt.value === postOffice.Name);
+                        if (!exists) citySelect.add(new Option(postOffice.Name, postOffice.Name));
+                        citySelect.value = postOffice.Name;
+                    }
                 }
-                document.getElementById('staff_location').value = loc;
-                document.getElementById('staff_location_status').style.display = 'block';
             })
-            .catch(() => {
-                document.getElementById('staff_location').value = `Lat: ${lat}, Lon: ${lon}`;
-                document.getElementById('staff_location_status').style.display = 'block';
+            .catch(() => { });
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+        const pinInput = document.getElementById('pin_code');
+        if (pinInput) {
+            pinInput.addEventListener('blur', function () {
+                const pin = this.value.replace(/\D/g, '');
+                if (pin.length === 6) {
+                    autofillAddressByPincode(pin);
+                }
             });
-    }, function(error) {
-        let msg = '';
-        if (error && error.message) {
-            msg = error.message;
         }
-        document.getElementById('staff_location').value = msg ? `Location error: ${msg}` : '';
-    }, { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 });
-}
-document.addEventListener('DOMContentLoaded', detectStaffLocation);
+    });
+</script>
 
-// --- Address Autofill by PIN code (hierarchy, no city-village duplicate) ---
-function autofillAddressByPincode(pinCode) {
-    fetch(`https://api.postalpincode.in/pincode/${pinCode}`)
-        .then(r => r.json())
-        .then(data => {
-            if (data[0].Status === 'Success') {
-                const postOffice = data[0].PostOffice[0];
-                // State
-                const stateSelect = document.getElementById('state');
-                if (stateSelect && postOffice.State) {
-                    let exists = Array.from(stateSelect.options).some(opt => opt.value === postOffice.State);
-                    if (!exists) stateSelect.add(new Option(postOffice.State, postOffice.State));
-                    stateSelect.value = postOffice.State;
-                    stateSelect.dispatchEvent(new Event('change'));
-                }
-                // District
-                const districtSelect = document.getElementById('district');
-                if (districtSelect && postOffice.District) {
-                    let exists = Array.from(districtSelect.options).some(opt => opt.value === postOffice.District);
-                    if (!exists) districtSelect.add(new Option(postOffice.District, postOffice.District));
-                    districtSelect.value = postOffice.District;
-                    districtSelect.dispatchEvent(new Event('change'));
-                }
-                // City
-                const citySelect = document.getElementById('city');
-                if (citySelect && postOffice.Name) {
-                    let exists = Array.from(citySelect.options).some(opt => opt.value === postOffice.Name);
-                    if (!exists) citySelect.add(new Option(postOffice.Name, postOffice.Name));
-                    citySelect.value = postOffice.Name;
-                }
-            }
-        })
-        .catch(() => {});
-}
-document.addEventListener('DOMContentLoaded', function() {
-    const pinInput = document.getElementById('pin_code');
-    if (pinInput) {
-        pinInput.addEventListener('blur', function() {
-            const pin = this.value.replace(/\D/g, '');
-            if (pin.length === 6) {
-                autofillAddressByPincode(pin);
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // GSTIN - sab events remove, required nahi, status hamesha hide
+        const gstinInput = document.getElementById('gstin');
+        if (gstinInput) {
+            // Clone trick - sab existing event listeners remove
+            const newGstin = gstinInput.cloneNode(true);
+            gstinInput.parentNode.replaceChild(newGstin, gstinInput);
+            // Required attribute hatao
+            newGstin.removeAttribute('required');
+            newGstin.removeAttribute('data-required');
+            newGstin.removeAttribute('data-validate');
+        }
+
+        // Status div permanently hide
+        const gstinStatus = document.getElementById('gstin_status');
+        if (gstinStatus) {
+            gstinStatus.style.setProperty('display', 'none', 'important');
+            gstinStatus.textContent = '';
+        }
+
+        // MutationObserver — agar koi JS baad mein gstin_status dikhane ki koshish kare toh turant hide kar do
+        const observer = new MutationObserver(function () {
+            const s = document.getElementById('gstin_status');
+            if (s && s.style.display !== 'none') {
+                s.style.setProperty('display', 'none', 'important');
+                s.textContent = '';
             }
         });
-    }
-});
+        const statusEl = document.getElementById('gstin_status');
+        if (statusEl) {
+            observer.observe(statusEl, { attributes: true, childList: true, subtree: true });
+        }
+    });
+
+    // Form submit pe force hide
+    document.getElementById('leadForm')?.addEventListener('submit', function () {
+        const s = document.getElementById('gstin_status');
+        if (s) { s.style.setProperty('display', 'none', 'important'); s.textContent = ''; }
+    }, true);
 </script>
 {% endblock %}

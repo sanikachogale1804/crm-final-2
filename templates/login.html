@@ -8,6 +8,239 @@
     <link rel="stylesheet" href="/static/login.css?v=2.1.1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
+<!-- Forgot Password Modal -->
+<div id="forgotModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;
+    background:rgba(0,0,0,0.5);z-index:99999;align-items:center;justify-content:center;">
+    <div style="background:white;border-radius:16px;width:90%;max-width:420px;
+        box-shadow:0 20px 60px rgba(0,0,0,0.3);overflow:hidden;">
+
+        <!-- Modal Header -->
+        <div style="background:#0d6efd;padding:20px 25px;display:flex;justify-content:space-between;align-items:center;">
+            <h3 style="color:white;margin:0;font-size:1.2em;" id="modalTitle">Forgot Password</h3>
+            <button onclick="closeForgotModal()"
+                style="background:rgba(255,255,255,0.2);border:none;color:white;width:32px;height:32px;
+                border-radius:50%;cursor:pointer;font-size:1.1em;">✕</button>
+        </div>
+
+        <!-- Step 1: Enter Email -->
+        <div id="step1" style="padding:25px;">
+            <p style="color:#6c757d;margin-bottom:20px;font-size:0.95em;">
+                Enter your registered email address. We will send you an OTP to reset your password.
+            </p>
+            <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:0.9em;font-weight:500;color:#495057;margin-bottom:6px;">
+                    Email Address
+                </label>
+                <input type="email" id="resetEmail" placeholder="Enter your email"
+                    style="width:100%;padding:10px 14px;border:2px solid #dee2e6;border-radius:8px;
+                    font-size:1em;color:#495057;box-sizing:border-box;">
+            </div>
+            <div id="step1Error" style="color:#dc2626;font-size:0.85em;margin-bottom:12px;display:none;"></div>
+            <button onclick="sendOTP()"
+                style="width:100%;padding:12px;background:#0d6efd;color:white;border:none;
+                border-radius:8px;font-size:1em;font-weight:500;cursor:pointer;" id="sendOtpBtn">
+                Send OTP
+            </button>
+        </div>
+
+        <!-- Step 2: Enter OTP + New Password -->
+        <div id="step2" style="padding:25px;display:none;">
+            <p style="color:#6c757d;margin-bottom:20px;font-size:0.95em;">
+                Enter the 6-digit OTP sent to <b id="emailDisplay"></b> and your new password.
+            </p>
+            <div style="margin-bottom:14px;">
+                <label style="display:block;font-size:0.9em;font-weight:500;color:#495057;margin-bottom:6px;">
+                    OTP Code
+                </label>
+                <input type="text" id="resetOtp" placeholder="Enter 6-digit OTP" maxlength="6"
+                    style="width:100%;padding:10px 14px;border:2px solid #dee2e6;border-radius:8px;
+                    font-size:1.3em;letter-spacing:8px;text-align:center;color:#0d6efd;font-weight:700;box-sizing:border-box;">
+            </div>
+            <div style="margin-bottom:14px;">
+                <label style="display:block;font-size:0.9em;font-weight:500;color:#495057;margin-bottom:6px;">
+                    New Password
+                </label>
+                <input type="password" id="newPassword" placeholder="Min 6 characters"
+                    style="width:100%;padding:10px 14px;border:2px solid #dee2e6;border-radius:8px;
+                    font-size:1em;color:#495057;box-sizing:border-box;">
+            </div>
+            <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:0.9em;font-weight:500;color:#495057;margin-bottom:6px;">
+                    Confirm New Password
+                </label>
+                <input type="password" id="confirmPassword" placeholder="Re-enter new password"
+                    style="width:100%;padding:10px 14px;border:2px solid #dee2e6;border-radius:8px;
+                    font-size:1em;color:#495057;box-sizing:border-box;">
+            </div>
+            <div id="step2Error" style="color:#dc2626;font-size:0.85em;margin-bottom:12px;display:none;"></div>
+            <button onclick="resetPassword()"
+                style="width:100%;padding:12px;background:#0d6efd;color:white;border:none;
+                border-radius:8px;font-size:1em;font-weight:500;cursor:pointer;" id="resetBtn">
+                Reset Password
+            </button>
+            <button onclick="goBackToStep1()"
+                style="width:100%;padding:10px;background:none;color:#6c757d;border:1px solid #dee2e6;
+                border-radius:8px;font-size:0.9em;cursor:pointer;margin-top:10px;">
+                ← Back / Resend OTP
+            </button>
+        </div>
+
+        <!-- Step 3: Success -->
+        <div id="step3" style="padding:30px;text-align:center;display:none;">
+            <div style="font-size:3rem;margin-bottom:15px;">✅</div>
+            <h3 style="color:#198754;margin-bottom:10px;">Password Reset!</h3>
+            <p style="color:#6c757d;margin-bottom:20px;">
+                Your password has been reset successfully. Please login with your new password.
+            </p>
+            <button onclick="closeForgotModal()"
+                style="padding:12px 30px;background:#0d6efd;color:white;border:none;
+                border-radius:8px;font-size:1em;cursor:pointer;">
+                Go to Login
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+// ===== Forgot Password Functions =====
+function openForgotModal() {
+    document.getElementById('forgotModal').style.display = 'flex';
+    document.getElementById('step1').style.display = 'block';
+    document.getElementById('step2').style.display = 'none';
+    document.getElementById('step3').style.display = 'none';
+    document.getElementById('resetEmail').value = '';
+    document.getElementById('step1Error').style.display = 'none';
+}
+
+function closeForgotModal() {
+    document.getElementById('forgotModal').style.display = 'none';
+}
+
+function goBackToStep1() {
+    document.getElementById('step1').style.display = 'block';
+    document.getElementById('step2').style.display = 'none';
+    document.getElementById('step1Error').style.display = 'none';
+}
+
+async function sendOTP() {
+    const email = document.getElementById('resetEmail').value.trim();
+    const errEl = document.getElementById('step1Error');
+    const btn = document.getElementById('sendOtpBtn');
+
+    if (!email) {
+        errEl.textContent = 'Please enter your email address.';
+        errEl.style.display = 'block';
+        return;
+    }
+    if (!email.includes('@')) {
+        errEl.textContent = 'Please enter a valid email address.';
+        errEl.style.display = 'block';
+        return;
+    }
+
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    errEl.style.display = 'none';
+
+    try {
+        const res = await fetch('/api/forgot-password', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
+        });
+        const data = await res.json();
+
+        if (data.success) {
+            document.getElementById('emailDisplay').textContent = email;
+            document.getElementById('step1').style.display = 'none';
+            document.getElementById('step2').style.display = 'block';
+            document.getElementById('resetOtp').value = '';
+            document.getElementById('newPassword').value = '';
+            document.getElementById('confirmPassword').value = '';
+            document.getElementById('step2Error').style.display = 'none';
+        } else {
+            errEl.textContent = data.detail || 'Failed to send OTP.';
+            errEl.style.display = 'block';
+        }
+    } catch (e) {
+        errEl.textContent = 'Network error. Please try again.';
+        errEl.style.display = 'block';
+    } finally {
+        btn.textContent = 'Send OTP';
+        btn.disabled = false;
+    }
+}
+
+async function resetPassword() {
+    const email = document.getElementById('resetEmail').value.trim();
+    const otp = document.getElementById('resetOtp').value.trim();
+    const newPassword = document.getElementById('newPassword').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+    const errEl = document.getElementById('step2Error');
+    const btn = document.getElementById('resetBtn');
+
+    errEl.style.display = 'none';
+
+    if (!otp || otp.length !== 6) {
+        errEl.textContent = 'Please enter the 6-digit OTP.';
+        errEl.style.display = 'block';
+        return;
+    }
+    if (!newPassword || newPassword.length < 6) {
+        errEl.textContent = 'Password must be at least 6 characters.';
+        errEl.style.display = 'block';
+        return;
+    }
+    if (newPassword !== confirmPassword) {
+        errEl.textContent = 'Passwords do not match.';
+        errEl.style.display = 'block';
+        return;
+    }
+
+    btn.textContent = 'Resetting...';
+    btn.disabled = true;
+
+    try {
+        const res = await fetch('/api/reset-password', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, otp, new_password: newPassword })
+        });
+        const data = await res.json();
+
+        if (data.success) {
+            document.getElementById('step2').style.display = 'none';
+            document.getElementById('step3').style.display = 'block';
+        } else {
+            errEl.textContent = data.detail || 'Failed to reset password.';
+            errEl.style.display = 'block';
+        }
+    } catch (e) {
+        errEl.textContent = 'Network error. Please try again.';
+        errEl.style.display = 'block';
+    } finally {
+        btn.textContent = 'Reset Password';
+        btn.disabled = false;
+    }
+}
+
+// Close modal on background click
+document.getElementById('forgotModal').addEventListener('click', function(e) {
+    if (e.target === this) closeForgotModal();
+});
+
+// Enter key support
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+        const step1 = document.getElementById('step1');
+        const step2 = document.getElementById('step2');
+        if (step1.style.display !== 'none') sendOTP();
+        else if (step2.style.display !== 'none') resetPassword();
+    }
+});
+</script>
+
 <body>
     <div class="login-wrapper">
         <!-- Mobile Header -->
@@ -107,7 +340,7 @@
                                 <span class="checkmark"></span>
                                 Remember me
                             </label>
-                            <a href="#" class="forgot-password">Forgot Password?</a>
+                            <a href="#" class="forgot-password" onclick="openForgotModal(); return false;">Forgot Password?</a>
                         </div>
 
                         <button type="submit" class="btn-login" id="loginButton">
@@ -118,7 +351,7 @@
                 <div class="form-footer">
                     <p>
                         <i class="fas fa-info-circle"></i>
-                        For assistance, contact Mr. Ramlakhan Vishwakarma
+                        Cogent Safety & Security Pvt Ltd
                     </p>
                     <div class="version-info">
                         <span>v2.1.0</span>

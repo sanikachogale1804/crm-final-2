@@ -16,7 +16,7 @@ MYSQL_HOST = "127.0.0.1"
 MYSQL_PORT = 3306
 MYSQL_USER = "root"
 MYSQL_PASSWORD = "Cogent@2025"
-MYSQL_DB = "crm_test"
+MYSQL_DB = "crm"
 
 # Connection Pool - PyMySQL doesn't have built-in pooling, so we'll use simple connections
 connection_pool = None

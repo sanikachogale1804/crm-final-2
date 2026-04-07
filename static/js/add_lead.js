@@ -7,9 +7,9 @@ let bypassUnsavedWarning = false;
 const SALES_TYPE_STORAGE_KEY = 'sales_types';
 
 // Initialize add lead page
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     console.log('Add Lead page initializing...');
-    
+
     // Check authentication
     const userData = localStorage.getItem('user');
     if (userData) {
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
     // View created lead (exposed to inline handlers)
-    window.viewCreatedLead = function() {
+    window.viewCreatedLead = function () {
         bypassUnsavedWarning = true;
         const leadId = window.lastCreatedLeadId;
         if (leadId) {
@@ -33,65 +33,65 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     // Create another lead (exposed to inline handlers)
-    window.createAnotherLead = function() {
+    window.createAnotherLead = function () {
         const successModal = document.getElementById('successModal');
         if (successModal) {
             successModal.style.display = 'none';
             document.body.style.overflow = 'auto';
         }
-    
+
         // Clear form
         const form = document.getElementById('leadForm');
         if (form) {
             form.reset();
         }
-    
+
         // Clear errors
         document.querySelectorAll('.field-error').forEach(error => error.remove());
         document.querySelectorAll('.error').forEach(field => field.classList.remove('error'));
-    
+
         // Set default values
         const today = new Date().toISOString().split('T')[0];
         const leadDateInput = document.getElementById('lead_date');
         if (leadDateInput) leadDateInput.value = today;
-    
+
         // Scroll to top
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    
+
     // Check permissions
     if (!currentUser.permissions.can_create_leads && !currentUser.permissions.can_edit_leads) {
         alert('You do not have permission to create leads');
         window.location.href = '/dashboard';
         return;
     }
-    
+
     // Load Lead Settings from database first
-    LeadSettingsManager.loadSettings().then(function() {
+    LeadSettingsManager.loadSettings().then(function () {
         console.log('Lead Settings loaded from database');
-        
+
         // Initialize form
         initializeForm();
         initializeSalesType();
-        
+
         // Check if editing existing lead
         checkEditMode();
-        
+
         // Initialize form validation
         initializeValidation();
-        
+
         // Initialize form data persistence
         initializeFormPersistence();
-        
+
         // Load industry suggestions
         loadIndustrySuggestions();
-        
+
         // Initialize address lookup
         initializeAddressLookup();
-        
+
         console.log('Add Lead page initialized successfully');
-    }).catch(function(error) {
+    }).catch(function (error) {
         console.error('Failed to load lead settings:', error);
         // Continue with form initialization even if settings fail to load
         initializeForm();
@@ -107,48 +107,48 @@ document.addEventListener('DOMContentLoaded', function() {
 // Initialize form
 function initializeForm() {
     console.log('Initializing form...');
-    
+
     // Initialize all dropdowns from Lead Settings
     if (window.LeadSettingsManager) {
         window.LeadSettingsManager.initializeAllDropdowns();
     }
-    
+
     // Set today's date as default
-        const today = new Date().toISOString().split('T')[0];
-        const leadDateInput = document.getElementById('lead_date');
-        if (leadDateInput) leadDateInput.value = today;
+    const today = new Date().toISOString().split('T')[0];
+    const leadDateInput = document.getElementById('lead_date');
+    if (leadDateInput) leadDateInput.value = today;
     // Assignee list load
     loadAssignees();
-    
+
     // Add change listeners for dependent fields
     initializeLocationSelectors();
 
     // Initialize dependent Sub-Industry dropdown
     initializeSubIndustryDropdown();
-    
+
     // Add form submission handler
     const leadForm = document.getElementById('leadForm');
     if (leadForm) {
-        leadForm.addEventListener('submit', function(e) {
+        leadForm.addEventListener('submit', function (e) {
             e.preventDefault();
             saveLead();
         });
     }
-    
+
     // Add save shortcut (Ctrl + S)
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown', function (e) {
         if ((e.ctrlKey || e.metaKey) && e.key === 's') {
             e.preventDefault();
             saveLead();
         }
     });
-    
+
     // Add calculate form progress on input
     document.querySelectorAll('input, select, textarea').forEach(element => {
         element.addEventListener('input', calculateFormProgress);
         element.addEventListener('change', calculateFormProgress);
     });
-    
+
     // Initial progress calculation
     setTimeout(calculateFormProgress, 100);
 }
@@ -174,7 +174,7 @@ function loadAssignees() {
                 // Find current logged-in user in the users list
                 const currentUserId = currentUser.user_id || currentUser.id;
                 const userDetails = data.users.find(u => u.id == currentUserId);
-                
+
                 if (userDetails) {
                     // Update currentUser with full details
                     currentUser.designation = userDetails.designation || '';
@@ -194,13 +194,13 @@ function loadAssignees() {
             opt.dataset.email = currentUser.email || '';
             opt.dataset.mobile = currentUser.mobile_no || '';
             select.appendChild(opt);
-            
+
             // Auto-select current user
             select.value = opt.value;
-            
+
             // Show assignee details automatically
             handleAssigneeChange();
-            
+
             console.log('Auto-assigned lead to:', currentUser.full_name || currentUser.username);
             console.log('Designation:', currentUser.designation);
             console.log('Mobile:', currentUser.mobile_no);
@@ -260,25 +260,25 @@ function initializeSalesType() {
 function calculateFormProgress() {
     const requiredFields = document.querySelectorAll('[required]');
     if (requiredFields.length === 0) return 0;
-    
+
     const filledFields = Array.from(requiredFields).filter(field => {
         if (field.type === 'checkbox') return field.checked;
         return field.value.trim() !== '';
     }).length;
-    
+
     const progress = Math.round((filledFields / requiredFields.length) * 100);
-    
+
     const progressFill = document.getElementById('formProgress');
     const progressPercent = document.getElementById('progressPercent');
-    
+
     if (progressFill) {
         progressFill.style.width = progress + '%';
     }
-    
+
     if (progressPercent) {
         progressPercent.textContent = progress + '%';
     }
-    
+
     return progress;
 }
 
@@ -286,14 +286,14 @@ function calculateFormProgress() {
 function checkEditMode() {
     const urlParams = new URLSearchParams(window.location.search);
     const leadId = urlParams.get('edit');
-    
+
     if (leadId) {
         if (!currentUser.permissions.can_edit_leads) {
             alert('You do not have permission to edit leads');
             window.location.href = '/leads';
             return;
         }
-        
+
         isEditing = true;
         currentLeadId = leadId;
         loadLeadForEditing(leadId);
@@ -307,7 +307,7 @@ async function loadLeadForEditing(leadId) {
         const response = await fetch(`/api/leads/${leadId}`, {
             // No Authorization header needed, the session cookie is sent automatically.
         });
-        
+
         if (!response.ok) {
             if (response.status === 401) {
                 localStorage.removeItem('user');
@@ -317,9 +317,9 @@ async function loadLeadForEditing(leadId) {
             }
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        
+
         const data = await response.json();
-        
+
         if (data.success) {
             populateForm(data.lead);
             updatePageTitle('Edit Lead');
@@ -338,7 +338,7 @@ async function loadLeadForEditing(leadId) {
 // Populate form with lead data
 function populateForm(lead) {
     console.log('Populating form with lead data:', lead);
-    
+
     // Helper function to safely set value
     function setValue(id, value) {
         const element = document.getElementById(id);
@@ -346,7 +346,7 @@ function populateForm(lead) {
             element.value = value;
         }
     }
-    
+
     // Basic Information
     setValue('lead_date', lead.lead_date);
     setValue('lead_source', lead.lead_source);
@@ -358,7 +358,7 @@ function populateForm(lead) {
     setValue('company_name', lead.company_name);
     setValue('industry_type', lead.industry_type);
     // Ensure sub-industry options match selected industry before setting value
-    try { updateSubIndustryDropdown(); } catch (_) {}
+    try { updateSubIndustryDropdown(); } catch (_) { }
     // Set sub-industry value, adding option if missing
     const subSelect = document.getElementById('sub_industry');
     if (subSelect && lead.sub_industry) {
@@ -390,11 +390,11 @@ function populateForm(lead) {
     setValue('company_website', lead.company_website);
     setValue('company_linkedin_link', lead.company_linkedin_link);
     setValue('gstin', lead.gstin);
-    
+
     // Update page title
     document.querySelector('h1 i.fa-user-plus').className = 'fas fa-edit';
     document.querySelector('h1').innerHTML = '<i class="fas fa-edit"></i> Edit Lead';
-    
+
     // Refresh verification badges for populated URLs / fields
     const companyWebsiteInput = document.getElementById('company_website');
     if (companyWebsiteInput && companyWebsiteInput.value) {
@@ -448,32 +448,32 @@ function updatePageTitle(title) {
 function initializeValidation() {
     const form = document.getElementById('leadForm');
     if (!form) return;
-    
+
     const inputs = form.querySelectorAll('input[required], select[required], textarea[required]');
-    
+
     inputs.forEach(input => {
         input.addEventListener('blur', validateField);
         input.addEventListener('input', clearFieldError);
     });
-    
+
     // Add custom validation for email
     const emailInput = document.getElementById('email_id');
     if (emailInput) {
         emailInput.addEventListener('blur', validateEmail);
     }
-    
+
     // Add custom validation for phone
     const phoneInput = document.getElementById('contact_no');
     if (phoneInput) {
         phoneInput.addEventListener('blur', validatePhone);
     }
-    
+
     // Add custom validation for website
     const websiteInput = document.getElementById('company_website');
     if (websiteInput) {
         websiteInput.addEventListener('blur', validateWebsite);
     }
-    
+
     // Add custom validation for LinkedIn (company and contact)
     const linkedinInput = document.getElementById('linkedin_profile');
     if (linkedinInput) {
@@ -483,7 +483,7 @@ function initializeValidation() {
     if (companyLinkedinInput) {
         companyLinkedinInput.addEventListener('blur', validateLinkedIn);
     }
-    
+
     // Add custom validation for GSTIN
     const gstinInput = document.getElementById('gstin');
     if (gstinInput) {
@@ -496,12 +496,18 @@ function validateField(e) {
     const field = e.target;
     const value = field.value.trim();
     const isRequired = field.hasAttribute('required');
-    
+
+    // 🚀 GSTIN ko completely ignore karo
+    if (field.id === 'gstin') {
+        clearFieldError({ target: field }); // extra safety
+        return true;
+    }
+
     if (isRequired && !value) {
         showFieldError(field, 'This field is required');
         return false;
     }
-    
+
     return true;
 }
 
@@ -525,9 +531,9 @@ function validateEmail(e) {
     const field = e.target;
     const email = field.value.trim();
     clearFieldError({ target: field });
-    
+
     if (!email) return true;
-    
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
         updateVerificationStatus(field.id, false);
@@ -545,15 +551,15 @@ function validatePhone(e) {
     const field = e.target;
     const phone = field.value.trim().replace(/\D/g, '');
     clearFieldError({ target: field });
-    
+
     if (!phone) return true;
-    
+
     if (phone.length !== 10) {
         updateVerificationStatus(field.id, false);
         showFieldError(field, 'Please enter a valid 10-digit phone number');
         return false;
     }
-    const formatted = `+91-${phone.slice(0,5)}-${phone.slice(5)}`;
+    const formatted = `+91-${phone.slice(0, 5)}-${phone.slice(5)}`;
     updateVerificationStatus(field.id, true, `Verified \u2713 • ${formatted}`);
     return true;
 }
@@ -563,17 +569,17 @@ function validateWebsite(e) {
     const field = e.target;
     const website = field.value.trim();
     clearFieldError({ target: field });
-    
+
     if (!website) {
         updateVerificationStatus(field.id, false);
         return true;
     }
-    
+
     try {
         // Add protocol if missing
         const urlToTest = website.startsWith('http') ? website : `https://${website}`;
         const parsed = new URL(urlToTest);
-        
+
         // Normalize the URL back to the field
         field.value = parsed.href;
         updateVerificationStatus(field.id, true);
@@ -587,7 +593,7 @@ function validateWebsite(e) {
             updateVerificationStatus(field.id, true);
             return true;
         }
-        
+
         updateVerificationStatus(field.id, false);
         showFieldError(field, 'Please enter a valid website URL (e.g., example.com or https://example.com)');
         return false;
@@ -599,12 +605,12 @@ function validateLinkedIn(e) {
     const field = e.target;
     const url = field.value.trim();
     clearFieldError({ target: field });
-    
+
     if (!url) {
         updateVerificationStatus(field.id, false);
         return true;
     }
-    
+
     if (!url.toLowerCase().includes('linkedin.com')) {
         updateVerificationStatus(field.id, false);
         showFieldError(field, 'Please enter a valid LinkedIn profile URL');
@@ -674,24 +680,39 @@ const GST_STATE_CODES = {
 // Validate GSTIN and surface parsed details
 function validateGSTIN(e) {
     const field = e.target;
-    const gstin = field.value.trim().toUpperCase();
+    let gstin = field.value.trim().toUpperCase();
     field.value = gstin;
-    clearFieldError({ target: field });
-    
+
+    const statusDiv = document.getElementById("gstin_status");
+
+    // ✅ OPTIONAL FIELD — if empty, no error
     if (!gstin) {
-        updateVerificationStatus(field.id, false);
+        statusDiv.style.display = "none";
+        statusDiv.innerText = "";  // 👈 IMPORTANT
+        clearFieldError({ target: field }); // 👈 THIS LINE ADD
         return true;
     }
-    
-    const gstinRegex = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/;
-    if (!gstinRegex.test(gstin)) {
-        updateVerificationStatus(field.id, false);
-        showFieldError(field, 'Please enter a valid GSTIN (15 characters)');
+    // Exact 15 characters check
+    if (gstin.length !== 15) {
+        statusDiv.style.display = "block";
+        statusDiv.style.color = "#dc3545";
+        statusDiv.innerText = "GSTIN must be exactly 15 characters";
         return false;
     }
 
-    const details = parseGstinDetails(gstin);
-    updateVerificationStatus(field.id, true, details);
+    // Regex check
+    const gstinRegex = /^[0-9A-Z]{15}$/;
+    if (!gstinRegex.test(gstin)) {
+        statusDiv.style.display = "block";
+        statusDiv.style.color = "#dc3545";
+        statusDiv.innerText = "Invalid GSTIN format";
+        return false;
+    }
+
+    // Valid GSTIN
+    statusDiv.style.display = "block";
+    statusDiv.style.color = "#198754";
+    statusDiv.innerText = "Valid GSTIN ✓";
     return true;
 }
 
@@ -707,14 +728,14 @@ function parseGstinDetails(gstin) {
 // Show field error
 function showFieldError(field, message) {
     clearFieldError({ target: field });
-    
+
     const errorDiv = document.createElement('div');
     errorDiv.className = 'field-error';
     errorDiv.textContent = message;
-    
+
     field.parentNode.appendChild(errorDiv);
     field.classList.add('error');
-    
+
     // Scroll to error field
     field.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
@@ -723,11 +744,11 @@ function showFieldError(field, message) {
 function clearFieldError(e) {
     const field = e.target;
     const errorDiv = field.parentNode.querySelector('.field-error');
-    
+
     if (errorDiv) {
         errorDiv.remove();
     }
-    
+
     field.classList.remove('error');
 }
 
@@ -755,7 +776,7 @@ function loadIndustrySuggestions() {
         'Government',
         'Other'
     ];
-    
+
     const industrySelect = document.getElementById('industry_type');
     if (industrySelect) {
         // Add options if not already present
@@ -1002,8 +1023,8 @@ function renderOptions(selectEl, values, placeholder) {
 function initializeAddressLookup() {
     const pinCodeInput = document.getElementById('pin_code');
     if (!pinCodeInput) return;
-    
-    pinCodeInput.addEventListener('blur', function() {
+
+    pinCodeInput.addEventListener('blur', function () {
         const pinCode = this.value.replace(/\D/g, '');
         if (pinCode.length === 6) {
             lookupAddressByPinCode(pinCode);
@@ -1013,35 +1034,75 @@ function initializeAddressLookup() {
     });
 }
 
-// Lookup address by pin code
-async function lookupAddressByPinCode(pinCode) {
-    try {
-        showLoading(true);
-        
-        // Using postalpincode.in API
-        const response = await fetch(`https://api.postalpincode.in/pincode/${pinCode}`);
-        const data = await response.json();
-        
-        if (data[0].Status === 'Success') {
-            const postOffice = data[0].PostOffice[0];
-            const state = postOffice.State || '';
-            const district = postOffice.District || '';
-            const city = postOffice.Name || '';
+function populateLocationFromLookup(state, district, city) {
+    document.getElementById("state").value = state || "";
+    document.getElementById("district").value = district || "";
+    document.getElementById("city").value = city || "";
+}
 
-            populateLocationFromLookup(state, district, city);
-            updatePinStatus(true, `Verified \u2713 • ${city}, ${district}, ${state}`);
-        } else {
-            updatePinStatus(false, 'Invalid PIN code');
-            showNotification('Invalid PIN code', 'error');
-        }
-    } catch (error) {
-        console.log('Address lookup failed:', error);
-        updatePinStatus(false, 'Lookup failed');
-    } finally {
-        showLoading(false);
+// Update status message
+function updatePinStatus(isValid, message) {
+    const statusDiv = document.getElementById("pin_code_status");
+    statusDiv.style.display = "block";
+    statusDiv.style.color = isValid ? "#198754" : "#dc3545";
+    statusDiv.innerText = message;
+}
+
+// Show loading (optional UI)
+function showLoading(isLoading) {
+    const statusDiv = document.getElementById("pin_code_status");
+    if (isLoading) {
+        statusDiv.style.display = "block";
+        statusDiv.style.color = "#0d6efd";
+        statusDiv.innerText = "Looking up PIN code...";
     }
 }
 
+// Optional: city mapping if you want custom names
+const pinCityMapping = {
+    "400077": "Mumbai",
+    "110001": "New Delhi",
+    "411001": "Pune"
+};
+
+async function lookupAddressByPinCode(pinCode) {
+    if (pinCode.length !== 6) {
+        populateLocationFromLookup("", "", "");
+        updatePinStatus(false, "Enter 6-digit PIN code");
+        return;
+    }
+
+    try {
+        showLoading(true);
+        const response = await fetch(`https://api.postalpincode.in/pincode/${pinCode}`);
+        const data = await response.json();
+
+        if (data[0].Status === 'Success' && data[0].PostOffice.length > 0) {
+            const postOffice = data[0].PostOffice[0];
+
+            const state = postOffice.State || '';
+            const district = postOffice.District || '';
+            const city = postOffice.Block || postOffice.District || ''; // Correct city
+
+            populateLocationFromLookup(state, district, city);
+            updatePinStatus(true, `Verified ✓ • ${city}, ${district}, ${state}`);
+        } else {
+            populateLocationFromLookup("", "", "");
+            updatePinStatus(false, 'Invalid PIN code');
+        }
+    } catch (error) {
+        console.error('Address lookup failed:', error);
+        populateLocationFromLookup("", "", "");
+        updatePinStatus(false, 'Lookup failed');
+    }
+}
+
+
+// Event listener for PIN code input
+document.getElementById("pin_code").addEventListener("input", function () {
+    const pinCode = this.value.trim();
+    lookupAddressByPinCode(pinCode);
+});
 function populateLocationFromLookup(state, district, city) {
     const stateSelect = document.getElementById('state');
     const districtSelect = document.getElementById('district');
@@ -1101,10 +1162,10 @@ function updatePinStatus(isValid, message = '') {
 // Initialize form persistence
 function initializeFormPersistence() {
     if (isEditing) return; // Don't save drafts when editing
-    
+
     const form = document.getElementById('leadForm');
     if (!form) return;
-    
+
     // Load saved data
     const savedData = localStorage.getItem('lead_form_draft');
     if (savedData) {
@@ -1116,7 +1177,7 @@ function initializeFormPersistence() {
                     input.value = data[key];
                 }
             });
-            
+
             // Show restore notification
             setTimeout(() => {
                 if (confirm('You have a saved draft. Would you like to restore it?')) {
@@ -1129,16 +1190,16 @@ function initializeFormPersistence() {
             console.log('Failed to load draft:', error);
         }
     }
-    
+
     // Save data on input (with debounce)
     let saveTimeout;
     form.addEventListener('input', () => {
         clearTimeout(saveTimeout);
         saveTimeout = setTimeout(saveFormDraft, 2000);
     });
-    
+
     // Clear draft on successful save
-    window.addEventListener('beforeunload', function(e) {
+    window.addEventListener('beforeunload', function (e) {
         if (bypassUnsavedWarning) return;
         const hasUnsavedChanges = JSON.stringify(getFormData()) !== JSON.stringify(formData);
         if (hasUnsavedChanges) {
@@ -1167,10 +1228,10 @@ function clearFormDraft() {
 function getFormData() {
     const form = document.getElementById('leadForm');
     if (!form) return {};
-    
+
     const formData = new FormData(form);
     const data = {};
-    
+
     formData.forEach((value, key) => {
         data[key] = value;
     });
@@ -1180,7 +1241,7 @@ function getFormData() {
         const num = Number(data.assigned_to);
         if (!Number.isNaN(num)) data.assigned_to = num;
     }
-    
+
     return data;
 }
 
@@ -1188,24 +1249,24 @@ function getFormData() {
 function validateForm() {
     const form = document.getElementById('leadForm');
     if (!form) return false;
-    
+
     const requiredInputs = form.querySelectorAll('[required]');
     let isValid = true;
-    
+
     // Clear all errors first
     form.querySelectorAll('.field-error').forEach(error => error.remove());
     form.querySelectorAll('.error').forEach(field => field.classList.remove('error'));
-    
+
     // Validate required fields
     requiredInputs.forEach(input => {
         const value = input.value.trim();
-        
+
         if (!value) {
             showFieldError(input, 'This field is required');
             isValid = false;
         }
     });
-    
+
     // Validate email
     const emailInput = document.getElementById('email_id');
     if (emailInput && emailInput.value.trim()) {
@@ -1214,7 +1275,7 @@ function validateForm() {
             isValid = false;
         }
     }
-    
+
     // Validate phone
     const phoneInput = document.getElementById('contact_no');
     if (phoneInput && phoneInput.value.trim()) {
@@ -1223,7 +1284,7 @@ function validateForm() {
             isValid = false;
         }
     }
-    
+
     // Validate website
     const websiteInput = document.getElementById('company_website');
     if (websiteInput && websiteInput.value.trim()) {
@@ -1232,7 +1293,7 @@ function validateForm() {
             isValid = false;
         }
     }
-    
+
     // Validate LinkedIn
     const linkedinInput = document.getElementById('linkedin_profile');
     if (linkedinInput && linkedinInput.value.trim()) {
@@ -1241,7 +1302,7 @@ function validateForm() {
             isValid = false;
         }
     }
-    
+
     // Validate GSTIN
     const gstinInput = document.getElementById('gstin');
     if (gstinInput && gstinInput.value.trim()) {
@@ -1250,29 +1311,29 @@ function validateForm() {
             isValid = false;
         }
     }
-    
+
     return isValid;
 }
 
 // Save lead
 async function saveLead() {
     console.log('Saving lead...');
-    
+
     if (!validateForm()) {
         showNotification('Please fix the errors in the form', 'error');
         return;
     }
-    
+
     const formData = getFormData();
-    
+
     try {
         showLoading(true);
-        
+
         const url = isEditing ? `/api/leads/${currentLeadId}` : '/api/leads';
         const method = isEditing ? 'PUT' : 'POST';
-        
+
         console.log('Sending request to:', url, 'Method:', method);
-        
+
         const response = await fetch(url, {
             method: method,
             headers: {
@@ -1280,9 +1341,9 @@ async function saveLead() {
             },
             body: JSON.stringify(formData)
         });
-        
+
         console.log('Response status:', response.status);
-        
+
         if (!response.ok) {
             if (response.status === 401) {
                 // Clear stored credentials and redirect to login
@@ -1291,7 +1352,7 @@ async function saveLead() {
                 window.location.href = '/';
                 return;
             }
-            
+
             let errorMessage = `HTTP error! status: ${response.status}`;
             try {
                 const errorData = await response.json();
@@ -1301,14 +1362,14 @@ async function saveLead() {
             }
             throw new Error(errorMessage);
         }
-        
+
         const data = await response.json();
         console.log('Response data:', data);
-        
+
         if (data.success) {
             // Clear form draft
             clearFormDraft();
-            
+
             if (isEditing) {
                 showSuccessModal('Lead updated successfully!', data.lead_id || currentLeadId);
             } else {
@@ -1328,25 +1389,25 @@ async function saveLead() {
 // Show success modal
 function showSuccessModal(message, leadId) {
     console.log('Showing success modal for lead:', leadId);
-    
+
     const successMessage = document.getElementById('successMessage');
     const generatedLeadId = document.getElementById('generatedLeadId');
     const successCompanyName = document.getElementById('successCompanyName');
     const successContactName = document.getElementById('successContactName');
-    
+
     if (successMessage) successMessage.textContent = message;
     if (generatedLeadId) generatedLeadId.textContent = leadId;
-    
+
     // Set company and contact names from form
     const companyName = document.getElementById('company_name')?.value;
     const customerName = document.getElementById('customer_name')?.value;
-    
+
     if (successCompanyName && companyName) successCompanyName.textContent = companyName;
     if (successContactName && customerName) successContactName.textContent = customerName;
-    
+
     // Store lead ID for viewing
     window.lastCreatedLeadId = leadId;
-    
+
     // Show modal
     const successModal = document.getElementById('successModal');
     if (successModal) {
@@ -1379,30 +1440,30 @@ function clearForm() {
         if (form) {
             form.reset();
         }
-        
+
         // Clear errors
         document.querySelectorAll('.field-error').forEach(error => error.remove());
         document.querySelectorAll('.error').forEach(field => field.classList.remove('error'));
-        
+
         // Set default values
         const today = new Date().toISOString().split('T')[0];
         const leadDateInput = document.getElementById('lead_date');
         if (leadDateInput) leadDateInput.value = today;
-        
+
         const leadOwnerInput = document.getElementById('leadOwner');
         if (leadOwnerInput && currentUser) {
             leadOwnerInput.value = currentUser.full_name || 'Sales Executive';
         }
-        
+
         // Clear form draft
         clearFormDraft();
-        
+
         // Update progress
         setTimeout(calculateFormProgress, 100);
-        
+
         // Focus on first field
         if (leadDateInput) leadDateInput.focus();
-        
+
         showNotification('Form cleared successfully', 'success');
     }
 }
@@ -1411,15 +1472,15 @@ function clearForm() {
 function saveAndAddAnother() {
     // Override success behavior
     const originalSuccessModal = window.showSuccessModal;
-    
-    window.showSuccessModal = function(message, leadId) {
+
+    window.showSuccessModal = function (message, leadId) {
         // Don't show modal, just clear form and show notification
         closeModal('successModal');
         clearForm();
         showNotification(message + ' (ID: ' + leadId + ')', 'success');
         window.showSuccessModal = originalSuccessModal;
     };
-    
+
     saveLead();
 }
 
@@ -1437,11 +1498,11 @@ function showLoading(show) {
     const loadingOverlay = document.getElementById('loadingOverlay');
     const saveBtn = document.getElementById('saveBtn');
     const saveAnotherBtn = document.getElementById('saveAnotherBtn');
-    
+
     if (loadingOverlay) {
         loadingOverlay.style.display = show ? 'flex' : 'none';
     }
-    
+
     if (saveBtn) saveBtn.disabled = show;
     if (saveAnotherBtn) saveAnotherBtn.disabled = show;
 }
@@ -1452,13 +1513,13 @@ function showNotification(message, type = 'info') {
     const notification = document.createElement('div');
     notification.className = `notification ${type}`;
     notification.innerHTML = `
-        <i class="fas fa-${type === 'success' ? 'check-circle' : 
-                          type === 'error' ? 'exclamation-circle' : 
-                          type === 'warning' ? 'exclamation-triangle' : 'info-circle'}"></i>
+        <i class="fas fa-${type === 'success' ? 'check-circle' :
+            type === 'error' ? 'exclamation-circle' :
+                type === 'warning' ? 'exclamation-triangle' : 'info-circle'}"></i>
         <span>${message}</span>
         <button onclick="this.parentElement.remove()">×</button>
     `;
-    
+
     // Add styles if not already present
     if (!document.getElementById('notification-styles')) {
         const styles = document.createElement('style');
@@ -1525,9 +1586,9 @@ function showNotification(message, type = 'info') {
         `;
         document.head.appendChild(styles);
     }
-    
+
     document.body.appendChild(notification);
-    
+
     // Auto-remove after 5 seconds
     setTimeout(() => {
         if (notification.parentElement) {
@@ -1605,7 +1666,7 @@ if (!document.getElementById('add-lead-styles')) {
 }
 
 // Close modals when clicking outside or pressing Escape
-document.addEventListener('click', function(event) {
+document.addEventListener('click', function (event) {
     const modals = document.querySelectorAll('.modal');
     modals.forEach(modal => {
         if (event.target === modal) {
@@ -1614,7 +1675,7 @@ document.addEventListener('click', function(event) {
     });
 });
 
-document.addEventListener('keydown', function(e) {
+document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') {
         closeModal('successModal');
     }

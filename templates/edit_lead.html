@@ -5,7 +5,8 @@
 {% block content %}
 <div class="content-container" style="margin: 0; padding: 0; width: 100%;">
     <!-- Header -->
-    <div class="content-header" style="margin-bottom: 25px; padding: 20px; background: #0d6efd; border-radius: 12px; color: white; box-shadow: 0 4px 20px rgba(13, 110, 253, 0.2);">
+    <div class="content-header"
+        style="margin-bottom: 25px; padding: 20px; background: #0d6efd; border-radius: 12px; color: white; box-shadow: 0 4px 20px rgba(13, 110, 253, 0.2);">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
             <div>
                 <h2 style="margin: 0; font-weight: 700; font-size: 2rem; color: white;">
@@ -17,10 +18,12 @@
                 </div>
             </div>
             <div style="display: flex; gap: 10px;">
-                <a href="/leads" class="btn" style="padding: 10px 20px; background: rgba(255,255,255,0.2); border: none; border-radius: 8px; color: white; font-weight: 500; text-decoration: none; display: flex; align-items: center; gap: 8px;">
+                <a href="/leads" class="btn"
+                    style="padding: 10px 20px; background: rgba(255,255,255,0.2); border: none; border-radius: 8px; color: white; font-weight: 500; text-decoration: none; display: flex; align-items: center; gap: 8px;">
                     <i class="fas fa-arrow-left"></i> Back to Leads
                 </a>
-                <div class="stat-badge" style="background: rgba(255,255,255,0.2); padding: 8px 15px; border-radius: 20px; display: flex; align-items: center; gap: 8px;">
+                <div class="stat-badge"
+                    style="background: rgba(255,255,255,0.2); padding: 8px 15px; border-radius: 20px; display: flex; align-items: center; gap: 8px;">
                     <i class="fas fa-hashtag"></i>
                     <span>Lead ID: <strong id="lead-id-badge">{{ lead_id }}</strong></span>
                 </div>
@@ -29,29 +32,35 @@
     </div>
 
     <!-- Lead Title and Status Header -->
-    <div class="lead-header-info" style="background: white; border-radius: 16px; padding: 25px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #dee2e6; text-align: center;">
-        <h2 id="lead-title" style="margin: 0 0 15px 0; font-size: 1.8rem; font-weight: 700; color: #212529; display: flex; align-items: center; justify-content: center; gap: 15px;">
+    <div class="lead-header-info"
+        style="background: white; border-radius: 16px; padding: 25px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #dee2e6; text-align: center;">
+        <h2 id="lead-title"
+            style="margin: 0 0 15px 0; font-size: 1.8rem; font-weight: 700; color: #212529; display: flex; align-items: center; justify-content: center; gap: 15px;">
             <i class="fas fa-building" style="color: #0d6efd;"></i>
             <span id="company-name-display">Loading...</span>
         </h2>
-        <div id="lead-status-display" class="status-badge" style="padding: 12px 30px; border-radius: 25px; font-weight: 600; font-size: 1.2em; display: inline-flex; align-items: center; gap: 10px; justify-content: center;">
+        <div id="lead-status-display" class="status-badge"
+            style="padding: 12px 30px; border-radius: 25px; font-weight: 600; font-size: 1.2em; display: inline-flex; align-items: center; gap: 10px; justify-content: center;">
             <i class="fas fa-circle" style="font-size: 0.8em;"></i>
             <span>Loading...</span>
         </div>
     </div>
 
     <!-- Error Message -->
-    <div id="errorMessage" style="display: none; background: #dc3545; color: white; padding: 15px 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(220, 53, 69, 0.2);">
+    <div id="errorMessage"
+        style="display: none; background: #dc3545; color: white; padding: 15px 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(220, 53, 69, 0.2);">
         <i class="fas fa-exclamation-circle"></i> <span id="errorText"></span>
     </div>
 
     <!-- Success Message -->
-    <div id="successMessage" style="display: none; background: #198754; color: white; padding: 15px 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(25, 135, 84, 0.2);">
+    <div id="successMessage"
+        style="display: none; background: #198754; color: white; padding: 15px 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(25, 135, 84, 0.2);">
         <i class="fas fa-check-circle"></i> <span id="successText"></span>
     </div>
 
     <!-- Loading Indicator -->
-    <div id="loading" style="text-align: center; padding: 60px 20px; background: white; border-radius: 16px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #dee2e6;">
+    <div id="loading"
+        style="text-align: center; padding: 60px 20px; background: white; border-radius: 16px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #dee2e6;">
         <i class="fas fa-spinner fa-spin" style="font-size: 2.5em; color: #0d6efd; margin-bottom: 20px;"></i>
         <p style="font-size: 1.1em; color: #495057; font-weight: 500;">Loading lead details...</p>
     </div>
@@ -60,152 +69,172 @@
     <div id="leadForm" style="display: none;">
         <form id="editLeadForm">
             <!-- Company Information -->
-            <div class="form-section" style="background: white; border-radius: 16px; padding: 30px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #dee2e6;">
-                <h3 style="margin: 0 0 25px 0; font-size: 1.4em; font-weight: 700; color: #212529; display: flex; align-items: center; gap: 12px; padding-bottom: 15px; border-bottom: 2px solid #dee2e6;">
+            <div class="form-section"
+                style="background: white; border-radius: 16px; padding: 30px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #dee2e6;">
+                <h3
+                    style="margin: 0 0 25px 0; font-size: 1.4em; font-weight: 700; color: #212529; display: flex; align-items: center; gap: 12px; padding-bottom: 15px; border-bottom: 2px solid #dee2e6;">
                     <i class="fas fa-building" style="color: #0d6efd; font-size: 1.2em;"></i>
                     Company Information
                 </h3>
-                
+
                 <!-- Company Name -->
                 <div class="form-group" style="margin-bottom: 25px;">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-building" style="color: #0d6efd;"></i>
                         Company Name *
                     </label>
-                    <input type="text" id="company_name" name="company_name" required 
-                           style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <input type="text" id="company_name" name="company_name" required
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                 </div>
-                
+
                 <!-- Industry Type with Add Option -->
                 <div class="form-group" style="margin-bottom: 25px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                        <label style="color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <label
+                            style="color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                             <i class="fas fa-industry" style="color: #0d6efd;"></i>
                             Industry Type *
                         </label>
                     </div>
-                    <select id="industry_type" name="industry_type" required 
-                            style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <select id="industry_type" name="industry_type" required
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                         <option value="">Select Industry Type</option>
                     </select>
                 </div>
-                
+
                 <!-- Sub Industry Type with Add Option -->
                 <div class="form-group" style="margin-bottom: 25px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                        <label style="color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <label
+                            style="color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                             <i class="fas fa-sitemap" style="color: #0d6efd;"></i>
                             Sub Industry
                         </label>
                     </div>
-                    <select id="sub_industry" name="sub_industry" 
-                            style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <select id="sub_industry" name="sub_industry"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                         <option value="">Select Sub Industry</option>
                     </select>
                 </div>
-                
+
                 <!-- Company Website -->
                 <div class="form-group" style="margin-bottom: 25px;">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-globe" style="color: #0d6efd;"></i>
                         Company Website
                     </label>
-                    <input type="url" id="company_website" name="company_website" 
-                           style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <input type="url" id="company_website" name="company_website"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                 </div>
-                
+
                 <!-- GSTIN -->
                 <div class="form-group">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-file-invoice" style="color: #0d6efd;"></i>
                         GSTIN
                     </label>
-                    <input type="text" id="gstin" name="gstin" 
-                           style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <input type="text" id="gstin" name="gstin"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                 </div>
             </div>
 
             <!-- Contact Information -->
-            <div class="form-section" style="background: white; border-radius: 16px; padding: 30px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #dee2e6;">
+            <div class="form-section"
+                style="background: white; border-radius: 16px; padding: 30px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #dee2e6;">
 
                 <!-- Additional Lead Details (7 new fields) -->
                 <!-- Financial Information Card -->
                 <!-- Removed: Additional Lead Details, Financial Information card. Fields moved to main Financial Information card. -->
-                <h3 style="margin: 0 0 25px 0; font-size: 1.4em; font-weight: 700; color: #212529; display: flex; align-items: center; gap: 12px; padding-bottom: 15px; border-bottom: 2px solid #dee2e6;">
+                <h3
+                    style="margin: 0 0 25px 0; font-size: 1.4em; font-weight: 700; color: #212529; display: flex; align-items: center; gap: 12px; padding-bottom: 15px; border-bottom: 2px solid #dee2e6;">
                     <i class="fas fa-user-circle" style="color: #0d6efd; font-size: 1.2em;"></i>
                     Contact Information
                 </h3>
-                
+
                 <!-- Customer Name -->
                 <div class="form-group" style="margin-bottom: 25px;">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-user" style="color: #0d6efd;"></i>
                         Customer Name *
                     </label>
-                    <input type="text" id="customer_name" name="customer_name" required 
-                           style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <input type="text" id="customer_name" name="customer_name" required
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                 </div>
-                
+
                 <!-- Designation with Add Option -->
                 <div class="form-group" style="margin-bottom: 25px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                        <label style="color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <label
+                            style="color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                             <i class="fas fa-id-badge" style="color: #0d6efd;"></i>
                             Designation
                         </label>
                     </div>
-                    <select id="designation_customer" name="designation_customer" 
-                            style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <select id="designation_customer" name="designation_customer"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                         <option value="">Select Designation</option>
                     </select>
                 </div>
-                
+
                 <!-- Email ID -->
                 <div class="form-group" style="margin-bottom: 25px;">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-envelope" style="color: #0d6efd;"></i>
                         Email ID *
                     </label>
-                    <input type="email" id="email_id" name="email_id" required 
-                           style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <input type="email" id="email_id" name="email_id" required
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                 </div>
-                
+
                 <!-- Contact No -->
                 <div class="form-group" style="margin-bottom: 25px;">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-phone" style="color: #0d6efd;"></i>
                         Contact No *
                     </label>
-                    <input type="tel" id="contact_no" name="contact_no" required 
-                           style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <input type="tel" id="contact_no" name="contact_no" required
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                 </div>
-                
+
                 <!-- LinkedIn Profile -->
                 <div class="form-group">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fab fa-linkedin" style="color: #0d6efd;"></i>
                         LinkedIn Profile
                     </label>
-                    <input type="url" id="linkedin_profile" name="linkedin_profile" 
-                           style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <input type="url" id="linkedin_profile" name="linkedin_profile"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                 </div>
             </div>
 
             <!-- Lead Details -->
-            <div class="form-section" style="background: white; border-radius: 16px; padding: 30px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #dee2e6;">
-                <h3 style="margin: 0 0 25px 0; font-size: 1.4em; font-weight: 700; color: #212529; display: flex; align-items: center; gap: 12px; padding-bottom: 15px; border-bottom: 2px solid #dee2e6;">
+            <div class="form-section"
+                style="background: white; border-radius: 16px; padding: 30px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #dee2e6;">
+                <h3
+                    style="margin: 0 0 25px 0; font-size: 1.4em; font-weight: 700; color: #212529; display: flex; align-items: center; gap: 12px; padding-bottom: 15px; border-bottom: 2px solid #dee2e6;">
                     <i class="fas fa-info-circle" style="color: #0d6efd; font-size: 1.2em;"></i>
                     Lead Details
                 </h3>
-                
+
                 <!-- Lead Status -->
                 <div class="form-group" style="margin-bottom: 25px;">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-chart-bar" style="color: #0d6efd;"></i>
                         Lead Status *
                     </label>
-                    <select id="lead_status" name="lead_status" required 
-                            style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <select id="lead_status" name="lead_status" required
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                         <option value="New">New</option>
                         <option value="Contacted">Contacted</option>
                         <option value="Qualified">Qualified</option>
@@ -215,15 +244,16 @@
                         <option value="Lost">Lost</option>
                     </select>
                 </div>
-                
+
                 <!-- Lead Source -->
                 <div class="form-group" style="margin-bottom: 25px;">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-source" style="color: #0d6efd;"></i>
                         Lead Source
                     </label>
-                    <select id="lead_source" name="lead_source" 
-                            style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <select id="lead_source" name="lead_source"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                         <option value="">Select Source</option>
                         <option value="Website">Website</option>
                         <option value="Referral">Referral</option>
@@ -233,313 +263,455 @@
                         <option value="Trade Show">Trade Show</option>
                     </select>
                 </div>
-                
+
                 <!-- Lead Type -->
                 <div class="form-group" style="margin-bottom: 25px;">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-tag" style="color: #0d6efd;"></i>
                         Lead Type
                     </label>
-                    <select id="lead_type" name="lead_type" 
-                            style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <select id="lead_type" name="lead_type"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                         <option value="">Select Type</option>
                         <option value="Hot">Hot</option>
                         <option value="Warm">Warm</option>
                         <option value="Cold">Cold</option>
                     </select>
                 </div>
-                
+
                 <!-- Lead Owner -->
                 <div class="form-group" style="margin-bottom: 25px;">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-user-tie" style="color: #0d6efd;"></i>
                         Lead Owner
                     </label>
-                    <input type="text" id="lead_owner" name="lead_owner" 
-                           style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <input type="text" id="lead_owner" name="lead_owner"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                 </div>
-                
+
                 <!-- Designation (Owner) with Add Option -->
                 <div class="form-group">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                        <label style="color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <label
+                            style="color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                             <i class="fas fa-briefcase" style="color: #0d6efd;"></i>
                             Designation (Owner)
                         </label>
                     </div>
-                    <select id="designation" name="designation" 
-                            style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <select id="designation" name="designation"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                         <option value="">Select Designation</option>
                     </select>
                 </div>
             </div>
 
             <!-- System Information -->
-            <div class="form-section" style="background: white; border-radius: 16px; padding: 30px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #dee2e6;">
-                <h3 style="margin: 0 0 25px 0; font-size: 1.4em; font-weight: 700; color: #212529; display: flex; align-items: center; gap: 12px; padding-bottom: 15px; border-bottom: 2px solid #dee2e6;">
+            <div class="form-section"
+                style="background: white; border-radius: 16px; padding: 30px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #dee2e6;">
+                <h3
+                    style="margin: 0 0 25px 0; font-size: 1.4em; font-weight: 700; color: #212529; display: flex; align-items: center; gap: 12px; padding-bottom: 15px; border-bottom: 2px solid #dee2e6;">
                     <i class="fas fa-cogs" style="color: #0d6efd; font-size: 1.2em;"></i>
                     System Information
                 </h3>
-                
+
                 <!-- System with Add Option -->
                 <div class="form-group" style="margin-bottom: 25px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                        <label style="color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <label
+                            style="color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                             <i class="fas fa-cogs" style="color: #0d6efd;"></i>
                             System
                         </label>
                     </div>
-                    <select id="system" name="system" 
-                            style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <select id="system" name="system"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                         <option value="">Select System</option>
                     </select>
                 </div>
-                
+
                 <!-- Project/AMC with Add Option -->
                 <div class="form-group">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                        <label style="color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <label
+                            style="color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                             <i class="fas fa-project-diagram" style="color: #0d6efd;"></i>
                             Project/AMC
                         </label>
                     </div>
-                    <select id="project_amc" name="project_amc" 
-                            style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <select id="project_amc" name="project_amc"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                         <option value="">Select Project/AMC</option>
                     </select>
                 </div>
             </div>
 
             <!-- Address Information -->
-            <div class="form-section" style="background: white; border-radius: 16px; padding: 30px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #dee2e6;">
-                <h3 style="margin: 0 0 25px 0; font-size: 1.4em; font-weight: 700; color: #212529; display: flex; align-items: center; gap: 12px; padding-bottom: 15px; border-bottom: 2px solid #dee2e6;">
+            <div class="form-section"
+                style="background: white; border-radius: 16px; padding: 30px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #dee2e6;">
+                <h3
+                    style="margin: 0 0 25px 0; font-size: 1.4em; font-weight: 700; color: #212529; display: flex; align-items: center; gap: 12px; padding-bottom: 15px; border-bottom: 2px solid #dee2e6;">
                     <i class="fas fa-map-marked-alt" style="color: #0d6efd; font-size: 1.2em;"></i>
                     Address Information
                 </h3>
-                
+
                 <!-- State with Add Option -->
                 <div class="form-group" style="margin-bottom: 25px;">
-                    <label style="color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-map" style="color: #0d6efd;"></i>
                         State
                     </label>
-                    <select id="state" name="state" 
-                            style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <select id="state" name="state"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+
                         <option value="">Select State</option>
+
+                        <!-- States -->
+                        <option>Andhra Pradesh</option>
+                        <option>Arunachal Pradesh</option>
+                        <option>Assam</option>
+                        <option>Bihar</option>
+                        <option>Chhattisgarh</option>
+                        <option>Goa</option>
+                        <option>Gujarat</option>
+                        <option>Haryana</option>
+                        <option>Himachal Pradesh</option>
+                        <option>Jharkhand</option>
+                        <option>Karnataka</option>
+                        <option>Kerala</option>
+                        <option>Madhya Pradesh</option>
+                        <option>Maharashtra</option>
+                        <option>Manipur</option>
+                        <option>Meghalaya</option>
+                        <option>Mizoram</option>
+                        <option>Nagaland</option>
+                        <option>Odisha</option>
+                        <option>Punjab</option>
+                        <option>Rajasthan</option>
+                        <option>Sikkim</option>
+                        <option>Tamil Nadu</option>
+                        <option>Telangana</option>
+                        <option>Tripura</option>
+                        <option>Uttar Pradesh</option>
+                        <option>Uttarakhand</option>
+                        <option>West Bengal</option>
+
+                        <!-- Union Territories -->
+                        <option>Andaman and Nicobar Islands</option>
+                        <option>Chandigarh</option>
+                        <option>Dadra and Nagar Haveli and Daman and Diu</option>
+                        <option>Delhi</option>
+                        <option>Jammu and Kashmir</option>
+                        <option>Ladakh</option>
+                        <option>Lakshadweep</option>
+                        <option>Puducherry</option>
+
                     </select>
                 </div>
-                
+
                 <!-- District with Add Option -->
                 <div class="form-group" style="margin-bottom: 25px;">
-                    <label style="color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-map-pin" style="color: #0d6efd;"></i>
                         District
                     </label>
-                    <select id="district" name="district" 
-                            style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <select id="district" name="district"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                         <option value="">Select District</option>
                     </select>
                 </div>
-                
+
                 <!-- City with Add Option -->
                 <div class="form-group" style="margin-bottom: 25px;">
-                    <label style="color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-city" style="color: #0d6efd;"></i>
                         City
                     </label>
-                    <select id="city" name="city" 
-                            style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <select id="city" name="city"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                         <option value="">Select City</option>
                     </select>
                 </div>
-                
+
                 <!-- PIN Code -->
                 <div class="form-group" style="margin-bottom: 25px;">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-mail-bulk" style="color: #0d6efd;"></i>
                         PIN Code
                     </label>
-                    <input type="text" id="pin_code" name="pin_code" 
-                           style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <input type="text" id="pin_code" name="pin_code"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                 </div>
-                
+
                 <!-- Full Address -->
                 <div class="form-group">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-address-card" style="color: #0d6efd;"></i>
                         Full Address
                     </label>
-                    <textarea id="full_address" name="full_address" rows="3" 
-                              style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s; resize: vertical;"></textarea>
+                    <textarea id="full_address" name="full_address" rows="3"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s; resize: vertical;"></textarea>
                 </div>
             </div>
 
             <!-- Communication & Follow-up -->
-            <div class="form-section" style="background: white; border-radius: 16px; padding: 30px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #dee2e6;">
-                <h3 style="margin: 0 0 25px 0; font-size: 1.4em; font-weight: 700; color: #212529; display: flex; align-items: center; gap: 12px; padding-bottom: 15px; border-bottom: 2px solid #dee2e6;">
+            <div class="form-section"
+                style="background: white; border-radius: 16px; padding: 30px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #dee2e6;">
+                <h3
+                    style="margin: 0 0 25px 0; font-size: 1.4em; font-weight: 700; color: #212529; display: flex; align-items: center; gap: 12px; padding-bottom: 15px; border-bottom: 2px solid #dee2e6;">
                     <i class="fas fa-comments" style="color: #0d6efd; font-size: 1.2em;"></i>
                     Communication & Follow-up
                 </h3>
-                
+
                 <!-- Method of Communication -->
                 <div class="form-group" style="margin-bottom: 25px;">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-comments" style="color: #0d6efd;"></i>
                         Method of Communication
                     </label>
-                    <select id="method_of_communication" name="method_of_communication" 
-                            data-setting="communication_method"
-                            style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <select id="method_of_communication" name="method_of_communication"
+                        data-setting="communication_method"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                         <option value="">Select Method</option>
                     </select>
                 </div>
-                
+
                 <!-- Purpose of Meeting -->
                 <div class="form-group" style="margin-bottom: 25px;">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-bullhorn" style="color: #0d6efd;"></i>
                         Purpose of Meeting
                     </label>
-                    <select id="purpose_of_meeting" name="purpose_of_meeting" 
-                            data-setting="purpose_of_meeting"
-                            style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <select id="purpose_of_meeting" name="purpose_of_meeting" data-setting="purpose_of_meeting"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                         <option value="">Select Purpose</option>
                     </select>
                 </div>
-                
+
                 <!-- Meeting Outcome -->
                 <div class="form-group" style="margin-bottom: 25px;">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-handshake" style="color: #0d6efd;"></i>
                         Meeting Outcome
                     </label>
-                    <input type="text" id="meeting_outcome" name="meeting_outcome" 
-                           style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;" 
-                           placeholder="Enter meeting outcome">
+                    <input type="text" id="meeting_outcome" name="meeting_outcome"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;"
+                        placeholder="Enter meeting outcome">
                 </div>
-                
+
                 <!-- Next Follow-up Date -->
                 <div class="form-group" style="margin-bottom: 25px;">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-calendar-check" style="color: #0d6efd;"></i>
                         Next Follow-up Date
                     </label>
-                    <input type="date" id="next_follow_up_date" name="next_follow_up_date" min="{{ today }}" 
-                           style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <input type="date" id="next_follow_up_date" name="next_follow_up_date" min="{{ today }}"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                 </div>
-                
+
                 <!-- Discussion Held -->
                 <div class="form-group" style="margin-bottom: 25px;">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-comment-dots" style="color: #0d6efd;"></i>
                         Discussion Held
                     </label>
-                    <textarea id="discussion_held" name="discussion_held" rows="3" 
-                              style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s; resize: vertical;" placeholder="Summary of discussion..."></textarea>
+                    <textarea id="discussion_held" name="discussion_held" rows="3"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s; resize: vertical;"
+                        placeholder="Summary of discussion..."></textarea>
                 </div>
-                
+
                 <!-- Remarks -->
-                <div class="form-group">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                <!-- Remarks / Attempt Timeline -->
+                <div class="form-group" id="remarks-section">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-sticky-note" style="color: #0d6efd;"></i>
-                        Remarks
+                        Remarks / Attempt History
                     </label>
-                    <textarea id="remarks" name="remarks" rows="3" 
-                              style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s; resize: vertical;" placeholder="Any additional remarks..."></textarea>
+
+                    <!-- Hidden field to store JSON in remarks -->
+                    <input type="hidden" id="remarks" name="remarks" value="">
+
+                    <!-- Attempt Timeline UI -->
+                    <div id="attempt-timeline-container"
+                        style="border: 2px solid #dee2e6; border-radius: 12px; padding: 20px; background: white;">
+
+                        <!-- Header row -->
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <span style="font-size: 1em; font-weight: 600; color: #212529;">Remarks / Attempt
+                                    History</span>
+                                <span id="attempt-count-badge"
+                                    style="font-size: 0.78em; background: #e7f1ff; color: #185FA5; padding: 2px 10px; border-radius: 999px; font-weight: 500;">0
+                                    attempts</span>
+                            </div>
+                            <button type="button" onclick="openAttemptModal(null)"
+                                style="padding: 7px 16px; background: #0d6efd; color: white; border: none; border-radius: 8px; font-size: 0.9em; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+                                <i class="fas fa-plus"></i> Add Attempt
+                            </button>
+                        </div>
+
+                        <!-- Type badges summary -->
+                        <div id="attempt-type-badges"
+                            style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px;"></div>
+
+                        <!-- Timeline label -->
+                        <div
+                            style="font-size: 0.75em; font-weight: 600; color: #6c757d; letter-spacing: 0.06em; margin-bottom: 12px;">
+                            ATTEMPT TIMELINE</div>
+
+                        <!-- Timeline items -->
+                        <div id="attempt-timeline" style="position: relative; padding-left: 28px;">
+                            <div id="attempt-vline"
+                                style="position: absolute; left: 9px; top: 0; bottom: 0; width: 1.5px; background: #dee2e6; display: none;">
+                            </div>
+                            <div id="attempt-empty"
+                                style="text-align: center; padding: 30px 0; color: #adb5bd; font-size: 0.95em;">
+                                <i class="fas fa-comment-dots"
+                                    style="font-size: 2em; display: block; margin-bottom: 10px;"></i>
+                                No attempts yet. Click "Add Attempt" to start.
+                            </div>
+                        </div>
+
+                        <!-- Add next attempt button (bottom) -->
+                        <button type="button" id="add-next-btn" onclick="openAttemptModal(null)"
+                            style="display: none; width: 100%; padding: 10px; border: 1.5px dashed #adb5bd; border-radius: 10px; background: transparent; color: #0d6efd; font-size: 0.9em; cursor: pointer; margin-top: 8px;">
+                            + Add next attempt
+                        </button>
+                    </div>
                 </div>
             </div>
 
             <!-- Financial Information -->
-            <div class="form-section" style="background: white; border-radius: 16px; padding: 30px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #dee2e6;">
-                <h3 style="margin: 0 0 25px 0; font-size: 1.4em; font-weight: 700; color: #212529; display: flex; align-items: center; gap: 12px; padding-bottom: 15px; border-bottom: 2px solid #dee2e6;">
+            <div class="form-section"
+                style="background: white; border-radius: 16px; padding: 30px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #dee2e6;">
+                <h3
+                    style="margin: 0 0 25px 0; font-size: 1.4em; font-weight: 700; color: #212529; display: flex; align-items: center; gap: 12px; padding-bottom: 15px; border-bottom: 2px solid #dee2e6;">
                     <i class="fas fa-money-bill-wave" style="color: #0d6efd; font-size: 1.2em;"></i>
                     Financial Information
                 </h3>
-                
+
                 <!-- Approximate Value -->
                 <div class="form-group" style="margin-bottom: 25px;">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-rupee-sign" style="color: #0d6efd;"></i>
                         Approximate Value (₹)
                     </label>
-                    <input type="number" id="approx_value" name="approx_value" step="0.01" min="0" 
-                           style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <input type="number" id="approx_value" name="approx_value" step="0.01" min="0"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                 </div>
-                
+
                 <!-- Negotiated Value -->
                 <div class="form-group" style="margin-bottom: 25px;">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-handshake" style="color: #0d6efd;"></i>
                         Negotiated Value (₹)
                     </label>
-                    <input type="number" id="negotiated_value" name="negotiated_value" step="0.01" min="0" 
-                           style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;cursor: not-allowed;" readonly disabled/>
+                    <input type="number" id="negotiated_value" name="negotiated_value" step="0.01" min="0"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;cursor: not-allowed;"
+                        readonly disabled />
                 </div>
-                
+
                 <!-- Closing Amount -->
                 <div class="form-group" style="margin-bottom: 25px;">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-check-circle" style="color: #0d6efd;"></i>
                         Closing Amount (₹)
                     </label>
-                    <input type="number" id="closing_amount" name="closing_amount" step="0.01" min="0" 
-                           style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <input type="number" id="closing_amount" name="closing_amount" step="0.01" min="0"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                 </div>
-                
+
                 <!-- Lead Percentage (Auto-Calculated) -->
                 <div class="form-group" style="margin-bottom: 25px;">
-                    <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-percentage" style="color: #0d6efd;"></i>
-                        Lead Percentage (%) <span style="color: #6c757d; font-size: 0.9em; font-weight: 400;">(Auto-calculated)</span>
+                        Lead Percentage (%) <span
+                            style="color: #6c757d; font-size: 0.9em; font-weight: 400;">(Auto-calculated)</span>
                     </label>
                     <input type="number" id="lead_percentage" name="lead_percentage" min="0" max="100" readonly
-                           style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: #f8f9fa; color: #212529; transition: all 0.3s; cursor: not-allowed;">
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: #f8f9fa; color: #212529; transition: all 0.3s; cursor: not-allowed;">
                 </div>
                 <!-- 7 New Financial Fields -->
                 <div class="form-group">
                     <label>Margin %</label>
-                    <input type="number" step="0.01" id="margin_percent" name="margin_percent" placeholder="Enter margin %" style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <input type="number" step="0.01" id="margin_percent" name="margin_percent"
+                        placeholder="Enter margin %"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                 </div>
                 <div class="form-group">
                     <label>Gross Margin Amount</label>
-                    <input type="number" step="0.01" id="gross_margin_amount" name="gross_margin_amount" placeholder="Enter gross margin amount" style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s; cursor: not-allowed;" readonly disabled/>
+                    <input type="number" step="0.01" id="gross_margin_amount" name="gross_margin_amount"
+                        placeholder="Enter gross margin amount"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s; cursor: not-allowed;"
+                        readonly disabled />
                 </div>
                 <div class="form-group">
                     <label>Net Margin Amount</label>
-                    <input type="number" step="0.01" id="net_margin_amount" name="net_margin_amount" placeholder="Enter net margin amount" style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s; cursor: not-allowed;" readonly disabled/>
+                    <input type="number" step="0.01" id="net_margin_amount" name="net_margin_amount"
+                        placeholder="Enter net margin amount"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s; cursor: not-allowed;"
+                        readonly disabled />
                 </div>
                 <div class="form-group">
                     <label>Received Amount</label>
-                    <input type="number" step="0.01" id="received_amount" name="received_amount" placeholder="Enter received amount" style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <input type="number" step="0.01" id="received_amount" name="received_amount"
+                        placeholder="Enter received amount"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                 </div>
                 <div class="form-group">
                     <label>Balance Amount</label>
-                    <input type="number" step="0.01" id="balance_amount" name="balance_amount" placeholder="Enter balance amount" style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s; cursor: not-allowed;" readonly disabled/>
+                    <input type="number" step="0.01" id="balance_amount" name="balance_amount"
+                        placeholder="Enter balance amount"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s; cursor: not-allowed;"
+                        readonly disabled />
                 </div>
                 <div class="form-group">
                     <label>Lead Closer Date</label>
-                    <input type="date" id="lead_closer_date" name="lead_closer_date" style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <input type="date" id="lead_closer_date" name="lead_closer_date"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                 </div>
                 <div class="form-group">
                     <label>Expected Lead Closer Month</label>
-                    <input type="month" id="expected_lead_closer_month" name="expected_lead_closer_month" style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <input type="month" id="expected_lead_closer_month" name="expected_lead_closer_month"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                 </div>
-                
+
                 <!-- Prospect Level with Add Option -->
                 <div class="form-group">
-                    <label style="color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <label
+                        style="color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-eye" style="color: #0d6efd;"></i>
                         Prospect Level
                     </label>
-                    <select id="prospect" name="prospect" 
-                            data-setting="prospect"
-                            style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                    <select id="prospect" name="prospect" data-setting="prospect"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                         <option value="">Select Level</option>
                     </select>
                 </div>
-                
+
                 <!-- Auto-calculation Info -->
-                <div id="calculation-info" style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 12px; border-left: 4px solid #0d6efd;">
+                <div id="calculation-info"
+                    style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 12px; border-left: 4px solid #0d6efd;">
                     <h4 style="margin: 0 0 15px 0; color: #0d6efd; font-size: 1.1em; font-weight: 600;">
                         <i class="fas fa-calculator" style="margin-right: 10px;"></i>
                         Financial Summary
@@ -547,28 +719,32 @@
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
                         <div>
                             <div style="color: #6c757d; font-size: 0.9em; margin-bottom: 5px;">Profit Margin</div>
-                            <div id="profit-margin" style="font-size: 1.2em; font-weight: 600; color: #198754;">₹0.00</div>
+                            <div id="profit-margin" style="font-size: 1.2em; font-weight: 600; color: #198754;">₹0.00
+                            </div>
                         </div>
                         <div>
                             <div style="color: #6c757d; font-size: 0.9em; margin-bottom: 5px;">Discount Given</div>
-                            <div id="discount-given" style="font-size: 1.2em; font-weight: 600; color: #dc3545;">₹0.00</div>
+                            <div id="discount-given" style="font-size: 1.2em; font-weight: 600; color: #dc3545;">₹0.00
+                            </div>
                         </div>
                         <div>
                             <div style="color: #6c757d; font-size: 0.9em; margin-bottom: 5px;">Success Probability</div>
-                            <div id="success-probability" style="font-size: 1.2em; font-weight: 600; color: #0d6efd;">0%</div>
+                            <div id="success-probability" style="font-size: 1.2em; font-weight: 600; color: #0d6efd;">0%
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Form Actions -->
-            <div style="display: flex; justify-content: flex-end; gap: 15px; margin-top: 30px; padding-top: 25px; border-top: 2px solid #dee2e6;">
-                <button type="button" onclick="window.location.href='/leads'" 
-                        style="padding: 14px 30px; background: white; color: #6c757d; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; font-weight: 600; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 10px;">
+            <div
+                style="display: flex; justify-content: flex-end; gap: 15px; margin-top: 30px; padding-top: 25px; border-top: 2px solid #dee2e6;">
+                <button type="button" onclick="window.location.href='/leads'"
+                    style="padding: 14px 30px; background: white; color: #6c757d; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; font-weight: 600; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 10px;">
                     <i class="fas fa-times"></i> Cancel
                 </button>
-                <button type="submit" 
-                        style="padding: 14px 30px; background: #0d6efd; color: white; border: none; border-radius: 8px; font-size: 1.1em; font-weight: 600; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 10px;">
+                <button type="submit"
+                    style="padding: 14px 30px; background: #0d6efd; color: white; border: none; border-radius: 8px; font-size: 1.1em; font-weight: 600; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 10px;">
                     <i class="fas fa-save"></i> Update Lead
                 </button>
             </div>
@@ -577,54 +753,70 @@
 </div>
 
 <!-- Add Option Modal -->
-<div id="addOptionModal" class="modal" style="display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(13, 110, 253, 0.8); align-items: center; justify-content: center;">
-    <div class="modal-content" style="background-color: white; margin: auto; padding: 0; width: 90%; max-width: 500px; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); position: relative; max-height: 80vh; display: flex; flex-direction: column; border: 2px solid #dee2e6;">
-        <div style="padding: 20px 25px; border-bottom: 1px solid #dee2e6; display: flex; justify-content: space-between; align-items: center; background: #0d6efd; border-radius: 16px 16px 0 0; color: white;">
-            <h3 style="margin: 0; font-size: 1.2em; font-weight: 600; display: flex; align-items: center; gap: 10px;" id="modalTitle">
+<div id="addOptionModal" class="modal"
+    style="display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(13, 110, 253, 0.8); align-items: center; justify-content: center;">
+    <div class="modal-content"
+        style="background-color: white; margin: auto; padding: 0; width: 90%; max-width: 500px; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); position: relative; max-height: 80vh; display: flex; flex-direction: column; border: 2px solid #dee2e6;">
+        <div
+            style="padding: 20px 25px; border-bottom: 1px solid #dee2e6; display: flex; justify-content: space-between; align-items: center; background: #0d6efd; border-radius: 16px 16px 0 0; color: white;">
+            <h3 style="margin: 0; font-size: 1.2em; font-weight: 600; display: flex; align-items: center; gap: 10px;"
+                id="modalTitle">
                 <i class="fas fa-plus"></i>
                 Add New Option
             </h3>
-            <button onclick="closeAddModal()" style="background: rgba(255,255,255,0.2); border: none; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: white; font-size: 1.2em; transition: background 0.2s;">
+            <button onclick="closeAddModal()"
+                style="background: rgba(255,255,255,0.2); border: none; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: white; font-size: 1.2em; transition: background 0.2s;">
                 <i class="fas fa-times"></i>
             </button>
         </div>
         <div style="padding: 30px; overflow-y: auto;">
             <form id="addOptionForm">
                 <input type="hidden" id="optionType" value="">
-                
+
                 <!-- For Sub Industry - Industry Selection -->
                 <div id="industrySelection" style="margin-bottom: 20px; display: none;">
-                    <label style="display: block; margin-bottom: 8px; color: #495057; font-size: 1em; font-weight: 500;">
+                    <label
+                        style="display: block; margin-bottom: 8px; color: #495057; font-size: 1em; font-weight: 500;">
                         <i class="fas fa-industry"></i>
                         Select Industry *
                     </label>
-                    <select id="parentIndustry" style="width: 100%; padding: 12px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1em; background: white; color: #495057;">
+                    <select id="parentIndustry"
+                        style="width: 100%; padding: 12px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1em; background: white; color: #495057;">
                         <option value="">Select Industry</option>
                     </select>
                 </div>
-                
+
                 <div style="margin-bottom: 20px;">
-                    <label style="display: block; margin-bottom: 8px; color: #495057; font-size: 1em; font-weight: 500;">
+                    <label
+                        style="display: block; margin-bottom: 8px; color: #495057; font-size: 1em; font-weight: 500;">
                         <i class="fas fa-pen"></i>
                         Option Name *
                     </label>
-                    <input type="text" id="optionName" style="width: 100%; padding: 12px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1em; background: white; color: #495057;" required>
+                    <input type="text" id="optionName"
+                        style="width: 100%; padding: 12px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1em; background: white; color: #495057;"
+                        required>
                 </div>
-                
+
                 <div style="margin-bottom: 20px;">
-                    <label style="display: block; margin-bottom: 8px; color: #495057; font-size: 1em; font-weight: 500;">
+                    <label
+                        style="display: block; margin-bottom: 8px; color: #495057; font-size: 1em; font-weight: 500;">
                         <i class="fas fa-sticky-note"></i>
                         Description (Optional)
                     </label>
-                    <textarea id="optionDescription" style="width: 100%; padding: 12px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1em; min-height: 80px; resize: vertical; font-family: inherit;" placeholder="Brief description..."></textarea>
+                    <textarea id="optionDescription"
+                        style="width: 100%; padding: 12px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1em; min-height: 80px; resize: vertical; font-family: inherit;"
+                        placeholder="Brief description..."></textarea>
                 </div>
             </form>
         </div>
-        <div style="padding: 20px 25px; border-top: 1px solid #dee2e6; display: flex; justify-content: flex-end; gap: 10px; background: #f8f9fa; border-radius: 0 0 16px 16px;">
-            <button onclick="closeAddModal()" class="btn" style="padding: 10px 20px; font-size: 1em; background: white; color: #6c757d; border: 1px solid #dee2e6; border-radius: 8px; font-weight: 500;">
+        <div
+            style="padding: 20px 25px; border-top: 1px solid #dee2e6; display: flex; justify-content: flex-end; gap: 10px; background: #f8f9fa; border-radius: 0 0 16px 16px;">
+            <button onclick="closeAddModal()" class="btn"
+                style="padding: 10px 20px; font-size: 1em; background: white; color: #6c757d; border: 1px solid #dee2e6; border-radius: 8px; font-weight: 500;">
                 Cancel
             </button>
-            <button type="submit" form="addOptionForm" class="btn" style="padding: 10px 20px; font-size: 1em; background: #0d6efd; color: white; border: none; border-radius: 8px; font-weight: 500; display: flex; align-items: center; gap: 8px;">
+            <button type="submit" form="addOptionForm" class="btn"
+                style="padding: 10px 20px; font-size: 1em; background: #0d6efd; color: white; border: none; border-radius: 8px; font-weight: 500; display: flex; align-items: center; gap: 8px;">
                 <i class="fas fa-check"></i> Add Option
             </button>
         </div>
@@ -635,394 +827,394 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <script>
-// --- Financial Fields Automation ---
-function parseFloatOrZero(val) {
-    const n = parseFloat(val);
-    return isNaN(n) ? 0 : n;
-}
-
-function updateFinancialFields() {
-    // Get values
-    const approxValue = parseFloatOrZero(document.getElementById('approx_value')?.value);
-    const closingAmount = parseFloatOrZero(document.getElementById('closing_amount')?.value);
-    const marginPercent = parseFloatOrZero(document.getElementById('margin_percent')?.value) / 100;
-    const receivedAmount = parseFloatOrZero(document.getElementById('received_amount')?.value);
-
-    // 1. Negotiated Value = Approx Value – Closing Amount
-    const negotiatedValue = approxValue - closingAmount;
-    if (document.getElementById('negotiated_value')) {
-        document.getElementById('negotiated_value').value = negotiatedValue >= 0 ? negotiatedValue.toFixed(2) : '';
+    // --- Financial Fields Automation ---
+    function parseFloatOrZero(val) {
+        const n = parseFloat(val);
+        return isNaN(n) ? 0 : n;
     }
 
-    // 2. Gross Margin Amount = Approx Value * Margin %
-    const grossMarginAmount = approxValue * marginPercent;
-    if (document.getElementById('gross_margin_amount')) {
-        document.getElementById('gross_margin_amount').value = grossMarginAmount ? grossMarginAmount.toFixed(2) : '';
-    }
+    function updateFinancialFields() {
+        // Get values
+        const approxValue = parseFloatOrZero(document.getElementById('approx_value')?.value);
+        const closingAmount = parseFloatOrZero(document.getElementById('closing_amount')?.value);
+        const marginPercent = parseFloatOrZero(document.getElementById('margin_percent')?.value) / 100;
+        const receivedAmount = parseFloatOrZero(document.getElementById('received_amount')?.value);
 
-    // 3. Net Margin Amount = Closing Amount * Margin %
-    const netMarginAmount = closingAmount * marginPercent;
-    if (document.getElementById('net_margin_amount')) {
-        document.getElementById('net_margin_amount').value = netMarginAmount ? netMarginAmount.toFixed(2) : '';
-    }
-
-    // 4. Balance Amount = Closing Amount – Received Amount
-    const balanceAmount = closingAmount - receivedAmount;
-    if (document.getElementById('balance_amount')) {
-        document.getElementById('balance_amount').value = balanceAmount >= 0 ? balanceAmount.toFixed(2) : '';
-    }
-}
-
-function setupFinancialFieldAutomation() {
-    const ids = ['approx_value', 'closing_amount', 'margin_percent', 'received_amount'];
-    ids.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) {
-            el.addEventListener('input', updateFinancialFields);
+        // 1. Negotiated Value = Approx Value – Closing Amount
+        const negotiatedValue = approxValue - closingAmount;
+        if (document.getElementById('negotiated_value')) {
+            document.getElementById('negotiated_value').value = negotiatedValue >= 0 ? negotiatedValue.toFixed(2) : '';
         }
-    });
-}
 
-document.addEventListener('DOMContentLoaded', setupFinancialFieldAutomation);
-// --- GSTIN Validation and Autofill (ported from add_lead.js) ---
-const GST_STATE_CODES = {
-    '01': 'Jammu & Kashmir', '02': 'Himachal Pradesh', '03': 'Punjab', '04': 'Chandigarh',
-    '05': 'Uttarakhand', '06': 'Haryana', '07': 'Delhi', '08': 'Rajasthan', '09': 'Uttar Pradesh',
-    '10': 'Bihar', '11': 'Sikkim', '12': 'Arunachal Pradesh', '13': 'Nagaland', '14': 'Manipur',
-    '15': 'Mizoram', '16': 'Tripura', '17': 'Meghalaya', '18': 'Assam', '19': 'West Bengal',
-    '20': 'Jharkhand', '21': 'Odisha', '22': 'Chhattisgarh', '23': 'Madhya Pradesh', '24': 'Gujarat',
-    '25': 'Daman & Diu', '26': 'Dadra & Nagar Haveli', '27': 'Maharashtra', '28': 'Andhra Pradesh',
-    '29': 'Karnataka', '30': 'Goa', '31': 'Lakshadweep', '32': 'Kerala', '33': 'Tamil Nadu',
-    '34': 'Puducherry', '35': 'Andaman & Nicobar Islands', '36': 'Telangana', '37': 'Andhra Pradesh (New)'
-};
+        // 2. Gross Margin Amount = Approx Value * Margin %
+        const grossMarginAmount = approxValue * marginPercent;
+        if (document.getElementById('gross_margin_amount')) {
+            document.getElementById('gross_margin_amount').value = grossMarginAmount ? grossMarginAmount.toFixed(2) : '';
+        }
 
-function validateGSTINField(e) {
-    const field = e.target;
-    const gstin = field.value.trim().toUpperCase();
-    field.value = gstin;
-    clearFieldError({ target: field });
-    if (!gstin) {
-        updateVerificationStatus(field.id, false);
+        // 3. Net Margin Amount = Closing Amount * Margin %
+        const netMarginAmount = closingAmount * marginPercent;
+        if (document.getElementById('net_margin_amount')) {
+            document.getElementById('net_margin_amount').value = netMarginAmount ? netMarginAmount.toFixed(2) : '';
+        }
+
+        // 4. Balance Amount = Closing Amount – Received Amount
+        const balanceAmount = closingAmount - receivedAmount;
+        if (document.getElementById('balance_amount')) {
+            document.getElementById('balance_amount').value = balanceAmount >= 0 ? balanceAmount.toFixed(2) : '';
+        }
+    }
+
+    function setupFinancialFieldAutomation() {
+        const ids = ['approx_value', 'closing_amount', 'margin_percent', 'received_amount'];
+        ids.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                el.addEventListener('input', updateFinancialFields);
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', setupFinancialFieldAutomation);
+    // --- GSTIN Validation and Autofill (ported from add_lead.js) ---
+    const GST_STATE_CODES = {
+        '01': 'Jammu & Kashmir', '02': 'Himachal Pradesh', '03': 'Punjab', '04': 'Chandigarh',
+        '05': 'Uttarakhand', '06': 'Haryana', '07': 'Delhi', '08': 'Rajasthan', '09': 'Uttar Pradesh',
+        '10': 'Bihar', '11': 'Sikkim', '12': 'Arunachal Pradesh', '13': 'Nagaland', '14': 'Manipur',
+        '15': 'Mizoram', '16': 'Tripura', '17': 'Meghalaya', '18': 'Assam', '19': 'West Bengal',
+        '20': 'Jharkhand', '21': 'Odisha', '22': 'Chhattisgarh', '23': 'Madhya Pradesh', '24': 'Gujarat',
+        '25': 'Daman & Diu', '26': 'Dadra & Nagar Haveli', '27': 'Maharashtra', '28': 'Andhra Pradesh',
+        '29': 'Karnataka', '30': 'Goa', '31': 'Lakshadweep', '32': 'Kerala', '33': 'Tamil Nadu',
+        '34': 'Puducherry', '35': 'Andaman & Nicobar Islands', '36': 'Telangana', '37': 'Andhra Pradesh (New)'
+    };
+
+    function validateGSTINField(e) {
+        const field = e.target;
+        const gstin = field.value.trim().toUpperCase();
+        field.value = gstin;
+        clearFieldError({ target: field });
+        if (!gstin) {
+            updateVerificationStatus(field.id, false);
+            return true;
+        }
+        const gstinRegex = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/;
+        if (!gstinRegex.test(gstin)) {
+            updateVerificationStatus(field.id, false);
+            showFieldError(field, 'Please enter a valid GSTIN (15 characters)');
+            return false;
+        }
+        const details = parseGstinDetails(gstin);
+        updateVerificationStatus(field.id, true, details);
         return true;
     }
-    const gstinRegex = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/;
-    if (!gstinRegex.test(gstin)) {
-        updateVerificationStatus(field.id, false);
-        showFieldError(field, 'Please enter a valid GSTIN (15 characters)');
-        return false;
+
+    function parseGstinDetails(gstin) {
+        const stateCode = gstin.slice(0, 2);
+        const pan = gstin.slice(2, 12);
+        const entity = gstin.slice(12, 13);
+        const checksum = gstin.slice(14);
+        const stateName = GST_STATE_CODES[stateCode] || 'Unknown State';
+        return `Verified \u2713 • State: ${stateName} (${stateCode}) • PAN: ${pan} • Entity: ${entity} • Checksum: ${checksum}`;
     }
-    const details = parseGstinDetails(gstin);
-    updateVerificationStatus(field.id, true, details);
-    return true;
-}
 
-function parseGstinDetails(gstin) {
-    const stateCode = gstin.slice(0, 2);
-    const pan = gstin.slice(2, 12);
-    const entity = gstin.slice(12, 13);
-    const checksum = gstin.slice(14);
-    const stateName = GST_STATE_CODES[stateCode] || 'Unknown State';
-    return `Verified \u2713 • State: ${stateName} (${stateCode}) • PAN: ${pan} • Entity: ${entity} • Checksum: ${checksum}`;
-}
-
-function showFieldError(field, message) {
-    clearFieldError({ target: field });
-    const errorDiv = document.createElement('div');
-    errorDiv.className = 'field-error';
-    errorDiv.textContent = message;
-    field.parentNode.appendChild(errorDiv);
-    field.classList.add('error');
-    field.scrollIntoView({ behavior: 'smooth', block: 'center' });
-}
-
-function clearFieldError(e) {
-    const field = e.target;
-    const errorDiv = field.parentNode.querySelector('.field-error');
-    if (errorDiv) errorDiv.remove();
-    field.classList.remove('error');
-}
-
-function updateVerificationStatus(fieldId, isValid, message = '') {
-    let statusEl = document.getElementById(fieldId + '_status');
-    if (!statusEl) {
-        // Create status element if not present
-        const field = document.getElementById(fieldId);
-        statusEl = document.createElement('div');
-        statusEl.id = fieldId + '_status';
-        statusEl.style.fontSize = '0.95em';
-        statusEl.style.marginTop = '4px';
-        field.parentNode.appendChild(statusEl);
+    function showFieldError(field, message) {
+        clearFieldError({ target: field });
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'field-error';
+        errorDiv.textContent = message;
+        field.parentNode.appendChild(errorDiv);
+        field.classList.add('error');
+        field.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
-    if (isValid) {
-        statusEl.textContent = message || 'Verified \u2713';
-        statusEl.style.color = '#198754';
-        statusEl.style.display = 'block';
-    } else {
-        statusEl.textContent = message || '';
-        statusEl.style.color = '#dc3545';
-        statusEl.style.display = message ? 'block' : 'none';
-    }
-}
 
-// --- Pincode Autofill/Verify (ported from add_lead.js) ---
-function initializePincodeLookup() {
-    const pinCodeInput = document.getElementById('pin_code');
-    if (!pinCodeInput) return;
-    pinCodeInput.addEventListener('blur', function() {
-        const pinCode = this.value.replace(/\D/g, '');
-        if (pinCode.length === 6) {
-            lookupAddressByPinCode(pinCode);
-        } else {
-            updateVerificationStatus('pin_code', false, 'Enter 6-digit PIN code');
+    function clearFieldError(e) {
+        const field = e.target;
+        const errorDiv = field.parentNode.querySelector('.field-error');
+        if (errorDiv) errorDiv.remove();
+        field.classList.remove('error');
+    }
+
+    function updateVerificationStatus(fieldId, isValid, message = '') {
+        let statusEl = document.getElementById(fieldId + '_status');
+        if (!statusEl) {
+            // Create status element if not present
+            const field = document.getElementById(fieldId);
+            statusEl = document.createElement('div');
+            statusEl.id = fieldId + '_status';
+            statusEl.style.fontSize = '0.95em';
+            statusEl.style.marginTop = '4px';
+            field.parentNode.appendChild(statusEl);
         }
+        if (isValid) {
+            statusEl.textContent = message || 'Verified \u2713';
+            statusEl.style.color = '#198754';
+            statusEl.style.display = 'block';
+        } else {
+            statusEl.textContent = message || '';
+            statusEl.style.color = '#dc3545';
+            statusEl.style.display = message ? 'block' : 'none';
+        }
+    }
+
+    // --- Pincode Autofill/Verify (ported from add_lead.js) ---
+    function initializePincodeLookup() {
+        const pinCodeInput = document.getElementById('pin_code');
+        if (!pinCodeInput) return;
+        pinCodeInput.addEventListener('blur', function () {
+            const pinCode = this.value.replace(/\D/g, '');
+            if (pinCode.length === 6) {
+                lookupAddressByPinCode(pinCode);
+            } else {
+                updateVerificationStatus('pin_code', false, 'Enter 6-digit PIN code');
+            }
+        });
+    }
+
+    async function lookupAddressByPinCode(pinCode) {
+        try {
+            updateVerificationStatus('pin_code', false, 'Verifying...');
+            const response = await fetch(`https://api.postalpincode.in/pincode/${pinCode}`);
+            const data = await response.json();
+            if (data[0].Status === 'Success') {
+                const postOffice = data[0].PostOffice[0];
+                const state = postOffice.State || '';
+                const district = postOffice.District || '';
+                const city = postOffice.Name || '';
+                populateLocationFromLookup(state, district, city);
+                updateVerificationStatus('pin_code', true, `Verified \u2713 • ${city}, ${district}, ${state}`);
+            } else {
+                updateVerificationStatus('pin_code', false, 'Invalid PIN code');
+            }
+        } catch (error) {
+            updateVerificationStatus('pin_code', false, 'Lookup failed');
+        }
+    }
+
+    function populateLocationFromLookup(state, district, city) {
+        const stateSelect = document.getElementById('state');
+        const districtSelect = document.getElementById('district');
+        const citySelect = document.getElementById('city');
+        if (!stateSelect || !districtSelect || !citySelect) return;
+        if (state) {
+            let exists = Array.from(stateSelect.options).some(opt => opt.value === state);
+            if (!exists) stateSelect.add(new Option(state, state));
+            stateSelect.value = state;
+            stateSelect.dispatchEvent(new Event('change'));
+        }
+        if (district) {
+            let exists = Array.from(districtSelect.options).some(opt => opt.value === district);
+            if (!exists) districtSelect.add(new Option(district, district));
+            districtSelect.value = district;
+            districtSelect.dispatchEvent(new Event('change'));
+        }
+        if (city) {
+            let exists = Array.from(citySelect.options).some(opt => opt.value === city);
+            if (!exists) citySelect.add(new Option(city, city));
+            citySelect.value = city;
+        }
+    }
+
+    // --- Event Listeners for GSTIN and Pincode ---
+    document.addEventListener('DOMContentLoaded', function () {
+        const gstinInput = document.getElementById('gstin');
+        if (gstinInput) {
+            gstinInput.addEventListener('blur', validateGSTINField);
+            gstinInput.addEventListener('input', function (e) {
+                updateVerificationStatus('gstin', false, '');
+                clearFieldError(e);
+            });
+        }
+        initializePincodeLookup();
     });
-}
+    const leadId = '{{ lead_id }}';
+    let currentDropdowns = {};
 
-async function lookupAddressByPinCode(pinCode) {
-    try {
-        updateVerificationStatus('pin_code', false, 'Verifying...');
-        const response = await fetch(`https://api.postalpincode.in/pincode/${pinCode}`);
-        const data = await response.json();
-        if (data[0].Status === 'Success') {
-            const postOffice = data[0].PostOffice[0];
-            const state = postOffice.State || '';
-            const district = postOffice.District || '';
-            const city = postOffice.Name || '';
-            populateLocationFromLookup(state, district, city);
-            updateVerificationStatus('pin_code', true, `Verified \u2713 • ${city}, ${district}, ${state}`);
-        } else {
-            updateVerificationStatus('pin_code', false, 'Invalid PIN code');
-        }
-    } catch (error) {
-        updateVerificationStatus('pin_code', false, 'Lookup failed');
-    }
-}
-
-function populateLocationFromLookup(state, district, city) {
-    const stateSelect = document.getElementById('state');
-    const districtSelect = document.getElementById('district');
-    const citySelect = document.getElementById('city');
-    if (!stateSelect || !districtSelect || !citySelect) return;
-    if (state) {
-        let exists = Array.from(stateSelect.options).some(opt => opt.value === state);
-        if (!exists) stateSelect.add(new Option(state, state));
-        stateSelect.value = state;
-        stateSelect.dispatchEvent(new Event('change'));
-    }
-    if (district) {
-        let exists = Array.from(districtSelect.options).some(opt => opt.value === district);
-        if (!exists) districtSelect.add(new Option(district, district));
-        districtSelect.value = district;
-        districtSelect.dispatchEvent(new Event('change'));
-    }
-    if (city) {
-        let exists = Array.from(citySelect.options).some(opt => opt.value === city);
-        if (!exists) citySelect.add(new Option(city, city));
-        citySelect.value = city;
-    }
-}
-
-// --- Event Listeners for GSTIN and Pincode ---
-document.addEventListener('DOMContentLoaded', function() {
-    const gstinInput = document.getElementById('gstin');
-    if (gstinInput) {
-        gstinInput.addEventListener('blur', validateGSTINField);
-        gstinInput.addEventListener('input', function(e) {
-            updateVerificationStatus('gstin', false, '');
-            clearFieldError(e);
-        });
-    }
-    initializePincodeLookup();
-});
-const leadId = '{{ lead_id }}';
-let currentDropdowns = {};
-
-// Status colors
-const statusColors = {
-    'New': { bg: '#0d6efd', color: 'white', icon: 'star' },
-    'Contacted': { bg: '#0dcaf0', color: 'white', icon: 'phone' },
-    'Qualified': { bg: '#198754', color: 'white', icon: 'check-circle' },
-    'Proposal Sent': { bg: '#ffc107', color: 'black', icon: 'paper-plane' },
-    'Negotiation': { bg: '#6f42c1', color: 'white', icon: 'handshake' },
-    'Won': { bg: '#198754', color: 'white', icon: 'trophy' },
-    'Lost': { bg: '#dc3545', color: 'white', icon: 'times-circle' }
-};
+    // Status colors
+    const statusColors = {
+        'New': { bg: '#0d6efd', color: 'white', icon: 'star' },
+        'Contacted': { bg: '#0dcaf0', color: 'white', icon: 'phone' },
+        'Qualified': { bg: '#198754', color: 'white', icon: 'check-circle' },
+        'Proposal Sent': { bg: '#ffc107', color: 'black', icon: 'paper-plane' },
+        'Negotiation': { bg: '#6f42c1', color: 'white', icon: 'handshake' },
+        'Won': { bg: '#198754', color: 'white', icon: 'trophy' },
+        'Lost': { bg: '#dc3545', color: 'white', icon: 'times-circle' }
+    };
 
 
-// Check authentication
-async function checkAuth() {
-    try {
-        const response = await fetch('/api/validate-session');
-        if (!response.ok) {
+    // Check authentication
+    async function checkAuth() {
+        try {
+            const response = await fetch('/api/validate-session');
+            if (!response.ok) {
+                window.location.href = '/';
+                return;
+            }
+
+            loadLeadDetails();
+        } catch (error) {
             window.location.href = '/';
-            return;
         }
-        
-        loadLeadDetails();
-    } catch (error) {
-        window.location.href = '/';
     }
-}
 
-// Load lead details
-async function loadLeadDetails() {
-    try {
-        const response = await fetch(`/api/leads/${leadId}`);
-        const data = await response.json();
-        
-        if (data.success) {
-            const lead = data.lead;
-            
-            // Update title header
-            document.getElementById('company-name-display').textContent = lead.company_name || 'N/A';
-            
-            // Update status display
-            const status = lead.lead_status || 'New';
-            const statusConfig = statusColors[status] || statusColors['New'];
-            const statusDisplay = document.getElementById('lead-status-display');
-            statusDisplay.innerHTML = `<i class="fas fa-${statusConfig.icon}"></i> ${status}`;
-            statusDisplay.style.background = statusConfig.bg;
-            statusDisplay.style.color = statusConfig.color;
-            
-            // Sync dropdowns to configured settings, then initialize defaults
-            await loadConfiguredDropdowns();
-            initializeDropdowns();
-            
-            // Fill form fields
-            const formFields = [
-                'company_name', 'industry_type', 'sub_industry', 'company_website', 'gstin',
-                'customer_name', 'designation_customer', 'email_id', 'contact_no', 'linkedin_profile',
-                'lead_status', 'lead_source', 'lead_type', 'lead_owner', 'designation',
-                'system', 'project_amc', 'state', 'district', 'city', 'pin_code', 'full_address',
-                'method_of_communication', 'purpose_of_meeting', 'meeting_outcome', 'next_follow_up_date', 
-                'discussion_held', 'remarks', 'approx_value', 'negotiated_value', 
-                'closing_amount', 'lead_percentage', 'prospect',
-                // Add missing financial fields
-                'margin_percent', 'gross_margin_amount', 'net_margin_amount', 'received_amount', 'balance_amount',
-                'lead_closer_date', 'expected_lead_closer_month'
-            ];
-            
-            formFields.forEach(field => {
-                const input = document.getElementById(field);
-                if (input && lead[field] !== undefined && lead[field] !== null) {
-                    if (input.tagName === 'SELECT') {
-                        // For dropdowns, set the value
-                        input.value = lead[field];
-                        
-                        // If value doesn't exist in options, add it
-                        if (lead[field] && !Array.from(input.options).some(opt => opt.value === lead[field])) {
-                            const option = new Option(lead[field], lead[field]);
-                            option.selected = true;
-                            input.add(option);
+    // Load lead details
+    async function loadLeadDetails() {
+        try {
+            const response = await fetch(`/api/leads/${leadId}`);
+            const data = await response.json();
+
+            if (data.success) {
+                const lead = data.lead;
+
+                // Update title header
+                document.getElementById('company-name-display').textContent = lead.company_name || 'N/A';
+
+                // Update status display
+                const status = lead.lead_status || 'New';
+                const statusConfig = statusColors[status] || statusColors['New'];
+                const statusDisplay = document.getElementById('lead-status-display');
+                statusDisplay.innerHTML = `<i class="fas fa-${statusConfig.icon}"></i> ${status}`;
+                statusDisplay.style.background = statusConfig.bg;
+                statusDisplay.style.color = statusConfig.color;
+
+                // Sync dropdowns to configured settings, then initialize defaults
+                await loadConfiguredDropdowns();
+                initializeDropdowns();
+
+                // Fill form fields
+                const formFields = [
+                    'company_name', 'industry_type', 'sub_industry', 'company_website', 'gstin',
+                    'customer_name', 'designation_customer', 'email_id', 'contact_no', 'linkedin_profile',
+                    'lead_status', 'lead_source', 'lead_type', 'lead_owner', 'designation',
+                    'system', 'project_amc', 'state', 'district', 'city', 'pin_code', 'full_address',
+                    'method_of_communication', 'purpose_of_meeting', 'meeting_outcome', 'next_follow_up_date',
+                    'discussion_held', 'remarks', 'approx_value', 'negotiated_value',
+                    'closing_amount', 'lead_percentage', 'prospect',
+                    // Add missing financial fields
+                    'margin_percent', 'gross_margin_amount', 'net_margin_amount', 'received_amount', 'balance_amount',
+                    'lead_closer_date', 'expected_lead_closer_month'
+                ];
+
+                formFields.forEach(field => {
+                    const input = document.getElementById(field);
+                    if (input && lead[field] !== undefined && lead[field] !== null) {
+                        if (input.tagName === 'SELECT') {
+                            // For dropdowns, set the value
+                            input.value = lead[field];
+
+                            // If value doesn't exist in options, add it
+                            if (lead[field] && !Array.from(input.options).some(opt => opt.value === lead[field])) {
+                                const option = new Option(lead[field], lead[field]);
+                                option.selected = true;
+                                input.add(option);
+                            }
+                        } else if (input.type === 'date' && lead[field]) {
+                            const date = new Date(lead[field]);
+                            input.value = date.toISOString().split('T')[0];
+                        } else {
+                            input.value = lead[field];
                         }
-                    } else if (input.type === 'date' && lead[field]) {
-                        const date = new Date(lead[field]);
-                        input.value = date.toISOString().split('T')[0];
-                    } else {
-                        input.value = lead[field];
+
+                        // Add focus effect styling
+                        input.addEventListener('focus', function () {
+                            this.style.borderColor = '#0d6efd';
+                            this.style.boxShadow = '0 0 0 3px rgba(13, 110, 253, 0.1)';
+                        });
+
+                        input.addEventListener('blur', function () {
+                            this.style.borderColor = '#dee2e6';
+                            this.style.boxShadow = 'none';
+                        });
                     }
-                    
-                    // Add focus effect styling
-                    input.addEventListener('focus', function() {
-                        this.style.borderColor = '#0d6efd';
-                        this.style.boxShadow = '0 0 0 3px rgba(13, 110, 253, 0.1)';
-                    });
-                    
-                    input.addEventListener('blur', function() {
-                        this.style.borderColor = '#dee2e6';
-                        this.style.boxShadow = 'none';
-                    });
-                }
-            });
-            
-            // Show form
-            document.getElementById('loading').style.display = 'none';
-            document.getElementById('leadForm').style.display = 'block';
-            
-            // Initialize financial calculations
-            initializeFinancialCalculations();
-        } else {
-            showError('Failed to load lead details: ' + (data.detail || 'Unknown error'));
-        }
-    } catch (error) {
-        console.error('Error loading lead:', error);
-        showError('Network error. Please try again.');
-    }
-}
+                });
 
-// Load configured dropdown values from settings API and populate selects
-async function loadConfiguredDropdowns(){
-    try {
-        const res = await fetch('/api/settings/lead-settings', { credentials: 'include' });
-        const payload = await (res.ok ? res.json() : { settings: {} });
-        const cfg = payload.settings || {};
+                // Show form
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('leadForm').style.display = 'block';
 
-        // Map of setting keys to select IDs
-        const map = {
-            statuses: 'lead_status',
-            sources: 'lead_source',
-            types: 'lead_type',
-            industries: 'industry_type',
-            systems: 'system',
-            project_amc: 'project_amc',
-            communication_method: 'method_of_communication',
-            prospect: 'prospect',
-            purpose_of_meeting: 'purpose_of_meeting'
-        };
-
-        Object.entries(map).forEach(([key, selectId]) => {
-            const select = document.getElementById(selectId);
-            if (!select) return;
-
-            const items = Array.isArray(cfg[key]) ? cfg[key] : [];
-            if (!items.length) return;
-
-            // Clear existing options
-            while (select.options.length > 0) select.remove(0);
-            // Placeholder
-            select.add(new Option(`Select ${selectId.replace('_',' ')}`, ''));
-            // Add configured items (support objects with name)
-            items.forEach(it => {
-                const name = typeof it === 'string' ? it : (it && it.name);
-                if (name) select.add(new Option(name, name));
-            });
-        });
-    } catch (e) {
-        console.warn('Failed to load configured dropdowns:', e);
-    }
-}
-// Initialize dropdowns
-function initializeDropdowns() {
-    // Only load lead_status from configured settings
-    loadLeadStatusOptions();
-
-    // Special handling for sub_industry - depends on selected industry
-    const industrySelect = document.getElementById('industry_type');
-    const subIndustrySelect = document.getElementById('sub_industry');
-    if (industrySelect && subIndustrySelect) {
-        industrySelect.addEventListener('change', function() {
-            updateSubIndustryOptions(this.value);
-        });
-        if (industrySelect.value) {
-            updateSubIndustryOptions(industrySelect.value);
+                // Initialize financial calculations
+                initializeFinancialCalculations();
+            } else {
+                showError('Failed to load lead details: ' + (data.detail || 'Unknown error'));
+            }
+        } catch (error) {
+            console.error('Error loading lead:', error);
+            showError('Network error. Please try again.');
         }
     }
-}
+
+    // Load configured dropdown values from settings API and populate selects
+    async function loadConfiguredDropdowns() {
+        try {
+            const res = await fetch('/api/settings/lead-settings', { credentials: 'include' });
+            const payload = await (res.ok ? res.json() : { settings: {} });
+            const cfg = payload.settings || {};
+
+            // Map of setting keys to select IDs
+            const map = {
+                statuses: 'lead_status',
+                sources: 'lead_source',
+                types: 'lead_type',
+                industries: 'industry_type',
+                systems: 'system',
+                project_amc: 'project_amc',
+                communication_method: 'method_of_communication',
+                prospect: 'prospect',
+                purpose_of_meeting: 'purpose_of_meeting'
+            };
+
+            Object.entries(map).forEach(([key, selectId]) => {
+                const select = document.getElementById(selectId);
+                if (!select) return;
+
+                const items = Array.isArray(cfg[key]) ? cfg[key] : [];
+                if (!items.length) return;
+
+                // Clear existing options
+                while (select.options.length > 0) select.remove(0);
+                // Placeholder
+                select.add(new Option(`Select ${selectId.replace('_', ' ')}`, ''));
+                // Add configured items (support objects with name)
+                items.forEach(it => {
+                    const name = typeof it === 'string' ? it : (it && it.name);
+                    if (name) select.add(new Option(name, name));
+                });
+            });
+        } catch (e) {
+            console.warn('Failed to load configured dropdowns:', e);
+        }
+    }
+    // Initialize dropdowns
+    function initializeDropdowns() {
+        // Only load lead_status from configured settings
+        loadLeadStatusOptions();
+
+        // Special handling for sub_industry - depends on selected industry
+        const industrySelect = document.getElementById('industry_type');
+        const subIndustrySelect = document.getElementById('sub_industry');
+        if (industrySelect && subIndustrySelect) {
+            industrySelect.addEventListener('change', function () {
+                updateSubIndustryOptions(this.value);
+            });
+            if (industrySelect.value) {
+                updateSubIndustryOptions(industrySelect.value);
+            }
+        }
+    }
 
     // Load lead status options from configured settings
     async function loadLeadStatusOptions() {
         const statusSelect = document.getElementById('lead_status');
         if (!statusSelect) return;
-    
+
         try {
             const response = await fetch('/api/settings/lead-settings');
             const data = await response.ok ? await response.json() : { settings: {} };
-        
+
             let statuses = [];
             if (data.settings && data.settings.statuses) {
                 statuses = data.settings.statuses;
             }
-        
+
             // Fallback to localStorage
             if (!statuses || statuses.length === 0) {
                 const saved = localStorage.getItem('lead_settings_statuses');
@@ -1030,16 +1222,16 @@ function initializeDropdowns() {
                     statuses = JSON.parse(saved);
                 }
             }
-        
+
             if (statuses && statuses.length > 0) {
                 // Clear options
                 while (statusSelect.options.length > 0) {
                     statusSelect.remove(0);
                 }
-            
+
                 // Add placeholder
                 statusSelect.add(new Option('Select Lead Status', ''));
-            
+
                 // Add status options
                 statuses.forEach(status => {
                     if (status && status.name) {
@@ -1051,615 +1243,895 @@ function initializeDropdowns() {
             console.error('Error loading status options:', err);
         }
     }
-// Update sub-industry options based on selected industry
-async function updateSubIndustryOptions(industry) {
-    const subIndustrySelect = document.getElementById('sub_industry');
-    if (!subIndustrySelect) return;
+    // Update sub-industry options based on selected industry
+    async function updateSubIndustryOptions(industry) {
+        const subIndustrySelect = document.getElementById('sub_industry');
+        if (!subIndustrySelect) return;
 
-    // Clear existing options
-    while (subIndustrySelect.options.length > 0) {
-        subIndustrySelect.remove(0);
-    }
-
-    const placeholder = new Option('Select Sub Industry', '');
-    subIndustrySelect.add(placeholder);
-
-    if (!industry) {
-        subIndustrySelect.disabled = true;
-        return;
-    }
-
-    try {
-        // Fetch the latest settings from the API (already cached in loadConfiguredDropdowns, but fetch again for safety)
-        const res = await fetch('/api/settings/lead-settings', { credentials: 'include' });
-        const payload = await (res.ok ? res.json() : { settings: {} });
-        const cfg = payload.settings || {};
-
-        // Find the industry object (support both subIndustries and sub_industries)
-        let subIndustries = [];
-        if (Array.isArray(cfg.industries)) {
-            const found = cfg.industries.find(
-                it => (typeof it === 'string' ? it : it.name) === industry
-            );
-            if (found) {
-                // Prefer camelCase, fallback to snake_case
-                let subs = found.subIndustries || found.sub_industries || [];
-                // If subs is array of objects, filter only active ones and map to name
-                subIndustries = subs
-                    .filter(sub => typeof sub === 'string' || sub.active !== false)
-                    .map(sub => typeof sub === 'string' ? sub : sub.name)
-                    .filter(Boolean);
-            }
+        // Clear existing options
+        while (subIndustrySelect.options.length > 0) {
+            subIndustrySelect.remove(0);
         }
 
-        if (subIndustries.length === 0) {
-            const noOpt = new Option('No sub-industries available', '');
-            noOpt.disabled = true;
-            subIndustrySelect.add(noOpt);
+        const placeholder = new Option('Select Sub Industry', '');
+        subIndustrySelect.add(placeholder);
+
+        if (!industry) {
             subIndustrySelect.disabled = true;
             return;
         }
 
-        subIndustries.forEach(option => {
-            subIndustrySelect.add(new Option(option, option));
-        });
-        subIndustrySelect.disabled = false;
-    } catch (e) {
-        console.warn('Failed to load sub-industries:', e);
-        subIndustrySelect.disabled = true;
-    }
-}
+        try {
+            // Fetch the latest settings from the API (already cached in loadConfiguredDropdowns, but fetch again for safety)
+            const res = await fetch('/api/settings/lead-settings', { credentials: 'include' });
+            const payload = await (res.ok ? res.json() : { settings: {} });
+            const cfg = payload.settings || {};
 
-// Open add option modal
-function openAddModal(fieldType) {
-    const modal = document.getElementById('addOptionModal');
-    const modalTitle = document.getElementById('modalTitle');
-    const optionTypeInput = document.getElementById('optionType');
-    const industrySelection = document.getElementById('industrySelection');
-    const parentIndustrySelect = document.getElementById('parentIndustry');
-    
-    // Set modal title based on field type
-    const fieldNames = {
-        'industry': 'Industry Type',
-        'sub_industry': 'Sub Industry',
-        'designation': 'Designation',
-        'designation_owner': 'Designation (Owner)',
-        'system': 'System',
-        'project_amc': 'Project/AMC',
-        'state': 'State',
-        'district': 'District',
-        'city': 'City',
-        'prospect': 'Prospect Level'
-    };
-    
-    modalTitle.innerHTML = `<i class="fas fa-plus"></i> Add New ${fieldNames[fieldType] || fieldType}`;
-    optionTypeInput.value = fieldType;
-    
-    // Show/hide industry selection for sub-industry
-    if (fieldType === 'sub_industry') {
-        industrySelection.style.display = 'block';
-        // Populate parent industry dropdown from configured dropdown
-        while (parentIndustrySelect.options.length > 0) {
-            parentIndustrySelect.remove(0);
-        }
-        const placeholder = new Option('Select Industry', '');
-        parentIndustrySelect.add(placeholder);
-        const industrySelect = document.getElementById('industry_type');
-        if (industrySelect) {
-            Array.from(industrySelect.options).forEach(opt => {
-                if (opt.value) parentIndustrySelect.add(new Option(opt.value, opt.value));
+            // Find the industry object (support both subIndustries and sub_industries)
+            let subIndustries = [];
+            if (Array.isArray(cfg.industries)) {
+                const found = cfg.industries.find(
+                    it => (typeof it === 'string' ? it : it.name) === industry
+                );
+                if (found) {
+                    // Prefer camelCase, fallback to snake_case
+                    let subs = found.subIndustries || found.sub_industries || [];
+                    // If subs is array of objects, filter only active ones and map to name
+                    subIndustries = subs
+                        .filter(sub => typeof sub === 'string' || sub.active !== false)
+                        .map(sub => typeof sub === 'string' ? sub : sub.name)
+                        .filter(Boolean);
+                }
+            }
+
+            if (subIndustries.length === 0) {
+                const noOpt = new Option('No sub-industries available', '');
+                noOpt.disabled = true;
+                subIndustrySelect.add(noOpt);
+                subIndustrySelect.disabled = true;
+                return;
+            }
+
+            subIndustries.forEach(option => {
+                subIndustrySelect.add(new Option(option, option));
             });
+            subIndustrySelect.disabled = false;
+        } catch (e) {
+            console.warn('Failed to load sub-industries:', e);
+            subIndustrySelect.disabled = true;
         }
-    } else {
-        industrySelection.style.display = 'none';
     }
-    
-    // Clear form
-    document.getElementById('optionName').value = '';
-    document.getElementById('optionDescription').value = '';
-    
-    modal.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-}
 
-// Close add option modal
-function closeAddModal() {
-    document.getElementById('addOptionModal').style.display = 'none';
-    document.body.style.overflow = 'auto';
-}
+    // Open add option modal
+    function openAddModal(fieldType) {
+        const modal = document.getElementById('addOptionModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const optionTypeInput = document.getElementById('optionType');
+        const industrySelection = document.getElementById('industrySelection');
+        const parentIndustrySelect = document.getElementById('parentIndustry');
 
-// Handle add option form submission
-document.getElementById('addOptionForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const fieldType = document.getElementById('optionType').value;
-    const optionName = document.getElementById('optionName').value.trim();
-    const optionDescription = document.getElementById('optionDescription').value.trim();
-    
-    if (!optionName) {
-        showError('Please enter option name');
-        return;
+        // Set modal title based on field type
+        const fieldNames = {
+            'industry': 'Industry Type',
+            'sub_industry': 'Sub Industry',
+            'designation': 'Designation',
+            'designation_owner': 'Designation (Owner)',
+            'system': 'System',
+            'project_amc': 'Project/AMC',
+            'state': 'State',
+            'district': 'District',
+            'city': 'City',
+            'prospect': 'Prospect Level'
+        };
+
+        modalTitle.innerHTML = `<i class="fas fa-plus"></i> Add New ${fieldNames[fieldType] || fieldType}`;
+        optionTypeInput.value = fieldType;
+
+        // Show/hide industry selection for sub-industry
+        if (fieldType === 'sub_industry') {
+            industrySelection.style.display = 'block';
+            // Populate parent industry dropdown from configured dropdown
+            while (parentIndustrySelect.options.length > 0) {
+                parentIndustrySelect.remove(0);
+            }
+            const placeholder = new Option('Select Industry', '');
+            parentIndustrySelect.add(placeholder);
+            const industrySelect = document.getElementById('industry_type');
+            if (industrySelect) {
+                Array.from(industrySelect.options).forEach(opt => {
+                    if (opt.value) parentIndustrySelect.add(new Option(opt.value, opt.value));
+                });
+            }
+        } else {
+            industrySelection.style.display = 'none';
+        }
+
+        // Clear form
+        document.getElementById('optionName').value = '';
+        document.getElementById('optionDescription').value = '';
+
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
     }
-    
-    // For sub-industry, get parent industry
-    let parentIndustry = null;
-    if (fieldType === 'sub_industry') {
-        parentIndustry = document.getElementById('parentIndustry').value;
-        if (!parentIndustry) {
-            showError('Please select parent industry');
+
+    // Close add option modal
+    function closeAddModal() {
+        document.getElementById('addOptionModal').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+
+    // Handle add option form submission
+    document.getElementById('addOptionForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const fieldType = document.getElementById('optionType').value;
+        const optionName = document.getElementById('optionName').value.trim();
+        const optionDescription = document.getElementById('optionDescription').value.trim();
+
+        if (!optionName) {
+            showError('Please enter option name');
             return;
         }
-    }
-    
+
+        // For sub-industry, get parent industry
+        let parentIndustry = null;
+        if (fieldType === 'sub_industry') {
+            parentIndustry = document.getElementById('parentIndustry').value;
+            if (!parentIndustry) {
+                showError('Please select parent industry');
+                return;
+            }
+        }
+
+        // Add option to dropdown
+        addOptionToDropdown(fieldType, optionName, parentIndustry);
+
+        // Save to localStorage
+        saveOption(fieldType, optionName, parentIndustry, optionDescription);
+
+        // Show success message
+        showSuccess(`${fieldNames[fieldType] || fieldType} added successfully!`);
+
+        closeAddModal();
+    });
+
     // Add option to dropdown
-    addOptionToDropdown(fieldType, optionName, parentIndustry);
-    
-    // Save to localStorage
-    saveOption(fieldType, optionName, parentIndustry, optionDescription);
-    
-    // Show success message
-    showSuccess(`${fieldNames[fieldType] || fieldType} added successfully!`);
-    
-    closeAddModal();
-});
+    function addOptionToDropdown(fieldType, optionName, parentIndustry = null) {
+        let dropdownId;
+        switch (fieldType) {
+            case 'industry':
+            case 'sub_industry':
+                dropdownId = fieldType === 'industry' ? 'industry_type' : 'sub_industry';
+                break;
+            case 'designation_owner':
+                dropdownId = 'designation';
+                break;
+            default:
+                dropdownId = fieldType;
+        }
 
-// Add option to dropdown
-function addOptionToDropdown(fieldType, optionName, parentIndustry = null) {
-    let dropdownId;
-    switch(fieldType) {
-        case 'industry':
-        case 'sub_industry':
-            dropdownId = fieldType === 'industry' ? 'industry_type' : 'sub_industry';
-            break;
-        case 'designation_owner':
-            dropdownId = 'designation';
-            break;
-        default:
-            dropdownId = fieldType;
+        const dropdown = document.getElementById(dropdownId);
+        if (dropdown) {
+            // Check if option already exists
+            const existingOption = Array.from(dropdown.options).find(opt => opt.value === optionName);
+            if (!existingOption) {
+                const option = new Option(optionName, optionName);
+                dropdown.add(option);
+
+                // Select the new option
+                dropdown.value = optionName;
+            }
+        }
+
+        // For sub-industry, no static mapping; handled by backend/configured values
     }
-    
-    const dropdown = document.getElementById(dropdownId);
-    if (dropdown) {
+
+    // Save option to localStorage
+    function saveOption(fieldType, optionName, parentIndustry = null, description = '') {
+        const key = fieldType === 'sub_industry' ? `sub_industry_${parentIndustry}` : `dropdown_${fieldType}`;
+
+        // Get existing saved options
+        const savedOptions = JSON.parse(localStorage.getItem(key) || '[]');
+
         // Check if option already exists
-        const existingOption = Array.from(dropdown.options).find(opt => opt.value === optionName);
-        if (!existingOption) {
-            const option = new Option(optionName, optionName);
-            dropdown.add(option);
-            
-            // Select the new option
-            dropdown.value = optionName;
+        if (!savedOptions.includes(optionName)) {
+            savedOptions.push(optionName);
+            localStorage.setItem(key, JSON.stringify(savedOptions));
         }
-    }
-    
-    // For sub-industry, no static mapping; handled by backend/configured values
-}
 
-// Save option to localStorage
-function saveOption(fieldType, optionName, parentIndustry = null, description = '') {
-    const key = fieldType === 'sub_industry' ? `sub_industry_${parentIndustry}` : `dropdown_${fieldType}`;
-    
-    // Get existing saved options
-    const savedOptions = JSON.parse(localStorage.getItem(key) || '[]');
-    
-    // Check if option already exists
-    if (!savedOptions.includes(optionName)) {
-        savedOptions.push(optionName);
-        localStorage.setItem(key, JSON.stringify(savedOptions));
-    }
-    
-    // Save option details
-    const optionDetails = {
-        name: optionName,
-        type: fieldType,
-        parent: parentIndustry,
-        description: description,
-        addedAt: new Date().toISOString(),
-        addedBy: '{{ user.username }}'
-    };
-    
-    const detailsKey = `option_details_${fieldType}_${optionName}`;
-    localStorage.setItem(detailsKey, JSON.stringify(optionDetails));
-}
+        // Save option details
+        const optionDetails = {
+            name: optionName,
+            type: fieldType,
+            parent: parentIndustry,
+            description: description,
+            addedAt: new Date().toISOString(),
+            addedBy: '{{ user.username }}'
+        };
 
-// Initialize financial calculations
-function initializeFinancialCalculations() {
-    const approxValueInput = document.getElementById('approx_value');
-    const negotiatedValueInput = document.getElementById('negotiated_value');
-    const closingAmountInput = document.getElementById('closing_amount');
-    const leadPercentageInput = document.getElementById('lead_percentage');
-    
-    // Add event listeners for auto-calculation
-    [approxValueInput, negotiatedValueInput, closingAmountInput, leadPercentageInput].forEach(input => {
-        if (input) {
-            input.addEventListener('input', calculateFinancialSummary);
-        }
-    });
-    
-    // Initial calculation
-    calculateFinancialSummary();
-}
+        const detailsKey = `option_details_${fieldType}_${optionName}`;
+        localStorage.setItem(detailsKey, JSON.stringify(optionDetails));
+    }
 
-// Calculate financial summary
-function calculateFinancialSummary() {
-    const approxValue = parseFloat(document.getElementById('approx_value').value) || 0;
-    const negotiatedValue = parseFloat(document.getElementById('negotiated_value').value) || 0;
-    const closingAmount = parseFloat(document.getElementById('closing_amount').value) || 0;
-    const leadPercentage = parseFloat(document.getElementById('lead_percentage').value) || 0;
-    
-    // Calculate profit margin (if closing amount is available)
-    let profitMargin = 0;
-    if (closingAmount > 0 && approxValue > 0) {
-        profitMargin = closingAmount - approxValue;
-    }
-    
-    // Calculate discount given
-    let discountGiven = 0;
-    if (negotiatedValue > 0 && approxValue > 0) {
-        discountGiven = approxValue - negotiatedValue;
-    }
-    
-    // Calculate success probability based on lead percentage and financials
-    let successProbability = leadPercentage;
-    if (negotiatedValue > 0 && closingAmount > 0) {
-        // If both negotiated and closing amounts are available, increase probability
-        successProbability = Math.min(100, leadPercentage + 20);
-    } else if (negotiatedValue > 0) {
-        // If only negotiated value is available
-        successProbability = Math.min(100, leadPercentage + 10);
-    }
-    
-    // Update display
-    document.getElementById('profit-margin').textContent = `₹${profitMargin.toFixed(2)}`;
-    document.getElementById('profit-margin').style.color = profitMargin >= 0 ? '#198754' : '#dc3545';
-    
-    document.getElementById('discount-given').textContent = `₹${discountGiven.toFixed(2)}`;
-    document.getElementById('discount-given').style.color = discountGiven >= 0 ? '#198754' : '#dc3545';
-    
-    document.getElementById('success-probability').textContent = `${successProbability.toFixed(1)}%`;
-    
-    // Color code based on probability
-    if (successProbability >= 80) {
-        document.getElementById('success-probability').style.color = '#198754';
-    } else if (successProbability >= 50) {
-        document.getElementById('success-probability').style.color = '#0d6efd';
-    } else if (successProbability >= 30) {
-        document.getElementById('success-probability').style.color = '#ffc107';
-    } else {
-        document.getElementById('success-probability').style.color = '#dc3545';
-    }
-}
+    // Initialize financial calculations
+    function initializeFinancialCalculations() {
+        const approxValueInput = document.getElementById('approx_value');
+        const negotiatedValueInput = document.getElementById('negotiated_value');
+        const closingAmountInput = document.getElementById('closing_amount');
+        const leadPercentageInput = document.getElementById('lead_percentage');
 
-// Update lead
-document.getElementById('editLeadForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    
-    // Show loading state
-    const submitBtn = this.querySelector('button[type="submit"]');
-    const originalText = submitBtn.innerHTML;
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Updating...';
-    submitBtn.disabled = true;
-    
-    const formData = new FormData(this);
-    const leadData = {};
-    formData.forEach((value, key) => {
-        if (value !== '') leadData[key] = value;
-    });
-    
-    try {
-        const response = await fetch(`/api/leads/${leadId}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(leadData)
+        // Add event listeners for auto-calculation
+        [approxValueInput, negotiatedValueInput, closingAmountInput, leadPercentageInput].forEach(input => {
+            if (input) {
+                input.addEventListener('input', calculateFinancialSummary);
+            }
         });
-        
-        const data = await response.json();
-        
-        if (data.success) {
-            // Update title and status display
-            document.getElementById('company-name-display').textContent = leadData.company_name || 'N/A';
-            
-            const status = leadData.lead_status || 'New';
-            const statusConfig = statusColors[status] || statusColors['New'];
-            const statusDisplay = document.getElementById('lead-status-display');
-            statusDisplay.innerHTML = `<i class="fas fa-${statusConfig.icon}"></i> ${status}`;
-            statusDisplay.style.background = statusConfig.bg;
-            statusDisplay.style.color = statusConfig.color;
-            
-            showSuccess('Lead updated successfully!');
-            setTimeout(() => {
-                window.location.href = '/leads';
-            }, 1500);
+
+        // Initial calculation
+        calculateFinancialSummary();
+    }
+
+    // Calculate financial summary
+    function calculateFinancialSummary() {
+        const approxValue = parseFloat(document.getElementById('approx_value').value) || 0;
+        const negotiatedValue = parseFloat(document.getElementById('negotiated_value').value) || 0;
+        const closingAmount = parseFloat(document.getElementById('closing_amount').value) || 0;
+        const leadPercentage = parseFloat(document.getElementById('lead_percentage').value) || 0;
+
+        // Calculate profit margin (if closing amount is available)
+        let profitMargin = 0;
+        if (closingAmount > 0 && approxValue > 0) {
+            profitMargin = closingAmount - approxValue;
+        }
+
+        // Calculate discount given
+        let discountGiven = 0;
+        if (negotiatedValue > 0 && approxValue > 0) {
+            discountGiven = approxValue - negotiatedValue;
+        }
+
+        // Calculate success probability based on lead percentage and financials
+        let successProbability = leadPercentage;
+        if (negotiatedValue > 0 && closingAmount > 0) {
+            // If both negotiated and closing amounts are available, increase probability
+            successProbability = Math.min(100, leadPercentage + 20);
+        } else if (negotiatedValue > 0) {
+            // If only negotiated value is available
+            successProbability = Math.min(100, leadPercentage + 10);
+        }
+
+        // Update display
+        document.getElementById('profit-margin').textContent = `₹${profitMargin.toFixed(2)}`;
+        document.getElementById('profit-margin').style.color = profitMargin >= 0 ? '#198754' : '#dc3545';
+
+        document.getElementById('discount-given').textContent = `₹${discountGiven.toFixed(2)}`;
+        document.getElementById('discount-given').style.color = discountGiven >= 0 ? '#198754' : '#dc3545';
+
+        document.getElementById('success-probability').textContent = `${successProbability.toFixed(1)}%`;
+
+        // Color code based on probability
+        if (successProbability >= 80) {
+            document.getElementById('success-probability').style.color = '#198754';
+        } else if (successProbability >= 50) {
+            document.getElementById('success-probability').style.color = '#0d6efd';
+        } else if (successProbability >= 30) {
+            document.getElementById('success-probability').style.color = '#ffc107';
         } else {
-            showError('Failed to update lead: ' + (data.detail || 'Unknown error'));
+            document.getElementById('success-probability').style.color = '#dc3545';
+        }
+    }
+
+    // Update lead
+    // Update lead
+    document.getElementById('editLeadForm').addEventListener('submit', async function (e) {
+
+        e.preventDefault();
+
+        const form = this;
+
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Updating...';
+        submitBtn.disabled = true;
+
+        try {
+
+            const formData = new FormData(form);
+            const payload = {};
+
+            formData.forEach((value, key) => {
+
+                if (value === "") {
+                    payload[key] = null;
+                } else {
+                    payload[key] = value;
+                }
+
+            });
+
+            console.log("FINAL PAYLOAD:", payload);
+
+            const response = await fetch(`/api/leads/${leadId}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(payload)
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+
+                showSuccess('Lead updated successfully!');
+
+                setTimeout(() => {
+                    window.location.href = '/leads';
+                }, 1500);
+
+            } else {
+
+                showError('Failed to update lead: ' + (data.detail || 'Unknown error'));
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+
+        } catch (error) {
+
+            console.error('Error updating lead:', error);
+
+            showError('Network error. Please try again.');
             submitBtn.innerHTML = originalText;
             submitBtn.disabled = false;
         }
-    } catch (error) {
-        console.error('Error updating lead:', error);
-        showError('Network error. Please try again.');
-        submitBtn.innerHTML = originalText;
-        submitBtn.disabled = false;
-    }
-});
 
-// Show error message
-function showError(message) {
-    document.getElementById('errorText').textContent = message;
-    document.getElementById('errorMessage').style.display = 'block';
-    document.getElementById('successMessage').style.display = 'none';
-    
-    // Auto hide after 5 seconds
-    setTimeout(() => {
-        document.getElementById('errorMessage').style.display = 'none';
-    }, 5000);
-}
-
-// Show success message
-function showSuccess(message) {
-    document.getElementById('successText').textContent = message;
-    document.getElementById('successMessage').style.display = 'block';
-    document.getElementById('errorMessage').style.display = 'none';
-    
-    // Auto hide after 3 seconds
-    setTimeout(() => {
+    });
+    // Show error message
+    function showError(message) {
+        document.getElementById('errorText').textContent = message;
+        document.getElementById('errorMessage').style.display = 'block';
         document.getElementById('successMessage').style.display = 'none';
-    }, 3000);
-}
 
-// Auto-calculate lead percentage based on status from configured mappings
-async function autoCalculateLeadPercentage() {
-    const statusSelect = document.getElementById('lead_status');
-    const percentageInput = document.getElementById('lead_percentage');
-    
-    if (!statusSelect || !percentageInput) return;
-    
-    const status = statusSelect.value;
-    const currentPercentage = percentageInput.value; // Store current value
-    
-    if (!status) {
-        percentageInput.value = '';
-        return;
+        // Auto hide after 5 seconds
+        setTimeout(() => {
+            document.getElementById('errorMessage').style.display = 'none';
+        }, 5000);
     }
-    
-    try {
-        const response = await fetch('/api/settings/lead-settings', {
-            method: 'GET',
-            credentials: 'include',
-            headers: {'Accept': 'application/json'}
-        });
-        
-        if (response.ok) {
-            const data = await response.json();
-            if (data.settings && data.settings.status_percentages) {
-                const mappings = data.settings.status_percentages;
-                // Agar status ke liye mapping hai to use karo, otherwise previous value rakho
-                if (status in mappings) {
-                    percentageInput.value = mappings[status];
-                } else {
-                    // Mapping nahi mila, previous percentage rakho
-                    percentageInput.value = currentPercentage;
+
+    // Show success message
+    function showSuccess(message) {
+        document.getElementById('successText').textContent = message;
+        document.getElementById('successMessage').style.display = 'block';
+        document.getElementById('errorMessage').style.display = 'none';
+
+        // Auto hide after 3 seconds
+        setTimeout(() => {
+            document.getElementById('successMessage').style.display = 'none';
+        }, 3000);
+    }
+
+    // Auto-calculate lead percentage based on status from configured mappings
+    async function autoCalculateLeadPercentage() {
+        const statusSelect = document.getElementById('lead_status');
+        const percentageInput = document.getElementById('lead_percentage');
+
+        if (!statusSelect || !percentageInput) return;
+
+        const status = statusSelect.value;
+        const currentPercentage = percentageInput.value; // Store current value
+
+        if (!status) {
+            percentageInput.value = '';
+            return;
+        }
+
+        try {
+            const response = await fetch('/api/settings/lead-settings', {
+                method: 'GET',
+                credentials: 'include',
+                headers: { 'Accept': 'application/json' }
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                if (data.settings && data.settings.status_percentages) {
+                    const mappings = data.settings.status_percentages;
+                    // Agar status ke liye mapping hai to use karo, otherwise previous value rakho
+                    if (status in mappings) {
+                        percentageInput.value = mappings[status];
+                    } else {
+                        // Mapping nahi mila, previous percentage rakho
+                        percentageInput.value = currentPercentage;
+                    }
                 }
             }
+        } catch (err) {
+            console.warn('Failed to auto-calculate percentage:', err);
         }
-    } catch (err) {
-        console.warn('Failed to auto-calculate percentage:', err);
     }
-}
 
-// Initialize page
-document.addEventListener('DOMContentLoaded', function() {
-    // Load Lead Settings first if available
-    if (window.LeadSettingsManager) {
-        window.LeadSettingsManager.loadSettings().then(function() {
-            console.log('Lead Settings loaded from database');
-            checkAuth();
-        }).catch(function(error) {
-            console.error('Failed to load lead settings:', error);
-            checkAuth();
-        });
-    } else {
-        checkAuth();
-    }
-    
-    // Listen for status changes to auto-calculate percentage
-    const statusSelect = document.getElementById('lead_status');
-    if (statusSelect) {
-        statusSelect.addEventListener('change', autoCalculateLeadPercentage);
-        // Initial calculation on load
-        autoCalculateLeadPercentage();
-    }
-});
-
-// Form validation
-document.querySelectorAll('input, select, textarea').forEach(input => {
-    input.addEventListener('invalid', function(e) {
-        e.preventDefault();
-        this.style.borderColor = '#dc3545';
-        showError('Please fill in all required fields correctly.');
-    });
-    
-    input.addEventListener('input', function() {
-        if (this.checkValidity()) {
-            this.style.borderColor = '#198754';
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', function () {
+        // Load Lead Settings first if available
+        if (window.LeadSettingsManager) {
+            window.LeadSettingsManager.loadSettings().then(function () {
+                console.log('Lead Settings loaded from database');
+                checkAuth();
+            }).catch(function (error) {
+                console.error('Failed to load lead settings:', error);
+                checkAuth();
+            });
         } else {
-            this.style.borderColor = '#dc3545';
+            checkAuth();
+        }
+
+        // Listen for status changes to auto-calculate percentage
+        const statusSelect = document.getElementById('lead_status');
+        if (statusSelect) {
+            statusSelect.addEventListener('change', autoCalculateLeadPercentage);
+            // Initial calculation on load
+            autoCalculateLeadPercentage();
         }
     });
-});
 
-// Close modal when clicking outside
-window.onclick = function(event) {
-    const modal = document.getElementById('addOptionModal');
-    if (event.target === modal) {
-        closeAddModal();
+    // Form validation
+    document.querySelectorAll('input, select, textarea').forEach(input => {
+        input.addEventListener('invalid', function (e) {
+            e.preventDefault();
+            this.style.borderColor = '#dc3545';
+            showError('Please fill in all required fields correctly.');
+        });
+
+        input.addEventListener('input', function () {
+            if (this.checkValidity()) {
+                this.style.borderColor = '#198754';
+            } else {
+                this.style.borderColor = '#dc3545';
+            }
+        });
+    });
+
+    // Close modal when clicking outside
+    window.onclick = function (event) {
+        const modal = document.getElementById('addOptionModal');
+        if (event.target === modal) {
+            closeAddModal();
+        }
+    };
+</script>
+
+<script>
+    // ==================== ATTEMPT TIMELINE SYSTEM ====================
+    // Stores attempts in remarks field as JSON. No new DB column needed.
+
+    const ATTEMPT_TYPES = [
+        { value: 'Cold Call', color: '#185FA5', bg: '#E6F1FB', text: '#0C447C' },
+        { value: 'F2F Meeting', color: '#3B6D11', bg: '#EAF3DE', text: '#27500A' },
+        { value: 'Proposal Sent', color: '#854F0B', bg: '#FAEEDA', text: '#633806' },
+        { value: 'Quotation Sent', color: '#854F0B', bg: '#FAEEDA', text: '#633806' },
+        { value: 'Stalled / On Hold', color: '#A32D2D', bg: '#FCEBEB', text: '#791F1F' },
+        { value: 'Site Visit', color: '#3C3489', bg: '#EEEDFE', text: '#26215C' },
+        { value: 'Email', color: '#0F6E56', bg: '#E1F5EE', text: '#085041' },
+        { value: 'Follow Up', color: '#5F5E5A', bg: '#F1EFE8', text: '#2C2C2A' },
+        { value: 'Demo', color: '#993C1D', bg: '#FAECE7', text: '#4A1B0C' },
+        { value: 'Negotiation', color: '#993556', bg: '#FBEAF0', text: '#4B1528' },
+        { value: 'Won', color: '#3B6D11', bg: '#EAF3DE', text: '#27500A' },
+        { value: 'Lost', color: '#A32D2D', bg: '#FCEBEB', text: '#791F1F' },
+    ];
+
+    let attempts = [];   // Array of {type, date, note}
+    let editingIndex = null;
+
+    function getTypeConfig(typeVal) {
+        return ATTEMPT_TYPES.find(t => t.value === typeVal) || { color: '#888', bg: '#f1f1f1', text: '#333' };
     }
-};
+
+    // Parse existing remarks (JSON or plain text)
+    function parseRemarks(raw) {
+        if (!raw || raw.trim() === '') return [];
+        try {
+            const parsed = JSON.parse(raw);
+            if (Array.isArray(parsed)) return parsed;
+        } catch (e) { }
+        // Plain text fallback — treat as single attempt
+        return [{ type: 'Cold Call', date: '', note: raw }];
+    }
+
+    // Serialize attempts to JSON string for hidden field
+    function serializeAttempts() {
+        document.getElementById('remarks').value = attempts.length ? JSON.stringify(attempts) : '';
+    }
+
+    // Render timeline
+    function renderTimeline() {
+        const container = document.getElementById('attempt-timeline');
+        const emptyEl = document.getElementById('attempt-empty');
+        const vline = document.getElementById('attempt-vline');
+        const addBtn = document.getElementById('add-next-btn');
+        const badge = document.getElementById('attempt-count-badge');
+        const typeBadges = document.getElementById('attempt-type-badges');
+
+        badge.textContent = attempts.length + ' attempt' + (attempts.length !== 1 ? 's' : '');
+        typeBadges.innerHTML = '';
+
+        if (attempts.length === 0) {
+            emptyEl.style.display = 'block';
+            vline.style.display = 'none';
+            addBtn.style.display = 'none';
+            container.querySelectorAll('.atl-card-item').forEach(el => el.remove());
+            return;
+        }
+
+        emptyEl.style.display = 'none';
+        vline.style.display = 'block';
+        addBtn.style.display = 'block';
+
+        container.querySelectorAll('.atl-card-item').forEach(el => el.remove());
+
+        attempts.forEach((attempt, i) => {
+            const div = document.createElement('div');
+            div.className = 'atl-card-item';
+            div.style.cssText = 'position:relative;margin-bottom:14px;';
+            div.innerHTML = `
+        <div style="position:absolute;left:-24px;top:14px;width:10px;height:10px;border-radius:50%;background:#0d6efd;border:2px solid white;box-shadow:0 0 0 1.5px #0d6efd;"></div>
+        <div style="background:white;border:1px solid #dee2e6;border-radius:10px;padding:12px 14px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                <span style="font-size:0.8em;font-weight:600;color:#6c757d;">Attempt ${i + 1}</span>
+                <button type="button" onclick="openAttemptModal(${i})"
+                    style="font-size:0.78em;padding:3px 10px;border:1px solid #dee2e6;border-radius:6px;background:transparent;color:#6c757d;cursor:pointer;">
+                    Edit
+                </button>
+            </div>
+            <p style="margin:0;font-size:0.9em;color:#212529;line-height:1.55;">${escapeHtml(attempt.note || '')}</p>
+        </div>`;
+            container.appendChild(div);
+        });
+
+        serializeAttempts();
+    }
+
+    function escapeHtml(str) {
+        return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    // ---- Modal ----
+    function openAttemptModal(index) {
+        editingIndex = index;
+        const isEdit = index !== null;
+        const attempt = isEdit ? attempts[index] : { note: '' };
+        const nextNum = isEdit ? index + 1 : attempts.length + 1;
+
+        const modalHtml = `
+    <div id="attempt-modal-overlay"
+        style="position:fixed;z-index:99999;left:0;top:0;width:100%;height:100%;background:rgba(13,110,253,0.75);display:flex;align-items:center;justify-content:center;">
+        <div style="background:white;width:90%;max-width:520px;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,0.3);overflow:hidden;max-height:90vh;display:flex;flex-direction:column;">
+            <div style="padding:18px 24px;background:#0d6efd;color:white;display:flex;justify-content:space-between;align-items:center;">
+                <h3 style="margin:0;font-size:1.1em;font-weight:600;display:flex;align-items:center;gap:8px;">
+                    <i class="fas fa-${isEdit ? 'edit' : 'plus'}"></i>
+                    ${isEdit ? 'Edit Attempt ' + nextNum : 'Add New Attempt'}
+                </h3>
+                <button type="button" onclick="closeAttemptModal()"
+                    style="background:rgba(255,255,255,0.2);border:none;width:30px;height:30px;border-radius:50%;color:white;font-size:1.1em;cursor:pointer;display:flex;align-items:center;justify-content:center;">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div style="padding:24px;overflow-y:auto;">
+                <div style="margin-bottom:10px;">
+                    <label style="display:block;margin-bottom:8px;font-size:0.9em;font-weight:600;color:#495057;">
+                        Notes / Remarks
+                    </label>
+                    <textarea id="atl-modal-note" rows="4"
+                        placeholder="What happened in this attempt?"
+                        style="width:100%;padding:10px 14px;border:2px solid #dee2e6;border-radius:8px;font-size:1em;background:white;color:#212529;resize:vertical;font-family:inherit;box-sizing:border-box;"></textarea>
+                </div>
+                ${!isEdit ? `<p style="font-size:0.82em;color:#adb5bd;margin:4px 0 0 0;">Attempt ${nextNum} will be added</p>` : ''}
+                ${isEdit ? `<button type="button" onclick="deleteAttempt(${index})"
+                    style="margin-top:10px;padding:6px 14px;background:white;color:#dc3545;border:1px solid #dc3545;border-radius:6px;font-size:0.85em;cursor:pointer;">
+                    <i class="fas fa-trash"></i> Delete this attempt
+                </button>` : ''}
+            </div>
+            <div style="padding:16px 24px;border-top:1px solid #dee2e6;display:flex;justify-content:flex-end;gap:10px;background:#f8f9fa;">
+                <button type="button" onclick="closeAttemptModal()"
+                    style="padding:9px 20px;background:white;color:#6c757d;border:1px solid #dee2e6;border-radius:8px;font-size:0.95em;font-weight:500;cursor:pointer;">
+                    Cancel
+                </button>
+                <button type="button" onclick="saveAttempt()"
+                    style="padding:9px 20px;background:#0d6efd;color:white;border:none;border-radius:8px;font-size:0.95em;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:6px;">
+                    <i class="fas fa-check"></i> ${isEdit ? 'Save Changes' : 'Save Attempt'}
+                </button>
+            </div>
+        </div>
+    </div>`;
+
+        document.body.insertAdjacentHTML('beforeend', modalHtml);
+        document.body.style.overflow = 'hidden';
+
+        // Note value properly set karo
+        const noteField = document.getElementById('atl-modal-note');
+        if (noteField) {
+            noteField.value = attempt.note || '';
+            noteField.focus();
+        }
+    }
+
+    function closeAttemptModal() {
+        const el = document.getElementById('attempt-modal-overlay');
+        if (el) el.remove();
+        document.body.style.overflow = 'auto';
+    }
+
+    function saveAttempt() {
+        const noteEl = document.getElementById('atl-modal-note');
+        const note = noteEl ? noteEl.value.trim() : '';
+
+        if (!note) {
+            if (noteEl) noteEl.style.borderColor = '#dc3545';
+            if (noteEl) noteEl.focus();
+            return;
+        }
+
+        if (editingIndex !== null) {
+            attempts[editingIndex] = { note: note };
+        } else {
+            attempts.push({ note: note });
+        }
+
+        closeAttemptModal();
+        renderTimeline();
+    }
+
+    function deleteAttempt(index) {
+        if (!confirm('Delete this attempt?')) return;
+        attempts.splice(index, 1);
+        closeAttemptModal();
+        renderTimeline();
+    }
+
+    function todayISO() {
+        return new Date().toISOString().split('T')[0];
+    }
+
+    // Close modal on overlay click
+    document.addEventListener('click', function (e) {
+        if (e.target && e.target.id === 'attempt-modal-overlay') closeAttemptModal();
+    });
+
+    // Initialize: load existing remarks into timeline
+    function initAttemptTimeline() {
+        const remarksField = document.getElementById('remarks');
+        if (remarksField) {
+            attempts = parseRemarks(remarksField.value);
+            renderTimeline();
+        }
+    }
+
+    // Call init after lead data loads (hook into existing loadLeadDetails flow)
+    const _origLoadLeadDetails = typeof loadLeadDetails === 'function' ? loadLeadDetails : null;
+
+    // Patch: after form is populated, init timeline
+    // We observe the leadForm becoming visible
+    const _atlObserver = new MutationObserver(function (mutations) {
+        mutations.forEach(function (m) {
+            if (m.target.id === 'leadForm' && m.target.style.display !== 'none') {
+                setTimeout(initAttemptTimeline, 100);
+                _atlObserver.disconnect();
+            }
+        });
+    });
+    const _leadFormEl = document.getElementById('leadForm');
+    if (_leadFormEl) {
+        _atlObserver.observe(_leadFormEl, { attributes: true, attributeFilter: ['style'] });
+    }
+    // ==================== END ATTEMPT TIMELINE SYSTEM ====================
 </script>
 
 <style>
-/* Fix sidebar and layout */
-body {
-    overflow-x: hidden !important;
-    min-width: 320px;
-    background-color: #f8f9fa !important;
-}
+    /* Fix sidebar and layout */
+    body {
+        overflow-x: hidden !important;
+        min-width: 320px;
+        background-color: #f8f9fa !important;
+    }
 
-.main-content {
-    overflow-x: hidden !important;
-    width: calc(100vw - 250px) !important;
-    box-sizing: border-box;
-    background-color: #f8f9fa;
-}
-
-/* Navy Blue Theme */
-.content-header {
-    background: #0d6efd !important;
-}
-
-/* Lead Title Header */
-.lead-header-info {
-    animation: fadeIn 0.5s ease-out;
-}
-
-/* Form input focus effects */
-input:focus, select:focus, textarea:focus {
-    outline: none;
-    border-color: #0d6efd !important;
-    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1) !important;
-}
-
-/* Add option button */
-.add-option-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.2);
-    transition: all 0.3s ease;
-}
-
-/* Button hover effects */
-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.2);
-    transition: all 0.3s ease;
-}
-
-/* Scrollbar styling */
-::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: #f1f5f9;
-    border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #0d6efd;
-    border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #0a58ca;
-}
-
-/* Animations */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-#leadForm {
-    animation: fadeIn 0.5s ease-out;
-}
-
-/* Status badge colors */
-.status-new { background: #0d6efd !important; color: white !important; }
-.status-contacted { background: #0dcaf0 !important; color: white !important; }
-.status-qualified { background: #198754 !important; color: white !important; }
-.status-proposal-sent { background: #ffc107 !important; color: black !important; }
-.status-negotiation { background: #6f42c1 !important; color: white !important; }
-.status-won { background: #198754 !important; color: white !important; }
-.status-lost { background: #dc3545 !important; color: white !important; }
-
-/* Loading spinner animation */
-.fa-spinner {
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* Form validation styles */
-input:valid:not(:placeholder-shown) {
-    border-color: #198754 !important;
-}
-
-input:invalid:not(:placeholder-shown) {
-    border-color: #dc3545 !important;
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
     .main-content {
-        padding: 15px !important;
-        width: 100vw !important;
-        margin-left: 0 !important;
+        overflow-x: hidden !important;
+        width: calc(100vw - 250px) !important;
+        box-sizing: border-box;
+        background-color: #f8f9fa;
     }
-    
-    .content-header {
-        padding: 15px !important;
-    }
-    
-    .content-header h2 {
-        font-size: 1.5em !important;
-    }
-    
-    .lead-header-info {
-        padding: 20px !important;
-    }
-    
-    .lead-header-info h2 {
-        font-size: 1.5em !important;
-    }
-    
-    .form-section {
-        padding: 20px !important;
-    }
-    
-    .form-section h3 {
-        font-size: 1.2em !important;
-    }
-    
-    input, select, textarea {
-        font-size: 16px !important; /* Prevents zoom on mobile */
-    }
-}
 
-@media (max-width: 480px) {
-    .content-header > div {
-        flex-direction: column !important;
-        align-items: flex-start !important;
-        gap: 10px !important;
+    /* Navy Blue Theme */
+    .content-header {
+        background: #0d6efd !important;
     }
-    
-    .form-actions {
-        flex-direction: column !important;
-        gap: 10px !important;
+
+    /* Lead Title Header */
+    .lead-header-info {
+        animation: fadeIn 0.5s ease-out;
     }
-    
-    .form-actions button {
-        width: 100% !important;
+
+    /* Form input focus effects */
+    input:focus,
+    select:focus,
+    textarea:focus {
+        outline: none;
+        border-color: #0d6efd !important;
+        box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1) !important;
     }
-    
-    .lead-header-info h2 {
-        flex-direction: column !important;
-        gap: 10px !important;
-        text-align: center !important;
+
+    /* Add option button */
+    .add-option-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(13, 110, 253, 0.2);
+        transition: all 0.3s ease;
     }
-}
+
+    /* Button hover effects */
+    button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(13, 110, 253, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    /* Scrollbar styling */
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #f1f5f9;
+        border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #0d6efd;
+        border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #0a58ca;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    #leadForm {
+        animation: fadeIn 0.5s ease-out;
+    }
+
+    /* Status badge colors */
+    .status-new {
+        background: #0d6efd !important;
+        color: white !important;
+    }
+
+    .status-contacted {
+        background: #0dcaf0 !important;
+        color: white !important;
+    }
+
+    .status-qualified {
+        background: #198754 !important;
+        color: white !important;
+    }
+
+    .status-proposal-sent {
+        background: #ffc107 !important;
+        color: black !important;
+    }
+
+    .status-negotiation {
+        background: #6f42c1 !important;
+        color: white !important;
+    }
+
+    .status-won {
+        background: #198754 !important;
+        color: white !important;
+    }
+
+    .status-lost {
+        background: #dc3545 !important;
+        color: white !important;
+    }
+
+    /* Loading spinner animation */
+    .fa-spinner {
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    /* Form validation styles */
+    input:valid:not(:placeholder-shown) {
+        border-color: #198754 !important;
+    }
+
+    input:invalid:not(:placeholder-shown) {
+        border-color: #dc3545 !important;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+        .main-content {
+            padding: 15px !important;
+            width: 100vw !important;
+            margin-left: 0 !important;
+        }
+
+        .content-header {
+            padding: 15px !important;
+        }
+
+        .content-header h2 {
+            font-size: 1.5em !important;
+        }
+
+        .lead-header-info {
+            padding: 20px !important;
+        }
+
+        .lead-header-info h2 {
+            font-size: 1.5em !important;
+        }
+
+        .form-section {
+            padding: 20px !important;
+        }
+
+        .form-section h3 {
+            font-size: 1.2em !important;
+        }
+
+        input,
+        select,
+        textarea {
+            font-size: 16px !important;
+            /* Prevents zoom on mobile */
+        }
+    }
+
+    @media (max-width: 480px) {
+        .content-header>div {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 10px !important;
+        }
+
+        .form-actions {
+            flex-direction: column !important;
+            gap: 10px !important;
+        }
+
+        .form-actions button {
+            width: 100% !important;
+        }
+
+        .lead-header-info h2 {
+            flex-direction: column !important;
+            gap: 10px !important;
+            text-align: center !important;
+        }
+    }
 </style>
 {% endblock %}
