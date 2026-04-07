@@ -31,8 +31,8 @@ class LeadApprovalPayload(BaseModel):
 # ============ EMAIL CONFIGURATION ============
 SMTP_HOST = "smtp.mailngx.com"
 SMTP_PORT = 587
-SMTP_USER = "sanika@cogentsecurity.ai"
-SMTP_PASS = "SANIk@180704"
+SMTP_USER = "info@cogentsecurity.ai"
+SMTP_PASS = "Cogent@2025"
 
 def send_email(to_email: str, subject: str, body: str):
     """Send a plain-text email via SMTP."""
