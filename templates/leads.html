@@ -831,7 +831,11 @@
             html += `<td style="border:1px solid #dee2e6;padding:16px;font-size:1.1em;color:#000;">${lead.district || '-'}</td>`;
             html += `<td style="border:1px solid #dee2e6;padding:16px;font-size:1.1em;color:#000;">${lead.city || '-'}</td>`;
             html += `<td style="border:1px solid #dee2e6;padding:16px;font-size:1.1em;color:#000;">${lead.pin_code || '-'}</td>`;
-            html += `<td style="border:1px solid #dee2e6;padding:16px;font-size:1.1em;color:#000;max-width:250px;white-space:normal;word-break:break-word;">${lead.full_address || '-'}</td>`;
+            html += `<td style="border:1px solid #dee2e6;padding:16px;font-size:1.1em;color:#000;max-width:300px;white-space:normal;word-break:break-word;">
+${lead.full_address
+    ? String(lead.full_address).replace(/, /g, ',<br>')
+    : '-'}
+</td>`;
             html += `<td style="border:1px solid #dee2e6;padding:16px;font-size:1.1em;">${lead.company_website ? `<a href="${lead.company_website}" target="_blank" style="color:#0d6efd;">Website</a>` : '-'}</td>`;
             html += `<td style="border:1px solid #dee2e6;padding:16px;font-size:1.1em;">${lead.company_linkedin_link ? `<a href="${lead.company_linkedin_link}" target="_blank" style="color:#0d6efd;">LinkedIn</a>` : '-'}</td>`;
             html += `<td style="border:1px solid #dee2e6;padding:16px;font-size:1.1em;color:#000;"><code style="background:#f8f9fa;padding:4px 8px;border-radius:4px;">${lead.gstin || '-'}</code></td>`;

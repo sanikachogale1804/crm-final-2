@@ -650,25 +650,22 @@ function escapeHtml(text) {
 }
 
 function formatRemarks(remarks) {
-    if (!remarks) return '-';
+    if (!remarks) return "";
 
     try {
         const attempts = JSON.parse(remarks);
-        if (!Array.isArray(attempts) || attempts.length === 0) return '-';
 
-        return attempts.map((a, i) => `
-            <div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:6px;">
-                <div style="min-width:8px;height:8px;border-radius:50%;background:#0d6efd;margin-top:5px;flex-shrink:0;"></div>
-                <div>
-                    <span style="font-size:0.75em;font-weight:600;color:#6c757d;">Attempt ${i + 1}</span><br>
-                    <span style="font-size:0.85em;color:#212529;">${a.note || ''}</span>
-                </div>
-            </div>
-        `).join('');
+        return attempts.map(a => {
+            const date = new Date(a.date).toLocaleDateString('en-GB', {
+                day: 'numeric',
+                month: 'short'
+            });
+
+            return `<b>${a.type}</b>: ${date}`;
+        }).join('<br>');
 
     } catch {
-        // Plain text fallback
-        return `<span style="font-size:0.85em;color:#212529;">${remarks}</span>`;
+        return remarks;
     }
 }
 

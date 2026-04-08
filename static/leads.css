@@ -279,15 +279,6 @@
     vertical-align: middle;
     white-space: nowrap;
 }
-#leads-table td.remarks-cell {
-    white-space: normal !important;
-    word-break: break-word !important;
-    vertical-align: top !important;
-    min-width: 220px !important;
-    max-width: 270px !important;  
-    padding: 8px !important;
-    font-size: 1em !important;
-}
 
 .leads-table td:first-child {
     font-weight: 600;
