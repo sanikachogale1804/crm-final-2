@@ -1399,7 +1399,24 @@ async def get_leads(
 
         # Role-based scoping
         user_role = (user.get('role') or '').strip().lower()
-        if user_role != 'admin':
+        if user_role == 'admin':
+            pass  # sab leads
+        elif user_role == 'sales_manager':
+        # Apni leads + team ki leads (jinka reports_to = current user hai)
+            query += ''' AND (
+                l.created_by = %s 
+                OR l.assigned_to = %s
+                OR l.created_by IN (SELECT id FROM users WHERE reports_to = %s AND is_active = 1)
+                OR l.assigned_to IN (SELECT id FROM users WHERE reports_to = %s AND is_active = 1)
+                OR LOWER(l.current_approval_level) = %s
+            )'''
+            params.extend([
+                user['user_id'], user['user_id'],
+                user['user_id'], user['user_id'],
+                user_role
+            ])
+        else:
+            # Baaki sab — sirf apni leads
             query += ' AND (l.created_by = %s OR l.assigned_to = %s OR LOWER(l.current_approval_level) = %s)'
             params.extend([user['user_id'], user['user_id'], user_role])
 
@@ -1488,18 +1505,30 @@ async def get_lead_detail(lead_id: str, request: Request, user: dict = Depends(g
         raise HTTPException(status_code=403, detail="No permission to view leads")
     with get_db_connection() as conn:
         cursor = conn.cursor()
-        if user['role'] != 'admin':
-            cursor.execute('''
-            SELECT l.*, u1.full_name as created_by_name, u2.full_name as assigned_to_name
-            FROM leads l LEFT JOIN users u1 ON l.created_by = u1.id LEFT JOIN users u2 ON l.assigned_to = u2.id
-            WHERE l.lead_id = %s AND (l.created_by = %s OR l.assigned_to = %s OR LOWER(l.current_approval_level) = %s)
-            ''', (lead_id, user['user_id'], user['user_id'], user['role'].lower()))
-        else:
+        if user['role'] == 'admin':
             cursor.execute('''
             SELECT l.*, u1.full_name as created_by_name, u2.full_name as assigned_to_name
             FROM leads l LEFT JOIN users u1 ON l.created_by = u1.id LEFT JOIN users u2 ON l.assigned_to = u2.id
             WHERE l.lead_id = %s
             ''', (lead_id,))
+        elif user['role'] == 'sales_manager':
+            cursor.execute('''
+            SELECT l.*, u1.full_name as created_by_name, u2.full_name as assigned_to_name
+            FROM leads l LEFT JOIN users u1 ON l.created_by = u1.id LEFT JOIN users u2 ON l.assigned_to = u2.id
+            WHERE l.lead_id = %s AND (
+                l.created_by = %s 
+                OR l.assigned_to = %s
+                OR l.created_by IN (SELECT id FROM users WHERE reports_to = %s AND is_active = 1)
+                OR l.assigned_to IN (SELECT id FROM users WHERE reports_to = %s AND is_active = 1)
+            )
+            ''', (lead_id, user['user_id'], user['user_id'], user['user_id'], user['user_id']))
+        else:
+            cursor.execute('''
+            SELECT l.*, u1.full_name as created_by_name, u2.full_name as assigned_to_name
+            FROM leads l LEFT JOIN users u1 ON l.created_by = u1.id LEFT JOIN users u2 ON l.assigned_to = u2.id
+            WHERE l.lead_id = %s AND (l.created_by = %s OR l.assigned_to = %s OR LOWER(l.current_approval_level) = %s)
+            ''', (lead_id, user['user_id'], user['user_id'], user['role'].lower()))
+
         lead = cursor.fetchone()
         if not lead:
             raise HTTPException(status_code=404, detail="Lead not found")
