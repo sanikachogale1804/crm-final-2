@@ -831,11 +831,7 @@
             html += `<td style="border:1px solid #dee2e6;padding:16px;font-size:1.1em;color:#000;">${lead.district || '-'}</td>`;
             html += `<td style="border:1px solid #dee2e6;padding:16px;font-size:1.1em;color:#000;">${lead.city || '-'}</td>`;
             html += `<td style="border:1px solid #dee2e6;padding:16px;font-size:1.1em;color:#000;">${lead.pin_code || '-'}</td>`;
-            html += `<td style="border:1px solid #dee2e6;padding:16px;font-size:1.1em;color:#000;max-width:300px;white-space:normal;word-break:break-word;">
-${lead.full_address
-    ? String(lead.full_address).replace(/, /g, ',<br>')
-    : '-'}
-</td>`;
+            html += `<td class="wrap-cell" style="border:1px solid #dee2e6;padding:16px;font-size:1.1em;color:#000;width:220px;min-width:220px;max-width:220px;">${lead.full_address || '-'}</td>`;
             html += `<td style="border:1px solid #dee2e6;padding:16px;font-size:1.1em;">${lead.company_website ? `<a href="${lead.company_website}" target="_blank" style="color:#0d6efd;">Website</a>` : '-'}</td>`;
             html += `<td style="border:1px solid #dee2e6;padding:16px;font-size:1.1em;">${lead.company_linkedin_link ? `<a href="${lead.company_linkedin_link}" target="_blank" style="color:#0d6efd;">LinkedIn</a>` : '-'}</td>`;
             html += `<td style="border:1px solid #dee2e6;padding:16px;font-size:1.1em;color:#000;"><code style="background:#f8f9fa;padding:4px 8px;border-radius:4px;">${lead.gstin || '-'}</code></td>`;
@@ -847,8 +843,8 @@ ${lead.full_address
             html += `<td style="border:1px solid #dee2e6;padding:16px;font-size:1.1em;color:#000;">${lead.method_of_communication || 'Email'}</td>`;
             html += `<td style="border:1px solid #dee2e6;padding:16px;font-size:1.1em;"><span class="${statusClass}" style="padding:6px 14px;border-radius:20px;font-weight:600;display:inline-block;font-size:1em;">${lead.lead_status || 'New'}</span></td>`;
             html += `<td style="border:1px solid #dee2e6;padding:16px;font-size:1.1em;color:#000;white-space:nowrap;">${lead.purpose_of_meeting || '-'}</td>`;
-            html += `<td style="border:1px solid #dee2e6;padding:16px;font-size:1.1em;color:#000;max-width:200px;white-space:normal;">${lead.meeting_outcome || '-'}</td>`;
-            html += `<td style="border:1px solid #dee2e6;padding:16px;font-size:1.1em;color:#000;max-width:250px;white-space:normal;word-break:break-word;">${lead.discussion_held || '-'}</td>`;
+            html += `<td class="wrap-cell" style="border:1px solid #dee2e6;padding:16px;font-size:1.1em;color:#000;width:200px;min-width:200px;max-width:200px;">${lead.meeting_outcome || '-'}</td>`;
+            html += `<td class="wrap-cell" style="border:1px solid #dee2e6;padding:16px;font-size:1.1em;color:#000;width:220px;min-width:220px;max-width:220px;">${lead.discussion_held || '-'}</td>`;
             // Remarks cell - attempt-wise display
             // Remarks cell - collapsible attempts
             (function () {
@@ -1128,6 +1124,12 @@ ${lead.full_address
         padding: 16px !important;
         white-space: nowrap !important;
         color: #000000 !important;
+    }
+
+    #leads-table td.wrap-cell {
+        white-space: normal !important;
+        word-break: break-word !important;
+        vertical-align: top !important;
     }
 
     #leads-table td.remarks-cell {
