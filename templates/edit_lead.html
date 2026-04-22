@@ -1777,7 +1777,10 @@
         <div style="position:absolute;left:-24px;top:14px;width:10px;height:10px;border-radius:50%;background:#0d6efd;border:2px solid white;box-shadow:0 0 0 1.5px #0d6efd;"></div>
         <div style="background:white;border:1px solid #dee2e6;border-radius:10px;padding:12px 14px;">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-                <span style="font-size:0.8em;font-weight:600;color:#6c757d;">Attempt ${i + 1}</span>
+                <span style="font-size:0.8em;font-weight:600;color:#6c757d;">
+                Attempt ${i + 1}
+                ${attempt.date ? `<span style="font-weight:400;color:#adb5bd;margin-left:6px;">(${new Date(attempt.date).toLocaleDateString('en-IN')})</span>` : ''}
+            </span>
                 <button type="button" onclick="openAttemptModal(${i})"
                     style="font-size:0.78em;padding:3px 10px;border:1px solid #dee2e6;border-radius:6px;background:transparent;color:#6c757d;cursor:pointer;">
                     Edit
@@ -1817,9 +1820,17 @@
                 </button>
             </div>
             <div style="padding:24px;overflow-y:auto;">
+                <div style="margin-bottom:14px;">
+                    <label style="display:block;margin-bottom:8px;font-size:0.9em;font-weight:600;color:#495057;">
+                        <i class="fas fa-calendar"></i> Attempt Date
+                    </label>
+                    <input type="date" id="atl-modal-date"
+                        value="${isEdit ? (attempt.date || '') : new Date().toISOString().split('T')[0]}"
+                        style="width:100%;padding:10px 14px;border:2px solid #dee2e6;border-radius:8px;font-size:1em;background:white;color:#212529;box-sizing:border-box;">
+                </div>
                 <div style="margin-bottom:10px;">
                     <label style="display:block;margin-bottom:8px;font-size:0.9em;font-weight:600;color:#495057;">
-                        Notes / Remarks
+                        <i class="fas fa-sticky-note"></i> Notes / Remarks
                     </label>
                     <textarea id="atl-modal-note" rows="4"
                         placeholder="What happened in this attempt?"
@@ -1863,7 +1874,9 @@
 
     function saveAttempt() {
         const noteEl = document.getElementById('atl-modal-note');
+        const dateEl = document.getElementById('atl-modal-date');
         const note = noteEl ? noteEl.value.trim() : '';
+        const date = dateEl ? dateEl.value : '';
 
         if (!note) {
             if (noteEl) noteEl.style.borderColor = '#dc3545';
@@ -1872,9 +1885,9 @@
         }
 
         if (editingIndex !== null) {
-            attempts[editingIndex] = { note: note };
+            attempts[editingIndex] = { note: note, date: date };
         } else {
-            attempts.push({ note: note });
+            attempts.push({ note: note, date: date });
         }
 
         closeAttemptModal();

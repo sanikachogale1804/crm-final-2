@@ -58,9 +58,17 @@
         border-radius: 50%;
     }
 
-    .kpi-dot.primary { background: var(--accent-primary); }
-    .kpi-dot.secondary { background: var(--accent-secondary); }
-    .kpi-dot.warn { background: var(--accent-warn); }
+    .kpi-dot.primary {
+        background: var(--accent-primary);
+    }
+
+    .kpi-dot.secondary {
+        background: var(--accent-secondary);
+    }
+
+    .kpi-dot.warn {
+        background: var(--accent-warn);
+    }
 
     .cards-row {
         display: grid;
@@ -89,7 +97,9 @@
     }
 
     @media (max-width: 520px) {
-        .chart-wrap { height: 220px; }
+        .chart-wrap {
+            height: 220px;
+        }
     }
 
     .status-legend {
@@ -99,7 +109,9 @@
         margin-top: 8px;
     }
 
-    #statusChart { cursor: pointer; }
+    #statusChart {
+        cursor: pointer;
+    }
 
     .legend-item-btn {
         display: flex;
@@ -116,21 +128,32 @@
         transition: background 0.15s;
     }
 
-    .legend-item-btn:hover { background: rgba(0, 0, 0, 0.07); }
+    .legend-item-btn:hover {
+        background: rgba(0, 0, 0, 0.07);
+    }
 
-    .table-wrap { overflow: auto; }
+    .table-wrap {
+        overflow: auto;
+    }
 
-    table { width: 100%; border-collapse: collapse; }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
 
-    th, td {
+    th,
+    td {
         padding: 10px;
         border-bottom: 1px solid var(--card-border);
         text-align: left;
     }
 
-    th { color: var(--text-muted); font-weight: 600; }
+    th {
+        color: var(--text-muted);
+        font-weight: 600;
+    }
 
-    /* ===== MISSED FOLLOW-UPS CLICKABLE CARD ===== */
+    /* ===== MISSED FOLLOW-UPS CARD ===== */
     .missed-followup-card {
         cursor: pointer;
         transition: all 0.25s ease;
@@ -190,16 +213,467 @@
     }
 
     @media (max-width: 1100px) {
-        .kpi-grid { grid-template-columns: repeat(3, 1fr); }
+        .kpi-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
     }
 
     @media (max-width: 820px) {
-        .kpi-grid { grid-template-columns: repeat(2, 1fr); }
-        .cards-row { grid-template-columns: 1fr; }
+        .kpi-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .cards-row {
+            grid-template-columns: 1fr;
+        }
     }
 
     @media (max-width: 520px) {
-        .kpi-grid { grid-template-columns: 1fr; }
+        .kpi-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* ===== CALENDAR CSS ===== */
+    .cal-section {
+        margin-top: 24px;
+    }
+
+    .cal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .cal-header h2 {
+        margin: 0;
+        font-size: 1.3rem;
+        color: var(--page-title);
+    }
+
+    .cal-nav {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .cal-nav button {
+        background: white;
+        border: 1px solid var(--card-border);
+        border-radius: 8px;
+        padding: 6px 14px;
+        cursor: pointer;
+        font-size: 1rem;
+        color: var(--page-title);
+        transition: all 0.2s;
+    }
+
+    .cal-nav button:hover {
+        background: #f3f4f6;
+    }
+
+    .cal-nav .cal-month-label {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--page-title);
+        min-width: 160px;
+        text-align: center;
+    }
+
+    .cal-legend {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    .cal-legend-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.82rem;
+        color: #6b7280;
+    }
+
+    .cal-legend-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 3px;
+        flex-shrink: 0;
+    }
+
+    .cal-summary {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        margin-bottom: 14px;
+    }
+
+    .cal-summary-card {
+        padding: 10px 14px;
+        border-radius: 10px;
+        text-align: center;
+        border: 1px solid;
+        transition: transform 0.15s;
+    }
+
+    .cal-summary-card:hover {
+        transform: translateY(-2px);
+    }
+
+    .cal-summary-card .cs-num {
+        font-size: 1.4rem;
+        font-weight: 800;
+    }
+
+    .cal-summary-card .cs-lbl {
+        font-size: 0.72rem;
+        margin-top: 2px;
+    }
+
+    .cs-followup {
+        background: #eff6ff;
+        border-color: #bfdbfe;
+    }
+
+    .cs-followup .cs-num {
+        color: #1d4ed8;
+    }
+
+    .cs-followup .cs-lbl {
+        color: #3b82f6;
+    }
+
+    .cs-created {
+        background: #ecfdf5;
+        border-color: #a7f3d0;
+    }
+
+    .cs-created .cs-num {
+        color: #065f46;
+    }
+
+    .cs-created .cs-lbl {
+        color: #10b981;
+    }
+
+    .cs-closure {
+        background: #fffbeb;
+        border-color: #fde68a;
+    }
+
+    .cs-closure .cs-num {
+        color: #92400e;
+    }
+
+    .cs-closure .cs-lbl {
+        color: #f59e0b;
+    }
+
+    .cs-aging {
+        background: #fef2f2;
+        border-color: #fecaca;
+    }
+
+    .cs-aging .cs-num {
+        color: #991b1b;
+    }
+
+    .cs-aging .cs-lbl {
+        color: #ef4444;
+    }
+
+    .cal-grid-wrap {
+        background: white;
+        border: 1px solid var(--card-border);
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    .cal-weekdays {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        background: #f8fafc;
+        border-bottom: 1px solid var(--card-border);
+    }
+
+    .cal-weekday {
+        padding: 10px 6px;
+        text-align: center;
+        font-size: 0.78rem;
+        font-weight: 700;
+        color: #9ca3af;
+        letter-spacing: 0.05em;
+    }
+
+    .cal-days {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+    }
+
+    .cal-day {
+        min-height: 110px;
+        padding: 8px 8px 6px;
+        border-right: 1px solid #f1f5f9;
+        border-bottom: 1px solid #f1f5f9;
+        position: relative;
+        transition: background 0.15s;
+        vertical-align: top;
+    }
+
+    .cal-day:nth-child(7n) {
+        border-right: none;
+    }
+
+    .cal-day.other-month {
+        background: #fafafa;
+    }
+
+    .cal-day.other-month .cal-day-num {
+        color: #d1d5db;
+    }
+
+    .cal-day.today {
+        background: #eff6ff;
+    }
+
+    .cal-day.today .cal-day-num {
+        background: #3b82f6;
+        color: white;
+        border-radius: 50%;
+        width: 26px;
+        height: 26px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+    }
+
+    .cal-day-num {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 4px;
+        min-width: 26px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .cal-events {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+    }
+
+    .cal-event {
+        font-size: 0.72rem;
+        padding: 2px 6px;
+        border-radius: 4px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        cursor: pointer;
+        font-weight: 500;
+        max-width: 100%;
+        transition: opacity 0.15s;
+    }
+
+    .cal-day:hover {
+        background: #f0f7ff !important;
+        box-shadow: inset 0 0 0 2px #bfdbfe;
+    }
+
+    .cal-day.today:hover {
+        background: #dbeafe !important;
+    }
+
+    .cal-event:hover {
+        opacity: 0.8;
+    }
+
+    .cal-event.followup {
+        background: #dbeafe;
+        color: #1d4ed8;
+    }
+
+    .cal-event.created {
+        background: #d1fae5;
+        color: #065f46;
+    }
+
+    .cal-event.closure {
+        background: #fef3c7;
+        color: #92400e;
+    }
+
+    .cal-event.aging {
+        background: #fee2e2;
+        color: #991b1b;
+    }
+
+    .cal-more {
+        font-size: 0.7rem;
+        color: #6b7280;
+        cursor: pointer;
+        padding: 1px 4px;
+        border-radius: 3px;
+        background: #f3f4f6;
+        display: inline-block;
+        margin-top: 1px;
+    }
+
+    .cal-more:hover {
+        background: #e5e7eb;
+    }
+
+    /* Calendar Day Detail Modal */
+    #calDayModal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+        z-index: 99999;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #calDayModal.open {
+        display: flex;
+    }
+
+    .cal-modal-box {
+        background: white;
+        border-radius: 16px;
+        width: 92%;
+        max-width: 520px;
+        max-height: 80vh;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+        overflow: hidden;
+    }
+
+    .cal-modal-head {
+        background: #3b82f6;
+        color: white;
+        padding: 16px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .cal-modal-head h3 {
+        margin: 0;
+        font-size: 1.1rem;
+    }
+
+    .cal-modal-close {
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        color: white;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .cal-modal-body {
+        padding: 16px 20px;
+        overflow-y: auto;
+        flex: 1;
+    }
+
+    .cal-modal-group {
+        margin-bottom: 16px;
+    }
+
+    .cal-modal-group-title {
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+        padding: 4px 8px;
+        border-radius: 4px;
+    }
+
+    .cal-modal-item {
+        padding: 8px 10px;
+        border-radius: 6px;
+        margin-bottom: 6px;
+        font-size: 0.88rem;
+        border-left: 3px solid transparent;
+        background: #f9fafb;
+        cursor: pointer;
+        transition: background 0.15s;
+    }
+
+    .cal-modal-item:hover {
+        background: #f1f5f9;
+    }
+
+    .cal-modal-item .lead-id {
+        font-weight: 700;
+        color: #3b82f6;
+    }
+
+    .cal-modal-item .lead-name {
+        color: #374151;
+        font-weight: 500;
+    }
+
+    .cal-modal-item .lead-meta {
+        font-size: 0.78rem;
+        color: #9ca3af;
+        margin-top: 3px;
+        line-height: 1.5;
+    }
+
+    .cal-modal-item.followup {
+        border-left-color: #3b82f6;
+    }
+
+    .cal-modal-item.created {
+        border-left-color: #10b981;
+    }
+
+    .cal-modal-item.closure {
+        border-left-color: #f59e0b;
+    }
+
+    .cal-modal-item.aging {
+        border-left-color: #ef4444;
+    }
+
+    .cal-empty {
+        text-align: center;
+        color: #9ca3af;
+        padding: 30px 0;
+        font-size: 0.9rem;
+    }
+
+    @media (max-width: 600px) {
+        .cal-day {
+            min-height: 70px;
+            padding: 5px 4px;
+        }
+
+        .cal-event {
+            font-size: 0.65rem;
+        }
+
+        .cal-summary {
+            grid-template-columns: repeat(2, 1fr);
+        }
     }
 </style>
 
@@ -210,7 +684,7 @@
     <div class="kpi-card" data-permission="dashboard.kpi.total_leads">
         <div>
             <div class="kpi-title">Total Leads</div>
-            <div class="kpi-value" style="color: var(--accent-primary);">{{ stats.total_leads }}</div>
+            <div class="kpi-value" style="color:var(--accent-primary);">{{ stats.total_leads }}</div>
             <div class="kpi-trend">Overall database size</div>
         </div>
         <span class="kpi-dot primary"></span>
@@ -218,7 +692,7 @@
     <div class="kpi-card" data-permission="dashboard.kpi.qualified_leads">
         <div>
             <div class="kpi-title">New Leads</div>
-            <div class="kpi-value" id="kpi-new" style="color: var(--accent-secondary);">0</div>
+            <div class="kpi-value" id="kpi-new" style="color:var(--accent-secondary);">0</div>
             <div class="kpi-trend" id="kpi-new-label">New / New Lead Generation</div>
         </div>
         <span class="kpi-dot secondary"></span>
@@ -226,7 +700,7 @@
     <div class="kpi-card" data-permission="dashboard.kpi.qualified_leads">
         <div>
             <div class="kpi-title">Active (Contacted / Negotiation)</div>
-            <div class="kpi-value" id="kpi-active" style="color: var(--accent-primary);">0</div>
+            <div class="kpi-value" id="kpi-active" style="color:var(--accent-primary);">0</div>
             <div class="kpi-trend">Engagement in progress</div>
         </div>
         <span class="kpi-dot primary"></span>
@@ -234,7 +708,7 @@
     <div class="kpi-card" data-permission="dashboard.kpi.won_deals">
         <div>
             <div class="kpi-title">Won Leads</div>
-            <div class="kpi-value" id="kpi-won" style="color: #10b981;">0</div>
+            <div class="kpi-value" id="kpi-won" style="color:#10b981;">0</div>
             <div class="kpi-trend">Closed / converted</div>
         </div>
         <span class="kpi-dot" style="background:#10b981;"></span>
@@ -245,33 +719,18 @@
 <div class="cards-row" data-permission="dashboard.view_kpis">
     <div class="card" data-permission="dashboard.kpi.total_leads">
         <h3>Upcoming Follow-ups ({{ follow_up_days }} days)</h3>
-        <div style="font-size:1.6rem; color: var(--accent-primary);">{{ stats.upcoming_followups }}</div>
+        <div style="font-size:1.6rem; color:var(--accent-primary);">{{ stats.upcoming_followups }}</div>
     </div>
 
-    <!-- ===== MISSED FOLLOW-UPS — FULLY CLICKABLE CARD ===== -->
-    <div class="card missed-followup-card"
-         data-permission="dashboard.kpi.missed_followups"
-         onclick="goToMissedFollowups()"
-         
-
-        <!-- Arrow icon top-right -->
-        <div class="redirect-arrow">
-            <i class="fas fa-arrow-right"></i>
-        </div>
-
+    <div class="card missed-followup-card" data-permission="dashboard.kpi.missed_followups"
+        onclick="goToMissedFollowups()" title="Click to view all missed follow-up leads">
+        <div class="redirect-arrow"><i class="fas fa-arrow-right"></i></div>
         <h3>
             <i class="fas fa-exclamation-circle" style="color:#ef4444; margin-right:6px;"></i>
             Missed Follow-ups
         </h3>
-
-        <div style="font-size:1.6rem; color:#ef4444; font-weight:700;">
-            {{ stats.missed_followups }}
-        </div>
-
-        <div class="kpi-trend" style="color:#dc2626; margin-top:4px;">
-            Requires attention
-        </div>
-
+        <div style="font-size:1.6rem; color:#ef4444; font-weight:700;">{{ stats.missed_followups }}</div>
+        <div class="kpi-trend" style="color:#dc2626; margin-top:4px;">Requires attention</div>
         <div class="click-hint">
             <i class="fas fa-mouse-pointer" style="font-size:0.7rem;"></i>
             Click to view missed follow-up leads
@@ -283,16 +742,12 @@
 <div class="cards-row" data-permission="dashboard.view_charts">
     <div class="card" data-permission="dashboard.chart.status_distribution">
         <h3>Status Distribution</h3>
-        <div class="chart-wrap">
-            <canvas id="statusChart"></canvas>
-        </div>
+        <div class="chart-wrap"><canvas id="statusChart"></canvas></div>
         <div class="status-legend" id="statusLegend"></div>
     </div>
     <div class="card" data-permission="dashboard.chart.value_metrics">
         <h3>Value Metrics</h3>
-        <div class="chart-wrap">
-            <canvas id="valueChart"></canvas>
-        </div>
+        <div class="chart-wrap"><canvas id="valueChart"></canvas></div>
     </div>
 </div>
 
@@ -319,11 +774,11 @@
                     <td><strong>{{ target.name }}</strong></td>
                     <td>
                         <span class="badge" style="background:
-                                {% if target.type == 'deals' %}#4ECDC4
-                                {% elif target.type == 'revenue' %}#FFD93D
-                                {% elif target.type == 'units' %}#6BCB77
-                                {% else %}#A367B1{% endif %};
-                                color:white; padding:4px 10px; border-radius:12px; font-size:0.85em;">
+                            {% if target.type == 'deals' %}#4ECDC4
+                            {% elif target.type == 'revenue' %}#FFD93D
+                            {% elif target.type == 'units' %}#6BCB77
+                            {% else %}#A367B1{% endif %};
+                            color:white; padding:4px 10px; border-radius:12px; font-size:0.85em;">
                             {{ target.type|title }}
                         </span>
                     </td>
@@ -337,21 +792,22 @@
                         {% else %}{{ "{:,.0f}".format(target.current_value) }}{% endif %}
                     </td>
                     <td>
-                        {% set progress = (target.current_value / target.target_value * 100) if target.target_value > 0 else 0 %}
+                        {% set progress = (target.current_value / target.target_value * 100) if target.target_value > 0
+                        else 0 %}
                         <div style="display:flex; align-items:center; gap:10px;">
                             <div style="flex:1; background:#e5e7eb; border-radius:10px; height:8px; overflow:hidden;">
                                 <div style="height:100%; background:
-                                        {% if progress >= 100 %}#10b981
-                                        {% elif progress >= 75 %}#f59e0b
-                                        {% elif progress >= 50 %}#3b82f6
-                                        {% else %}#ef4444{% endif %};
-                                        width:{{ progress|round(2) }}%; transition:width 0.3s ease;"></div>
-                            </div>
-                            <span style="font-weight:600; min-width:50px; text-align:right; color:
                                     {% if progress >= 100 %}#10b981
                                     {% elif progress >= 75 %}#f59e0b
                                     {% elif progress >= 50 %}#3b82f6
-                                    {% else %}#ef4444{% endif %};">
+                                    {% else %}#ef4444{% endif %};
+                                    width:{{ progress|round(2) }}%; transition:width 0.3s ease;"></div>
+                            </div>
+                            <span style="font-weight:600; min-width:50px; text-align:right; color:
+                                {% if progress >= 100 %}#10b981
+                                {% elif progress >= 75 %}#f59e0b
+                                {% elif progress >= 50 %}#3b82f6
+                                {% else %}#ef4444{% endif %};">
                                 {{ progress|round(1) }}%
                             </span>
                         </div>
@@ -372,187 +828,614 @@
     </div>
 </div>
 
+<!-- ===== CALENDAR SECTION ===== -->
+<div class="cal-section">
+    <div class="cal-header">
+        <h2><i class="fas fa-calendar-alt" style="color:#3b82f6;margin-right:8px;"></i>Lead Calendar</h2>
+        <div class="cal-nav">
+            <button onclick="calPrev()">&#8249;</button>
+            <span class="cal-month-label" id="calMonthLabel">—</span>
+            <button onclick="calNext()">&#8250;</button>
+            <button onclick="calGoToday()"
+                style="font-size:0.85rem;padding:6px 12px;color:#3b82f6;border-color:#bfdbfe;">
+                Today
+            </button>
+        </div>
+    </div>
+
+    <!-- Legend -->
+    <div class="cal-legend" style="margin-bottom:14px;">
+        <div class="cal-legend-item">
+            <span class="cal-legend-dot" style="background:#3b82f6;"></span>Follow-up
+        </div>
+        <div class="cal-legend-item">
+            <span class="cal-legend-dot" style="background:#10b981;"></span>New Lead Created
+        </div>
+        <div class="cal-legend-item">
+            <span class="cal-legend-dot" style="background:#f59e0b;"></span>Closure Date
+        </div>
+        <div class="cal-legend-item">
+            <span class="cal-legend-dot" style="background:#ef4444;"></span>Aging Alert
+        </div>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="cal-summary">
+        <div class="cal-summary-card cs-followup">
+            <div class="cs-num" id="cs-followup">0</div>
+            <div class="cs-lbl" id="cs-followup-lbl">This Month</div>
+        </div>
+        <div class="cal-summary-card cs-created">
+            <div class="cs-num" id="cs-created">0</div>
+            <div class="cs-lbl" id="cs-created-lbl">Created Today</div>
+        </div>
+        <div class="cal-summary-card cs-closure">
+            <div class="cs-num" id="cs-closure">0</div>
+            <div class="cs-lbl" id="cs-closure-lbl">This Month</div>
+        </div>
+        <div class="cal-summary-card cs-aging">
+            <div class="cs-num" id="cs-aging">0</div>
+            <div class="cs-lbl" id="cs-aging-lbl">Aging Leads</div>
+        </div>
+    </div>
+
+    <!-- Calendar Grid -->
+    <div class="cal-grid-wrap">
+        <div class="cal-weekdays">
+            <div class="cal-weekday">SUN</div>
+            <div class="cal-weekday">MON</div>
+            <div class="cal-weekday">TUE</div>
+            <div class="cal-weekday">WED</div>
+            <div class="cal-weekday">THU</div>
+            <div class="cal-weekday">FRI</div>
+            <div class="cal-weekday">SAT</div>
+        </div>
+        <div class="cal-days" id="calDays"></div>
+    </div>
+</div>
+
+<!-- Calendar Day Detail Modal -->
+<div id="calDayModal">
+    <div class="cal-modal-box">
+        <div class="cal-modal-head">
+            <h3 id="calModalTitle">Events</h3>
+            <button class="cal-modal-close" onclick="closeCalModal()">✕</button>
+        </div>
+        <div class="cal-modal-body" id="calModalBody"></div>
+    </div>
+</div>
+
+<!-- ===== SCRIPTS ===== -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script>
     (function () {
-        // ─── 1. Build status counts ───────────────────────────────────────────────
+        // ─── Status counts ────────────────────────────────────────────────────────
         var statusCounts = {};
         {% for s in stats.leads_by_status %}
         statusCounts["{{ s.lead_status }}"] = {{ s.count }};
         {% endfor %}
 
-        var totalLeads = {{ stats.total_leads | default(0) }};
+    function goToLeadsWithStatus(statusValue) {
+        window.location.href = '/leads?status=' + encodeURIComponent(statusValue);
+    }
 
-        // ─── 2. Navigate to /leads with status filter ─────────────────────────────
-        function goToLeadsWithStatus(statusValue) {
-            window.location.href = '/leads?status=' + encodeURIComponent(statusValue);
+    // KPI: New Leads
+    var newCount = 0, newStatusNames = [], el;
+    Object.keys(statusCounts).forEach(function (lbl) {
+        if (lbl.toLowerCase().indexOf('new') !== -1) {
+            newCount += statusCounts[lbl];
+            newStatusNames.push(lbl);
         }
+    });
+    if ((el = document.getElementById('kpi-new'))) el.textContent = newCount;
+    if ((el = document.getElementById('kpi-new-label'))) {
+        el.textContent = newStatusNames.length > 0 ? newStatusNames.join(' / ') : 'No new leads yet';
+    }
 
-        // ─── 3. KPI: New Leads ────────────────────────────────────────────────────
-        var newCount = 0;
-        var newStatusNames = [];
-        Object.keys(statusCounts).forEach(function (lbl) {
-            if (lbl.toLowerCase().indexOf('new') !== -1) {
-                newCount += statusCounts[lbl];
-                newStatusNames.push(lbl);
-            }
-        });
-        var el;
-        if ((el = document.getElementById('kpi-new'))) el.textContent = newCount;
-        if ((el = document.getElementById('kpi-new-label'))) {
-            el.textContent = newStatusNames.length > 0 ? newStatusNames.join(' / ') : 'No new leads yet';
+    // KPI: Active
+    var activeKeywords = ['contacted', 'enquiry', 'boq', 'proposal', 'negotiation',
+        'poc', 'technically', 'qualified', 'loi', 'commercial'];
+    var activeCount = 0;
+    Object.keys(statusCounts).forEach(function (lbl) {
+        var lower = lbl.toLowerCase();
+        for (var i = 0; i < activeKeywords.length; i++) {
+            if (lower.indexOf(activeKeywords[i]) !== -1) { activeCount += statusCounts[lbl]; break; }
         }
+    });
+    if ((el = document.getElementById('kpi-active'))) el.textContent = activeCount;
 
-        // ─── 4. KPI: Active leads ─────────────────────────────────────────────────
-        var activeKeywords = ['contacted', 'enquiry', 'boq', 'proposal', 'negotiation',
-            'poc', 'technically', 'qualified', 'loi', 'commercial'];
-        var activeCount = 0;
-        Object.keys(statusCounts).forEach(function (lbl) {
-            var lower = lbl.toLowerCase();
-            for (var i = 0; i < activeKeywords.length; i++) {
-                if (lower.indexOf(activeKeywords[i]) !== -1) { activeCount += statusCounts[lbl]; break; }
-            }
-        });
-        if ((el = document.getElementById('kpi-active'))) el.textContent = activeCount;
+    // KPI: Won
+    var wonCount = 0;
+    Object.keys(statusCounts).forEach(function (lbl) {
+        if (lbl.toLowerCase().indexOf('won') !== -1) wonCount += statusCounts[lbl];
+    });
+    if ((el = document.getElementById('kpi-won'))) el.textContent = wonCount;
 
-        // ─── 5. KPI: Won leads ────────────────────────────────────────────────────
-        var wonCount = 0;
-        Object.keys(statusCounts).forEach(function (lbl) {
-            if (lbl.toLowerCase().indexOf('won') !== -1) wonCount += statusCounts[lbl];
-        });
-        if ((el = document.getElementById('kpi-won'))) el.textContent = wonCount;
+    // ─── Status Pie Chart ─────────────────────────────────────────────────────
+    var statusLabels = Object.keys(statusCounts);
+    var statusValues = statusLabels.map(function (k) { return statusCounts[k]; });
+    var palette = [
+        '#FF6B6B', '#4ECDC4', '#FFD93D', '#6BCB77', '#A367B1', '#FF9F40', '#5DADE2',
+        '#E91E63', '#26C6DA', '#66BB6A', '#FFA726', '#AB47BC', '#42A5F5', '#EF5350',
+        '#FFCA28', '#8BC34A', '#7E57C2', '#FF7043', '#29B6F6', '#EC407A', '#FFEB3B',
+        '#9CCC65', '#BA68C8', '#FF8A65', '#00ACC1', '#D4E157', '#F06292', '#FFB74D',
+        '#4DB6AC', '#CE93D8'
+    ];
+    var statusColors = statusLabels.map(function (lbl, idx) { return palette[idx % palette.length]; });
 
-        // ─── 6. Status Distribution pie chart ────────────────────────────────────
-        var statusLabels = Object.keys(statusCounts);
-        var statusValues = statusLabels.map(function (k) { return statusCounts[k]; });
-
-        var uniqueColorPalette = [
-            '#FF6B6B','#4ECDC4','#FFD93D','#6BCB77','#A367B1','#FF9F40','#5DADE2',
-            '#E91E63','#26C6DA','#66BB6A','#FFA726','#AB47BC','#42A5F5','#EF5350',
-            '#FFCA28','#8BC34A','#7E57C2','#FF7043','#29B6F6','#EC407A','#FFEB3B',
-            '#9CCC65','#BA68C8','#FF8A65','#00ACC1','#D4E157','#F06292','#FFB74D',
-            '#4DB6AC','#CE93D8'
-        ];
-
-        var statusColors = statusLabels.map(function (lbl, idx) {
-            return uniqueColorPalette[idx % uniqueColorPalette.length];
-        });
-
-        var statusCtx = document.getElementById('statusChart');
-        if (statusCtx && window.Chart) {
-            new Chart(statusCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: statusLabels,
-                    datasets: [{ data: statusValues, backgroundColor: statusColors, borderWidth: 2, borderColor: '#ffffff' }]
-                },
-                options: {
-                    plugins: { legend: { display: false } },
-                    cutout: '65%',
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    onClick: function (evt, elements) {
-                        if (elements && elements.length > 0) {
-                            goToLeadsWithStatus(statusLabels[elements[0].index]);
-                        }
-                    }
+    var statusCtx = document.getElementById('statusChart');
+    if (statusCtx && window.Chart) {
+        new Chart(statusCtx, {
+            type: 'doughnut',
+            data: {
+                labels: statusLabels,
+                datasets: [{ data: statusValues, backgroundColor: statusColors, borderWidth: 2, borderColor: '#ffffff' }]
+            },
+            options: {
+                plugins: { legend: { display: false } },
+                cutout: '65%',
+                responsive: true,
+                maintainAspectRatio: false,
+                onClick: function (evt, elements) {
+                    if (elements && elements.length > 0) goToLeadsWithStatus(statusLabels[elements[0].index]);
                 }
-            });
-
-            var legend = document.getElementById('statusLegend');
-            if (legend) {
-                legend.innerHTML = statusLabels.map(function (lbl, i) {
-                    var r = parseInt(statusColors[i].slice(1, 3), 16);
-                    var g = parseInt(statusColors[i].slice(3, 5), 16);
-                    var b = parseInt(statusColors[i].slice(5, 7), 16);
-                    return '<button class="legend-item-btn" onclick="(function(){window.location.href=\'/leads?status=\'+encodeURIComponent(\'' +
-                        lbl.replace(/'/g, "\\'") + '\');})()" title="Click to view ' + lbl + ' leads">' +
-                        '<span style="background:' + statusColors[i] + '; width:14px; height:14px; border-radius:50%; flex-shrink:0; display:inline-block; box-shadow:0 2px 4px rgba(0,0,0,0.15);"></span>' +
-                        '<span style="font-size:0.95rem; color:#374151; font-weight:500; flex:1;">' + lbl + '</span>' +
-                        '<span style="font-weight:700; color:' + statusColors[i] + '; font-size:1.05rem; padding:2px 8px; background:rgba(' + r + ',' + g + ',' + b + ',0.1); border-radius:4px;">' +
-                        statusCounts[lbl] + '</span>' +
-                        '</button>';
-                }).join('');
             }
+        });
+        var legend = document.getElementById('statusLegend');
+        if (legend) {
+            legend.innerHTML = statusLabels.map(function (lbl, i) {
+                var r = parseInt(statusColors[i].slice(1, 3), 16);
+                var g = parseInt(statusColors[i].slice(3, 5), 16);
+                var b = parseInt(statusColors[i].slice(5, 7), 16);
+                return '<button class="legend-item-btn" onclick="(function(){window.location.href=\'/leads?status=\'+encodeURIComponent(\'' +
+                    lbl.replace(/'/g, "\\'") + '\');})()" title="Click to view ' + lbl + ' leads">' +
+                    '<span style="background:' + statusColors[i] + ';width:14px;height:14px;border-radius:50%;flex-shrink:0;display:inline-block;box-shadow:0 2px 4px rgba(0,0,0,0.15);"></span>' +
+                    '<span style="font-size:0.95rem;color:#374151;font-weight:500;flex:1;">' + lbl + '</span>' +
+                    '<span style="font-weight:700;color:' + statusColors[i] + ';font-size:1.05rem;padding:2px 8px;background:rgba(' + r + ',' + g + ',' + b + ',0.1);border-radius:4px;">' +
+                    statusCounts[lbl] + '</span></button>';
+            }).join('');
         }
+    }
 
-        // ─── 7. Value Metrics bar chart ───────────────────────────────────────────
-        var valueMetrics = {
-            totalProposed:   {{ stats.value_metrics.total_proposed   if stats.value_metrics else 0 }},
-            totalNegotiated: {{ stats.value_metrics.total_negotiated if stats.value_metrics else 0 }},
-            totalClosing:    {{ stats.value_metrics.total_closing    if stats.value_metrics else 0 }}
-        };
-
-        var valueCtx = document.getElementById('valueChart');
-        if (valueCtx && window.Chart) {
-            new Chart(valueCtx, {
-                type: 'bar',
-                data: {
-                    labels: ['Total Proposed Value', 'Negotiated Value', 'Closing Amount'],
-                    datasets: [{
-                        label: 'Amount',
-                        data: [valueMetrics.totalProposed, valueMetrics.totalNegotiated, valueMetrics.totalClosing],
-                        backgroundColor: ['#4ECDC4', '#FFD93D', '#6BCB77'],
-                        borderColor: ['#4ECDC4', '#FFD93D', '#6BCB77'],
-                        borderWidth: 2,
-                        borderRadius: 6
-                    }]
-                },
-                options: {
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: {
-                            callbacks: {
-                                label: function (context) {
-                                    return 'Amount: ₹' + context.parsed.y.toLocaleString('en-IN');
-                                }
-                            }
-                        }
-                    },
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: { grid: { display: false }, ticks: { font: { size: 11 }, maxRotation: 0, minRotation: 0 } },
-                        y: {
-                            grid: { color: '#eef2ff' },
-                            ticks: { callback: function (value) { return '₹' + (value / 1000).toFixed(0) + 'K'; } }
-                        }
-                    },
-                    layout: { padding: { top: 25 } }
-                },
-                plugins: [{
-                    afterDatasetsDraw: function (chart) {
-                        var ctx2 = chart.ctx;
-                        chart.data.datasets.forEach(function (dataset, i) {
-                            var meta = chart.getDatasetMeta(i);
-                            if (!meta.hidden) {
-                                meta.data.forEach(function (element, index) {
-                                    ctx2.fillStyle = '#374151';
-                                    ctx2.font = 'bold 12px sans-serif';
-                                    ctx2.textAlign = 'center';
-                                    ctx2.textBaseline = 'bottom';
-                                    var label = '₹' + dataset.data[index].toLocaleString('en-IN');
-                                    var position = element.tooltipPosition();
-                                    ctx2.fillText(label, position.x, position.y - 5);
-                                });
-                            }
-                        });
-                    }
+    // ─── Value Metrics Bar Chart ──────────────────────────────────────────────
+    var valueMetrics = {
+        totalProposed:   {{ stats.value_metrics.total_proposed   if stats.value_metrics else 0 }},
+        totalNegotiated: {{ stats.value_metrics.total_negotiated if stats.value_metrics else 0 }},
+        totalClosing:    {{ stats.value_metrics.total_closing    if stats.value_metrics else 0 }}
+    };
+    var valueCtx = document.getElementById('valueChart');
+    if (valueCtx && window.Chart) {
+        new Chart(valueCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Total Proposed Value', 'Negotiated Value', 'Closing Amount'],
+                datasets: [{
+                    label: 'Amount',
+                    data: [valueMetrics.totalProposed, valueMetrics.totalNegotiated, valueMetrics.totalClosing],
+                    backgroundColor: ['#4ECDC4', '#FFD93D', '#6BCB77'],
+                    borderColor: ['#4ECDC4', '#FFD93D', '#6BCB77'],
+                    borderWidth: 2, borderRadius: 6
                 }]
-            });
-        }
+            },
+            options: {
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { callbacks: { label: function (ctx) { return 'Amount: ₹' + ctx.parsed.y.toLocaleString('en-IN'); } } }
+                },
+                responsive: true, maintainAspectRatio: false,
+                scales: {
+                    x: { grid: { display: false }, ticks: { font: { size: 11 }, maxRotation: 0, minRotation: 0 } },
+                    y: { grid: { color: '#eef2ff' }, ticks: { callback: function (v) { return '₹' + (v / 1000).toFixed(0) + 'K'; } } }
+                },
+                layout: { padding: { top: 25 } }
+            },
+            plugins: [{
+                afterDatasetsDraw: function (chart) {
+                    var ctx2 = chart.ctx;
+                    chart.data.datasets.forEach(function (dataset, i) {
+                        var meta = chart.getDatasetMeta(i);
+                        if (!meta.hidden) {
+                            meta.data.forEach(function (element, index) {
+                                ctx2.fillStyle = '#374151';
+                                ctx2.font = 'bold 12px sans-serif';
+                                ctx2.textAlign = 'center';
+                                ctx2.textBaseline = 'bottom';
+                                var label = '₹' + dataset.data[index].toLocaleString('en-IN');
+                                var position = element.tooltipPosition();
+                                ctx2.fillText(label, position.x, position.y - 5);
+                            });
+                        }
+                    });
+                }
+            }]
+        });
+    }
 
-        // ─── 8. Permission guards ─────────────────────────────────────────────────
-        if (window.PermissionManager) {
-            window.PermissionManager.init();
-            window.PermissionManager.applyGuards();
-        }
-    })();
+    // ─── Permission guards ────────────────────────────────────────────────────
+    if (window.PermissionManager) {
+        window.PermissionManager.init();
+        window.PermissionManager.applyGuards();
+    }
+}) ();
 
-    // ─── MISSED FOLLOW-UPS REDIRECT ──────────────────────────────────────────────
     function goToMissedFollowups() {
         window.location.href = "/leads?filter=missed";
     }
+</script>
+
+<!-- ===== CALENDAR SCRIPT ===== -->
+<script>
+    (function () {
+        var calYear, calMonth;
+        var allLeads = [];
+        var agingAlertDays = {{ aging_alert_days | default(90) }};
+    var eventMap = {};
+
+    var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'];
+    var SHORT_MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+    // ─── Helpers ──────────────────────────────────────────────────────────────
+    function toYMD(dateStr) {
+        if (!dateStr) return null;
+        try {
+            var d = new Date(dateStr);
+            if (isNaN(d)) return null;
+            return d.getFullYear() + '-' +
+                String(d.getMonth() + 1).padStart(2, '0') + '-' +
+                String(d.getDate()).padStart(2, '0');
+        } catch (e) { return null; }
+    }
+
+    function parseExpectedMonth(val) {
+        if (!val) return null;
+        var mMap = {
+            jan: 1, feb: 2, mar: 3, apr: 4, may: 5, jun: 6,
+            jul: 7, aug: 8, sep: 9, oct: 10, nov: 11, dec: 12
+        };
+        val = val.trim();
+        // "Month YYYY"
+        var m = val.match(/^([a-zA-Z]+)\s+(\d{4})$/);
+        if (m) {
+            var mn = mMap[m[1].toLowerCase().substring(0, 3)];
+            if (mn) return m[2] + '-' + String(mn).padStart(2, '0') + '-01';
+        }
+        // "YYYY-MM"
+        m = val.match(/^(\d{4})-(\d{2})$/);
+        if (m) return val + '-01';
+        return toYMD(val);
+    }
+
+    function formatDisplayDate(ymd) {
+        if (!ymd) return '';
+        var parts = ymd.split('-');
+        if (parts.length < 3) return ymd;
+        return parts[2] + ' ' + SHORT_MONTHS[parseInt(parts[1]) - 1] + ' ' + parts[0];
+    }
+
+    // ─── Load leads from API ──────────────────────────────────────────────────
+    async function loadLeads() {
+        try {
+            var res = await fetch('/api/leads?limit=5000', { credentials: 'include' });
+            var data = await res.json();
+            if (data.success) {
+                allLeads = data.data;
+                eventMap = buildEventMap();
+                renderCal();
+            }
+        } catch (e) { console.error('Calendar load error', e); }
+    }
+
+    // ─── Build event map ──────────────────────────────────────────────────────
+    function buildEventMap() {
+        var map = {};
+        var today = new Date(); today.setHours(0, 0, 0, 0);
+        var todayYmd = toYMD(today.toISOString());
+
+        function ensure(ymd) {
+            if (!map[ymd]) map[ymd] = { followup: [], created: [], closure: [], aging: [] };
+        }
+
+        allLeads.forEach(function (lead) {
+            var id = lead.lead_id;
+            var co = lead.company_name || '';
+            var cu = lead.customer_name || '';
+            var name = co || cu || id;
+            var owner = lead.lead_owner || '';
+            var status = lead.lead_status || 'N/A';
+            var aging = lead.lead_aging || 0;
+
+            // ── Follow-up: show on next_follow_up_date ────────────────────────
+            var fu = toYMD(lead.next_follow_up_date);
+            if (fu) {
+                ensure(fu);
+                map[fu].followup.push({
+                    id: id,
+                    name: name,
+                    owner: owner,
+                    // ✅ FIX: show Lead ID + company + status + follow-up date
+                    extra: 'Status: ' + status +
+                        (owner ? ' · Owner: ' + owner : '') +
+                        ' · Follow-up: ' + formatDisplayDate(fu)
+                });
+            }
+
+            // ── Lead Created: use created_at date ─────────────────────────────
+            // ✅ FIX: use created_at (not lead_date) so count matches DB insert date
+            var cr = toYMD(lead.created_at);
+            if (!cr) cr = toYMD(lead.lead_date); // fallback
+            if (cr) {
+                ensure(cr);
+                map[cr].created.push({
+                    id: id,
+                    name: name,
+                    owner: owner,
+                    extra: 'Lead created · Status: ' + status + (owner ? ' · Owner: ' + owner : '')
+                });
+            }
+
+            // ── Closure date ──────────────────────────────────────────────────
+            var cl = toYMD(lead.lead_closer_date) ||
+                parseExpectedMonth(lead.expected_lead_closer_month);
+            if (cl) {
+                ensure(cl);
+                map[cl].closure.push({
+                    id: id,
+                    name: name,
+                    owner: owner,
+                    extra: (lead.lead_closer_date ? 'Closer date' : 'Expected month') +
+                        ' · Status: ' + status +
+                        (owner ? ' · Owner: ' + owner : '')
+                });
+            }
+
+            // ── Aging alert: show on today if overdue ─────────────────────────
+            if (aging > agingAlertDays && todayYmd) {
+                ensure(todayYmd);
+                map[todayYmd].aging.push({
+                    id: id,
+                    name: name,
+                    owner: owner,
+                    extra: aging + ' days old · Status: ' + status +
+                        (owner ? ' · Owner: ' + owner : '')
+                });
+            }
+        });
+        return map;
+    }
+
+    // ─── Render calendar ──────────────────────────────────────────────────────
+    function renderCal() {
+        var today = new Date(); today.setHours(0, 0, 0, 0);
+        var todayYmd = toYMD(today.toISOString());
+
+        var firstDay = new Date(calYear, calMonth, 1);
+        var lastDay = new Date(calYear, calMonth + 1, 0);
+        var startDow = firstDay.getDay();
+
+        // ✅ FIX: Summary counts
+        // Follow-up, Closure, Aging = monthly totals
+        // Created = TODAY's count (not monthly)
+        var sumFu = 0, sumCl = 0, sumAg = 0;
+        var todayCr = (eventMap[todayYmd] && eventMap[todayYmd].created)
+            ? eventMap[todayYmd].created.length : 0;
+
+        for (var d = 1; d <= lastDay.getDate(); d++) {
+            var ymd = calYear + '-' + String(calMonth + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0');
+            if (eventMap[ymd]) {
+                sumFu += eventMap[ymd].followup.length;
+                sumCl += eventMap[ymd].closure.length;
+                // Aging is always on today — only count once
+            }
+        }
+        // Aging = total overdue leads (always today)
+        var sumAg = (eventMap[todayYmd] && eventMap[todayYmd].aging)
+            ? eventMap[todayYmd].aging.length : 0;
+
+        document.getElementById('cs-followup').textContent = sumFu;
+        document.getElementById('cs-created').textContent = todayCr;
+        document.getElementById('cs-closure').textContent = sumCl;
+        document.getElementById('cs-aging').textContent = sumAg;
+
+        // Reset labels to defaults
+        document.getElementById('cs-followup-lbl').textContent = 'This Month';
+        document.getElementById('cs-created-lbl').textContent = 'New Leads Created Today';
+        document.getElementById('cs-closure-lbl').textContent = 'This Month';
+        document.getElementById('cs-aging-lbl').textContent = 'Aging Leads';
+
+        document.getElementById('calMonthLabel').textContent = MONTHS[calMonth] + ' ' + calYear;
+
+        var container = document.getElementById('calDays');
+        container.innerHTML = '';
+
+        // Prev month padding
+        var prevLast = new Date(calYear, calMonth, 0);
+        for (var i = startDow - 1; i >= 0; i--) {
+            container.appendChild(makeCell(prevLast.getDate() - i, null, null, true));
+        }
+
+        // Current month days
+        for (var d = 1; d <= lastDay.getDate(); d++) {
+            var ymd = calYear + '-' + String(calMonth + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0');
+            var cellDate = new Date(calYear, calMonth, d); cellDate.setHours(0, 0, 0, 0);
+            var isToday = cellDate.getTime() === today.getTime();
+            container.appendChild(makeCell(d, ymd, eventMap[ymd] || null, false, isToday));
+        }
+
+        // Next month padding
+        var total = startDow + lastDay.getDate();
+        var remaining = (7 - (total % 7)) % 7;
+        for (var i = 1; i <= remaining; i++) {
+            container.appendChild(makeCell(i, null, null, true));
+        }
+    }
+
+    // ─── Make a calendar cell ─────────────────────────────────────────────────
+    function makeCell(dayNum, ymd, events, otherMonth, isToday) {
+        var cell = document.createElement('div');
+        cell.className = 'cal-day' +
+            (otherMonth ? ' other-month' : '') +
+            (isToday ? ' today' : '');
+
+        var numEl = document.createElement('div');
+        numEl.className = 'cal-day-num';
+        numEl.textContent = dayNum;
+        cell.appendChild(numEl);
+
+        if (!events || otherMonth) return cell;
+
+        var fu = events.followup.length;
+        var cr = events.created.length;
+        var cl = events.closure.length;
+        var ag = events.aging.length;
+        var total = fu + cr + cl + ag;
+
+        if (total === 0) return cell;
+
+        // Show count badges only
+        var badgeWrap = document.createElement('div');
+        badgeWrap.style.cssText = 'display:flex;flex-direction:column;gap:3px;margin-top:4px;';
+
+        function makeBadge(count, label, bgColor, textColor, icon) {
+            if (count === 0) return;
+            var b = document.createElement('div');
+            b.style.cssText = 'display:flex;align-items:center;justify-content:space-between;' +
+                'padding:3px 7px;border-radius:5px;font-size:0.72rem;font-weight:600;' +
+                'background:' + bgColor + ';color:' + textColor + ';cursor:pointer;';
+            b.innerHTML = '<span>' + icon + ' ' + label + '</span>' +
+                '<span style="background:' + textColor + ';color:white;border-radius:10px;' +
+                'padding:0px 6px;font-size:0.7rem;font-weight:700;">' + count + '</span>';
+            b.title = count + ' ' + label;
+            badgeWrap.appendChild(b);
+        }
+
+        makeBadge(fu, 'Follow-up', '#dbeafe', '#1d4ed8', '📅');
+        makeBadge(cr, 'New Lead Created', '#d1fae5', '#065f46', '✅');
+        makeBadge(cl, 'Closure', '#fef3c7', '#92400e', '🏁');
+        makeBadge(ag, 'Aging', '#fee2e2', '#991b1b', '⚠️');
+
+        cell.appendChild(badgeWrap);
+        cell.style.cursor = 'pointer';
+        cell.onclick = function () { openCalModal(ymd, events); };
+
+        return cell;
+    }
+
+    // ─── Open day modal ───────────────────────────────────────────────────────
+    function openCalModal(ymd, events) {
+        var dateObj = new Date(ymd + 'T00:00:00');
+        var label = dateObj.toLocaleDateString('en-IN',
+            { day: 'numeric', month: 'long', year: 'numeric' });
+        document.getElementById('calModalTitle').textContent = '📆 ' + label;
+
+        var body = document.getElementById('calModalBody');
+        body.innerHTML = '';
+
+        // ✅ FIX: Update "Created" summary card to show clicked day's count
+        var dayCreated = (events && events.created) ? events.created.length : 0;
+        var createdNum = document.getElementById('cs-created');
+        var createdLbl = document.getElementById('cs-created-lbl');
+        if (createdNum) createdNum.textContent = dayCreated;
+        if (createdLbl) {
+            var dp = ymd.split('-');
+            createdLbl.textContent = 'Created ' + dp[2] + ' ' + SHORT_MONTHS[parseInt(dp[1]) - 1];
+        }
+
+        var total = (events.followup.length + events.created.length +
+            events.closure.length + events.aging.length);
+
+        if (total === 0) {
+            body.innerHTML = '<div class="cal-empty"><i class="fas fa-calendar-times" style="font-size:2rem;margin-bottom:8px;display:block;color:#d1d5db;"></i>No events on this day</div>';
+        } else {
+            function addGroup(list, type, title, color) {
+                if (!list.length) return;
+                var g = document.createElement('div');
+                g.className = 'cal-modal-group';
+
+                var h = document.createElement('div');
+                h.className = 'cal-modal-group-title';
+                h.style.cssText = 'background:' + color.bg + ';color:' + color.text + ';';
+                h.innerHTML = color.icon + ' ' + title +
+                    ' <span style="float:right;font-weight:400;background:rgba(0,0,0,0.1);padding:1px 8px;border-radius:10px;">' +
+                    list.length + '</span>';
+                g.appendChild(h);
+
+                list.forEach(function (ev) {
+                    var item = document.createElement('div');
+                    item.className = 'cal-modal-item ' + type;
+
+                    // ✅ FIX: structured display — ID, Company, meta info
+                    item.innerHTML =
+                        '<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">' +
+                        '<span class="lead-id">#' + ev.id + '</span>' +
+                        '<span class="lead-name">' + ev.name + '</span>' +
+                        '</div>' +
+                        '<div class="lead-meta">' + ev.extra + '</div>';
+
+                    item.onclick = function () {
+                        window.open('/lead-detail/' + ev.id, '_blank');
+                    };
+                    g.appendChild(item);
+                });
+                body.appendChild(g);
+            }
+
+            addGroup(events.followup, 'followup', 'Follow-ups',
+                { bg: '#eff6ff', text: '#1d4ed8', icon: '📅' });
+            addGroup(events.created, 'created', 'New Leads Created',
+                { bg: '#ecfdf5', text: '#065f46', icon: '✅' });
+            addGroup(events.closure, 'closure', 'Closure Dates',
+                { bg: '#fffbeb', text: '#92400e', icon: '🏁' });
+            addGroup(events.aging, 'aging', 'Aging Alerts',
+                { bg: '#fef2f2', text: '#991b1b', icon: '⚠️' });
+        }
+
+        document.getElementById('calDayModal').classList.add('open');
+    }
+
+    // ─── Close modal ──────────────────────────────────────────────────────────
+    window.closeCalModal = function () {
+        document.getElementById('calDayModal').classList.remove('open');
+        // ✅ Reset Created card back to "today" count on modal close
+        var todayYmd = toYMD(new Date().toISOString());
+        var todayCr = (eventMap[todayYmd] && eventMap[todayYmd].created)
+            ? eventMap[todayYmd].created.length : 0;
+        var createdNum = document.getElementById('cs-created');
+        var createdLbl = document.getElementById('cs-created-lbl');
+        if (createdNum) createdNum.textContent = todayCr;
+        if (createdLbl) createdLbl.textContent = 'Created Today';
+    };
+
+    document.getElementById('calDayModal').addEventListener('click', function (e) {
+        if (e.target === this) closeCalModal();
+    });
+
+    // ─── Navigation ───────────────────────────────────────────────────────────
+    window.calPrev = function () {
+        calMonth--;
+        if (calMonth < 0) { calMonth = 11; calYear--; }
+        renderCal();
+    };
+    window.calNext = function () {
+        calMonth++;
+        if (calMonth > 11) { calMonth = 0; calYear++; }
+        renderCal();
+    };
+    window.calGoToday = function () {
+        var n = new Date();
+        calYear = n.getFullYear();
+        calMonth = n.getMonth();
+        renderCal();
+    };
+
+    // ─── Init ─────────────────────────────────────────────────────────────────
+    var now = new Date();
+    calYear = now.getFullYear();
+    calMonth = now.getMonth();
+    loadLeads();
+}) ();
 </script>
 
 {% endblock %}

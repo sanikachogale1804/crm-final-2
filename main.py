@@ -1276,6 +1276,10 @@ async def control_panel_page(request: Request, user: dict = Depends(get_current_
         raise HTTPException(status_code=403, detail="You don't have permission to access control panel")
     return templates.TemplateResponse("control_panel.html", {"request": request, "user": user, "today": date.today().isoformat()})
 
+# @app.get("/it-support", response_class=HTMLResponse)
+# async def it_support_page(request: Request, user: dict = Depends(get_current_user)):
+#     return templates.TemplateResponse("it_support.html", {"request": request, "user": user, "today": date.today().isoformat()})
+
 @app.get("/lead-settings", response_class=HTMLResponse)
 async def lead_settings_page(request: Request, user: dict = Depends(get_current_user)):
     if not check_user_permission(user, 'can_manage_users'):

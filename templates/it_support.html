@@ -1,0 +1,1083 @@
+{% extends "base.html" %}
+{% block title %}IT Support | Smart CRM{% endblock %}
+{% block content %}
+
+<style>
+    :root {
+        --it-blue: #0d6efd;
+        --it-blue-dark: #084298;
+        --it-blue-light: #e7f0ff;
+        --it-green: #198754;
+        --it-green-light: #d1e7dd;
+        --it-red: #dc3545;
+        --it-red-light: #f8d7da;
+        --it-yellow: #ffc107;
+        --it-yellow-light: #fff3cd;
+        --it-gray: #6c757d;
+        --it-gray-light: #f8f9fa;
+        --it-border: #dee2e6;
+        --it-white: #ffffff;
+        --it-text: #212529;
+        --it-muted: #6c757d;
+    }
+
+    .it-page-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 24px;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .it-page-header h1 {
+        margin: 0;
+        font-size: 1.75rem;
+        color: var(--it-text);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .it-page-header h1 .icon-badge {
+        background: var(--it-blue-light);
+        color: var(--it-blue);
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+    }
+
+    /* ── New Ticket Button ───────────────────────────────────────── */
+    .btn-new-ticket {
+        background: var(--it-blue);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 20px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: background 0.2s, transform 0.15s;
+        box-shadow: 0 2px 8px rgba(13, 110, 253, 0.3);
+    }
+
+    .btn-new-ticket:hover {
+        background: var(--it-blue-dark);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 14px rgba(13, 110, 253, 0.4);
+    }
+
+    /* ── Summary Stats ───────────────────────────────────────────── */
+    .it-stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+        margin-bottom: 24px;
+    }
+
+    .it-stat-card {
+        background: var(--it-white);
+        border: 1px solid var(--it-border);
+        border-radius: 12px;
+        padding: 16px;
+        text-align: center;
+    }
+
+    .it-stat-card .stat-num {
+        font-size: 2rem;
+        font-weight: 800;
+        line-height: 1;
+        margin-bottom: 4px;
+    }
+
+    .it-stat-card .stat-lbl {
+        font-size: 0.8rem;
+        color: var(--it-muted);
+        font-weight: 500;
+    }
+
+    .stat-open .stat-num { color: var(--it-blue); }
+    .stat-inprogress .stat-num { color: #fd7e14; }
+    .stat-resolved .stat-num { color: var(--it-green); }
+    .stat-my .stat-num { color: #6f42c1; }
+
+    /* ── Tabs ────────────────────────────────────────────────────── */
+    .it-tabs {
+        display: flex;
+        gap: 6px;
+        margin-bottom: 20px;
+        border-bottom: 2px solid var(--it-border);
+        padding-bottom: 0;
+    }
+
+    .it-tab {
+        padding: 10px 20px;
+        border: none;
+        background: none;
+        cursor: pointer;
+        font-size: 0.92rem;
+        font-weight: 600;
+        color: var(--it-muted);
+        border-bottom: 2px solid transparent;
+        margin-bottom: -2px;
+        transition: color 0.2s, border-color 0.2s;
+        border-radius: 6px 6px 0 0;
+    }
+
+    .it-tab:hover { color: var(--it-blue); }
+
+    .it-tab.active {
+        color: var(--it-blue);
+        border-bottom-color: var(--it-blue);
+        background: var(--it-blue-light);
+    }
+
+    /* ── Tickets Table ───────────────────────────────────────────── */
+    .it-card {
+        background: var(--it-white);
+        border: 1px solid var(--it-border);
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    .it-table-header {
+        padding: 14px 20px;
+        border-bottom: 1px solid var(--it-border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+        background: var(--it-gray-light);
+    }
+
+    .it-table-header h3 {
+        margin: 0;
+        font-size: 1rem;
+        color: var(--it-text);
+    }
+
+    .it-search {
+        padding: 7px 12px;
+        border: 1px solid var(--it-border);
+        border-radius: 7px;
+        font-size: 0.88rem;
+        outline: none;
+        width: 220px;
+        transition: border-color 0.2s;
+    }
+
+    .it-search:focus { border-color: var(--it-blue); }
+
+    .tickets-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .tickets-table th {
+        padding: 12px 16px;
+        text-align: left;
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: var(--it-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        border-bottom: 1px solid var(--it-border);
+        background: var(--it-gray-light);
+    }
+
+    .tickets-table td {
+        padding: 14px 16px;
+        border-bottom: 1px solid #f1f3f5;
+        font-size: 0.88rem;
+        vertical-align: middle;
+    }
+
+    .tickets-table tr:last-child td { border-bottom: none; }
+
+    .tickets-table tr:hover td { background: #f8f9ff; }
+
+    .ticket-id {
+        font-weight: 700;
+        color: var(--it-blue);
+        font-size: 0.85rem;
+    }
+
+    .ticket-subject {
+        font-weight: 600;
+        color: var(--it-text);
+        max-width: 260px;
+    }
+
+    .ticket-subject .ticket-desc-preview {
+        font-weight: 400;
+        color: var(--it-muted);
+        font-size: 0.8rem;
+        margin-top: 2px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 240px;
+    }
+
+    /* ── Priority Badge ──────────────────────────────────────────── */
+    .badge-priority {
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+    }
+
+    .badge-priority.low    { background: #e9ecef; color: #495057; }
+    .badge-priority.medium { background: var(--it-yellow-light); color: #856404; }
+    .badge-priority.high   { background: #ffe5d0; color: #7d3c04; }
+    .badge-priority.urgent { background: var(--it-red-light); color: var(--it-red); }
+
+    /* ── Status Badge ────────────────────────────────────────────── */
+    .badge-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 0.78rem;
+        font-weight: 600;
+    }
+
+    .badge-status::before {
+        content: '';
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        flex-shrink: 0;
+    }
+
+    .badge-status.open          { background: var(--it-blue-light);  color: var(--it-blue); }
+    .badge-status.open::before  { background: var(--it-blue); }
+    .badge-status.in_progress          { background: #fff3e0;  color: #e65100; }
+    .badge-status.in_progress::before  { background: #fd7e14; }
+    .badge-status.resolved         { background: var(--it-green-light); color: var(--it-green); }
+    .badge-status.resolved::before { background: var(--it-green); }
+    .badge-status.closed          { background: #e9ecef; color: #495057; }
+    .badge-status.closed::before  { background: #6c757d; }
+
+    /* ── Category Icon ───────────────────────────────────────────── */
+    .category-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 3px 9px;
+        border-radius: 6px;
+        font-size: 0.78rem;
+        font-weight: 500;
+        background: var(--it-gray-light);
+        color: var(--it-text);
+        border: 1px solid var(--it-border);
+    }
+
+    .it-empty {
+        text-align: center;
+        padding: 60px 20px;
+        color: var(--it-muted);
+    }
+
+    .it-empty .empty-icon {
+        font-size: 3rem;
+        margin-bottom: 12px;
+        display: block;
+        opacity: 0.4;
+    }
+
+    .it-empty h4 { margin: 0 0 6px; color: #495057; }
+
+    /* ── Modal Overlay ───────────────────────────────────────────── */
+    #ticketModal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 99999;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    #ticketModal.open { display: flex; }
+
+    .modal-box {
+        background: white;
+        border-radius: 16px;
+        width: 100%;
+        max-width: 560px;
+        max-height: 92vh;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+        overflow: hidden;
+        animation: modalIn 0.2s ease;
+    }
+
+    @keyframes modalIn {
+        from { opacity: 0; transform: translateY(-16px) scale(0.98); }
+        to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .modal-head {
+        background: linear-gradient(135deg, var(--it-blue) 0%, var(--it-blue-dark) 100%);
+        color: white;
+        padding: 20px 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .modal-head h3 {
+        margin: 0;
+        font-size: 1.15rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .modal-close {
+        background: rgba(255,255,255,0.2);
+        border: none;
+        color: white;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 1.1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s;
+    }
+
+    .modal-close:hover { background: rgba(255,255,255,0.35); }
+
+    .modal-body {
+        padding: 24px;
+        overflow-y: auto;
+        flex: 1;
+    }
+
+    /* ── Form Fields ─────────────────────────────────────────────── */
+    .form-group {
+        margin-bottom: 18px;
+    }
+
+    .form-group label {
+        display: block;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--it-text);
+        margin-bottom: 6px;
+    }
+
+    .form-group label .required { color: var(--it-red); margin-left: 2px; }
+
+    .form-control {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid var(--it-border);
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-family: inherit;
+        color: var(--it-text);
+        background: white;
+        transition: border-color 0.2s, box-shadow 0.2s;
+        box-sizing: border-box;
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: var(--it-blue);
+        box-shadow: 0 0 0 3px rgba(13,110,253,0.12);
+    }
+
+    textarea.form-control {
+        resize: vertical;
+        min-height: 100px;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+    }
+
+    /* ── Submitter Info Banner ───────────────────────────────────── */
+    .submitter-banner {
+        background: var(--it-blue-light);
+        border: 1px solid #c3d9ff;
+        border-radius: 8px;
+        padding: 12px 14px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.87rem;
+        color: var(--it-blue-dark);
+    }
+
+    .submitter-banner .icon {
+        font-size: 1.2rem;
+        flex-shrink: 0;
+    }
+
+    /* ── Modal Footer ────────────────────────────────────────────── */
+    .modal-footer {
+        padding: 16px 24px;
+        border-top: 1px solid var(--it-border);
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        background: var(--it-gray-light);
+    }
+
+    .btn-cancel {
+        padding: 9px 20px;
+        border: 1px solid var(--it-border);
+        border-radius: 8px;
+        background: white;
+        color: var(--it-muted);
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: background 0.2s;
+    }
+
+    .btn-cancel:hover { background: #e9ecef; }
+
+    .btn-submit {
+        padding: 9px 22px;
+        border: none;
+        border-radius: 8px;
+        background: var(--it-blue);
+        color: white;
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: 600;
+        transition: background 0.2s, transform 0.15s;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+    }
+
+    .btn-submit:hover {
+        background: var(--it-blue-dark);
+        transform: translateY(-1px);
+    }
+
+    .btn-submit:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    /* ── Toast Notification ──────────────────────────────────────── */
+    #itToast {
+        position: fixed;
+        bottom: 28px;
+        right: 28px;
+        padding: 14px 20px;
+        border-radius: 10px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: white;
+        z-index: 999999;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        opacity: 0;
+        transform: translateY(10px);
+        pointer-events: none;
+        transition: opacity 0.3s, transform 0.3s;
+    }
+
+    #itToast.show {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+
+    #itToast.success { background: var(--it-green); }
+    #itToast.error   { background: var(--it-red); }
+
+    /* ── Detail Modal ────────────────────────────────────────────── */
+    #ticketDetailModal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 99999;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    #ticketDetailModal.open { display: flex; }
+
+    .detail-box {
+        background: white;
+        border-radius: 16px;
+        width: 100%;
+        max-width: 600px;
+        max-height: 90vh;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+        overflow: hidden;
+        animation: modalIn 0.2s ease;
+    }
+
+    .detail-head {
+        background: linear-gradient(135deg, #343a40 0%, #212529 100%);
+        color: white;
+        padding: 20px 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+
+    .detail-head .ticket-title {
+        font-size: 1rem;
+        font-weight: 700;
+        margin: 0 0 4px;
+    }
+
+    .detail-head .ticket-meta-top {
+        font-size: 0.8rem;
+        opacity: 0.75;
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .detail-body {
+        padding: 22px 24px;
+        overflow-y: auto;
+        flex: 1;
+    }
+
+    .detail-section {
+        margin-bottom: 20px;
+    }
+
+    .detail-section h4 {
+        font-size: 0.78rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--it-muted);
+        margin: 0 0 8px;
+    }
+
+    .detail-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    .detail-field {
+        background: var(--it-gray-light);
+        border-radius: 8px;
+        padding: 10px 14px;
+    }
+
+    .detail-field .df-label {
+        font-size: 0.75rem;
+        color: var(--it-muted);
+        font-weight: 600;
+        margin-bottom: 3px;
+    }
+
+    .detail-field .df-value {
+        font-size: 0.9rem;
+        color: var(--it-text);
+        font-weight: 500;
+    }
+
+    .detail-description {
+        background: var(--it-gray-light);
+        border-radius: 8px;
+        padding: 14px;
+        font-size: 0.9rem;
+        line-height: 1.6;
+        color: var(--it-text);
+        white-space: pre-wrap;
+    }
+
+    /* ── Responsive ──────────────────────────────────────────────── */
+    @media (max-width: 820px) {
+        .it-stats { grid-template-columns: repeat(2, 1fr); }
+        .form-row  { grid-template-columns: 1fr; }
+        .detail-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 520px) {
+        .it-stats { grid-template-columns: 1fr 1fr; }
+        .tickets-table th:nth-child(4),
+        .tickets-table td:nth-child(4),
+        .tickets-table th:nth-child(5),
+        .tickets-table td:nth-child(5) { display: none; }
+    }
+</style>
+
+<!-- ══ Page Header ══════════════════════════════════════════════════════════ -->
+<div class="it-page-header">
+    <h1>
+        <span class="icon-badge">🛠️</span>
+        IT Support
+    </h1>
+    <button class="btn-new-ticket" onclick="openNewTicketModal()">
+        <span>＋</span> Raise New Ticket
+    </button>
+</div>
+
+<!-- ══ Summary Stats ════════════════════════════════════════════════════════ -->
+<div class="it-stats">
+    <div class="it-stat-card stat-open">
+        <div class="stat-num" id="stat-open">0</div>
+        <div class="stat-lbl">Open</div>
+    </div>
+    <div class="it-stat-card stat-inprogress">
+        <div class="stat-num" id="stat-inprogress">0</div>
+        <div class="stat-lbl">In Progress</div>
+    </div>
+    <div class="it-stat-card stat-resolved">
+        <div class="stat-num" id="stat-resolved">0</div>
+        <div class="stat-lbl">Resolved</div>
+    </div>
+    <div class="it-stat-card stat-my">
+        <div class="stat-num" id="stat-my">0</div>
+        <div class="stat-lbl">My Tickets</div>
+    </div>
+</div>
+
+<!-- ══ Tabs ══════════════════════════════════════════════════════════════════ -->
+<div class="it-tabs">
+    <button class="it-tab active" onclick="switchTab('all', this)">All Tickets</button>
+    <button class="it-tab" onclick="switchTab('my', this)">My Tickets</button>
+    <button class="it-tab" onclick="switchTab('open', this)">Open</button>
+    <button class="it-tab" onclick="switchTab('in_progress', this)">In Progress</button>
+    <button class="it-tab" onclick="switchTab('resolved', this)">Resolved</button>
+</div>
+
+<!-- ══ Tickets Table ═════════════════════════════════════════════════════════ -->
+<div class="it-card">
+    <div class="it-table-header">
+        <h3 id="tableTitle">All Tickets</h3>
+        <input class="it-search" type="text" placeholder="🔍  Search tickets…" oninput="filterTickets(this.value)" id="searchInput">
+    </div>
+    <div style="overflow-x:auto;">
+        <table class="tickets-table">
+            <thead>
+                <tr>
+                    <th>Ticket ID</th>
+                    <th>Subject / Description</th>
+                    <th>Category</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th>Raised By</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody id="ticketsTbody"></tbody>
+        </table>
+    </div>
+</div>
+
+<!-- ══ New Ticket Modal ══════════════════════════════════════════════════════ -->
+<div id="ticketModal">
+    <div class="modal-box">
+        <div class="modal-head">
+            <h3>🎫 Raise a New IT Support Ticket</h3>
+            <button class="modal-close" onclick="closeModal()">✕</button>
+        </div>
+        <div class="modal-body">
+            <!-- Submitter info (auto-filled from session) -->
+            <div class="submitter-banner">
+                <span class="icon">👤</span>
+                <div>
+                    Submitting as <strong id="submitterName">{{ user.full_name }}</strong>
+                    &nbsp;·&nbsp; {{ user.email }}
+                    &nbsp;·&nbsp; {{ user.role }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Subject <span class="required">*</span></label>
+                <input type="text" class="form-control" id="f-subject" placeholder="Brief one-line description of the issue" maxlength="120">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Category <span class="required">*</span></label>
+                    <select class="form-control" id="f-category">
+                        <option value="">— Select Category —</option>
+                        <option value="Hardware">💻 Hardware</option>
+                        <option value="Software">🖥️ Software</option>
+                        <option value="Network / Internet">🌐 Network / Internet</option>
+                        <option value="Email / Outlook">📧 Email / Outlook</option>
+                        <option value="CRM / Application">📊 CRM / Application</option>
+                        <option value="Printer / Scanner">🖨️ Printer / Scanner</option>
+                        <option value="Access / Permissions">🔐 Access / Permissions</option>
+                        <option value="Phone / Mobile">📱 Phone / Mobile</option>
+                        <option value="Other">🔧 Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Priority <span class="required">*</span></label>
+                    <select class="form-control" id="f-priority">
+                        <option value="">— Select Priority —</option>
+                        <option value="low">🟢 Low — Minor inconvenience</option>
+                        <option value="medium">🟡 Medium — Affecting work partially</option>
+                        <option value="high">🟠 High — Blocking work</option>
+                        <option value="urgent">🔴 Urgent — Critical / production down</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Description <span class="required">*</span></label>
+                <textarea class="form-control" id="f-description" placeholder="Describe the issue in detail — what happened, when it started, what you've already tried…" rows="5"></textarea>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Your Department</label>
+                    <input type="text" class="form-control" id="f-department" placeholder="e.g. Sales, Operations…">
+                </div>
+                <div class="form-group">
+                    <label>Asset / Device (if applicable)</label>
+                    <input type="text" class="form-control" id="f-asset" placeholder="e.g. Laptop #12, Printer in Room 3…">
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+            <button class="btn-submit" id="submitBtn" onclick="submitTicket()">
+                <span>🎫</span> Submit Ticket
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ══ Ticket Detail Modal ═══════════════════════════════════════════════════ -->
+<div id="ticketDetailModal">
+    <div class="detail-box">
+        <div class="detail-head">
+            <div>
+                <div class="ticket-title" id="dtTitle">—</div>
+                <div class="ticket-meta-top">
+                    <span id="dtId">—</span>
+                    <span id="dtDate">—</span>
+                    <span id="dtCategory">—</span>
+                </div>
+            </div>
+            <button class="modal-close" onclick="closeDetailModal()">✕</button>
+        </div>
+        <div class="detail-body">
+            <div class="detail-section">
+                <h4>Ticket Details</h4>
+                <div class="detail-grid">
+                    <div class="detail-field">
+                        <div class="df-label">Raised By</div>
+                        <div class="df-value" id="dtRaisedBy">—</div>
+                    </div>
+                    <div class="detail-field">
+                        <div class="df-label">Department</div>
+                        <div class="df-value" id="dtDept">—</div>
+                    </div>
+                    <div class="detail-field">
+                        <div class="df-label">Priority</div>
+                        <div class="df-value" id="dtPriority">—</div>
+                    </div>
+                    <div class="detail-field">
+                        <div class="df-label">Status</div>
+                        <div class="df-value" id="dtStatus">—</div>
+                    </div>
+                    <div class="detail-field" style="grid-column:1/-1;">
+                        <div class="df-label">Asset / Device</div>
+                        <div class="df-value" id="dtAsset">—</div>
+                    </div>
+                </div>
+            </div>
+            <div class="detail-section">
+                <h4>Description</h4>
+                <div class="detail-description" id="dtDescription">—</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ══ Toast ══════════════════════════════════════════════════════════════════ -->
+<div id="itToast"></div>
+
+<!-- ══ Scripts ════════════════════════════════════════════════════════════════ -->
+<script>
+(function () {
+    // ── State ────────────────────────────────────────────────────────────────
+    var tickets = [];
+    var currentTab = 'all';
+    var searchQuery = '';
+
+    // Current logged-in user (from Jinja)
+    var currentUser = {
+        name:  '{{ user.full_name | default("") }}',
+        email: '{{ user.email | default("") }}',
+        role:  '{{ user.role | default("") }}'
+    };
+
+    // ── Local Storage key ─────────────────────────────────────────────────
+    var STORE_KEY = 'it_support_tickets_v1';
+
+    function loadFromStorage() {
+        try {
+            var raw = localStorage.getItem(STORE_KEY);
+            tickets = raw ? JSON.parse(raw) : [];
+        } catch (e) { tickets = []; }
+    }
+
+    function saveToStorage() {
+        try { localStorage.setItem(STORE_KEY, JSON.stringify(tickets)); } catch (e) {}
+    }
+
+    // ── Ticket ID generator ───────────────────────────────────────────────
+    function genId() {
+        var max = tickets.reduce(function(m, t) {
+            var n = parseInt((t.id || '0').replace(/\D/g, ''), 10);
+            return n > m ? n : m;
+        }, 0);
+        return 'TKT-' + String(max + 1).padStart(4, '0');
+    }
+
+    // ── Helpers ───────────────────────────────────────────────────────────
+    function fmtDate(iso) {
+        try {
+            var d = new Date(iso);
+            return d.toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' });
+        } catch(e) { return iso; }
+    }
+
+    function priorityBadge(p) {
+        return '<span class="badge-priority ' + p + '">' + p.toUpperCase() + '</span>';
+    }
+
+    function statusBadge(s) {
+        var labels = { open:'Open', in_progress:'In Progress', resolved:'Resolved', closed:'Closed' };
+        return '<span class="badge-status ' + s + '">' + (labels[s] || s) + '</span>';
+    }
+
+    function categoryPill(c) {
+        return '<span class="category-pill">' + c + '</span>';
+    }
+
+    // ── Stats update ──────────────────────────────────────────────────────
+    function updateStats() {
+        document.getElementById('stat-open').textContent =
+            tickets.filter(function(t){ return t.status === 'open'; }).length;
+        document.getElementById('stat-inprogress').textContent =
+            tickets.filter(function(t){ return t.status === 'in_progress'; }).length;
+        document.getElementById('stat-resolved').textContent =
+            tickets.filter(function(t){ return t.status === 'resolved'; }).length;
+        document.getElementById('stat-my').textContent =
+            tickets.filter(function(t){ return t.createdByEmail === currentUser.email; }).length;
+    }
+
+    // ── Render table ──────────────────────────────────────────────────────
+    function renderTable() {
+        var filtered = tickets.filter(function(t) {
+            if (currentTab === 'my')          return t.createdByEmail === currentUser.email;
+            if (currentTab === 'open')        return t.status === 'open';
+            if (currentTab === 'in_progress') return t.status === 'in_progress';
+            if (currentTab === 'resolved')    return t.status === 'resolved';
+            return true;
+        });
+
+        if (searchQuery) {
+            var q = searchQuery.toLowerCase();
+            filtered = filtered.filter(function(t) {
+                return (t.subject || '').toLowerCase().includes(q) ||
+                       (t.id || '').toLowerCase().includes(q) ||
+                       (t.category || '').toLowerCase().includes(q) ||
+                       (t.createdByName || '').toLowerCase().includes(q);
+            });
+        }
+
+        // Newest first
+        filtered.sort(function(a, b) { return new Date(b.createdAt) - new Date(a.createdAt); });
+
+        var tbody = document.getElementById('ticketsTbody');
+
+        if (filtered.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="7"><div class="it-empty">' +
+                '<span class="empty-icon">🎫</span>' +
+                '<h4>No tickets found</h4>' +
+                '<p style="margin:0;font-size:0.85rem;">Click <strong>Raise New Ticket</strong> to submit your first issue.</p>' +
+                '</div></td></tr>';
+            return;
+        }
+
+        tbody.innerHTML = filtered.map(function(t) {
+            return '<tr style="cursor:pointer;" onclick="openDetailModal(\'' + t.id + '\')">' +
+                '<td><span class="ticket-id">' + t.id + '</span></td>' +
+                '<td><div class="ticket-subject">' + escHtml(t.subject) +
+                    '<div class="ticket-desc-preview">' + escHtml(t.description || '') + '</div></div></td>' +
+                '<td>' + categoryPill(escHtml(t.category)) + '</td>' +
+                '<td>' + priorityBadge(t.priority) + '</td>' +
+                '<td>' + statusBadge(t.status) + '</td>' +
+                '<td style="font-size:0.85rem;color:#374151;">' + escHtml(t.createdByName) + '</td>' +
+                '<td style="font-size:0.82rem;color:#6c757d;white-space:nowrap;">' + fmtDate(t.createdAt) + '</td>' +
+            '</tr>';
+        }).join('');
+    }
+
+    function escHtml(s) {
+        return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    // ── Tab switch ────────────────────────────────────────────────────────
+    window.switchTab = function(tab, btn) {
+        currentTab = tab;
+        document.querySelectorAll('.it-tab').forEach(function(b){ b.classList.remove('active'); });
+        btn.classList.add('active');
+        var labels = { all:'All Tickets', my:'My Tickets', open:'Open Tickets', in_progress:'In Progress', resolved:'Resolved Tickets' };
+        document.getElementById('tableTitle').textContent = labels[tab] || 'Tickets';
+        renderTable();
+    };
+
+    // ── Search ────────────────────────────────────────────────────────────
+    window.filterTickets = function(q) {
+        searchQuery = q;
+        renderTable();
+    };
+
+    // ── Open / close new ticket modal ─────────────────────────────────────
+    window.openNewTicketModal = function() {
+        clearForm();
+        document.getElementById('ticketModal').classList.add('open');
+    };
+
+    window.closeModal = function() {
+        document.getElementById('ticketModal').classList.remove('open');
+    };
+
+    document.getElementById('ticketModal').addEventListener('click', function(e) {
+        if (e.target === this) closeModal();
+    });
+
+    function clearForm() {
+        ['f-subject','f-category','f-priority','f-description','f-department','f-asset']
+            .forEach(function(id){ document.getElementById(id).value = ''; });
+    }
+
+    // ── Submit ticket ─────────────────────────────────────────────────────
+    window.submitTicket = function() {
+        var subject     = document.getElementById('f-subject').value.trim();
+        var category    = document.getElementById('f-category').value;
+        var priority    = document.getElementById('f-priority').value;
+        var description = document.getElementById('f-description').value.trim();
+        var department  = document.getElementById('f-department').value.trim();
+        var asset       = document.getElementById('f-asset').value.trim();
+
+        if (!subject)     { showToast('Please enter a subject.', 'error'); return; }
+        if (!category)    { showToast('Please select a category.', 'error'); return; }
+        if (!priority)    { showToast('Please select a priority.', 'error'); return; }
+        if (!description) { showToast('Please enter a description.', 'error'); return; }
+
+        var btn = document.getElementById('submitBtn');
+        btn.disabled = true;
+        btn.innerHTML = '⏳ Submitting…';
+
+        // Simulate a slight delay for UX feedback
+        setTimeout(function() {
+            var newTicket = {
+                id: genId(),
+                subject: subject,
+                category: category,
+                priority: priority,
+                description: description,
+                department: department || '—',
+                asset: asset || '—',
+                status: 'open',
+                createdAt: new Date().toISOString(),
+                createdByName: currentUser.name,
+                createdByEmail: currentUser.email,
+                createdByRole: currentUser.role
+            };
+
+            tickets.unshift(newTicket);
+            saveToStorage();
+            updateStats();
+            renderTable();
+
+            btn.disabled = false;
+            btn.innerHTML = '<span>🎫</span> Submit Ticket';
+            closeModal();
+            showToast('✅ Ticket ' + newTicket.id + ' submitted successfully!', 'success');
+        }, 600);
+    };
+
+    // ── Detail Modal ──────────────────────────────────────────────────────
+    window.openDetailModal = function(ticketId) {
+        var t = tickets.find(function(x){ return x.id === ticketId; });
+        if (!t) return;
+
+        document.getElementById('dtTitle').textContent    = t.subject;
+        document.getElementById('dtId').textContent       = t.id;
+        document.getElementById('dtDate').textContent     = fmtDate(t.createdAt);
+        document.getElementById('dtCategory').textContent = t.category;
+        document.getElementById('dtRaisedBy').textContent = t.createdByName + ' (' + t.createdByRole + ')';
+        document.getElementById('dtDept').textContent     = t.department;
+        document.getElementById('dtAsset').textContent    = t.asset;
+        document.getElementById('dtDescription').textContent = t.description;
+
+        document.getElementById('dtPriority').innerHTML   = priorityBadge(t.priority);
+        document.getElementById('dtStatus').innerHTML     = statusBadge(t.status);
+
+        document.getElementById('ticketDetailModal').classList.add('open');
+    };
+
+    window.closeDetailModal = function() {
+        document.getElementById('ticketDetailModal').classList.remove('open');
+    };
+
+    document.getElementById('ticketDetailModal').addEventListener('click', function(e) {
+        if (e.target === this) closeDetailModal();
+    });
+
+    // ── Toast ─────────────────────────────────────────────────────────────
+    var toastTimer;
+    function showToast(msg, type) {
+        var el = document.getElementById('itToast');
+        el.textContent = msg;
+        el.className = 'show ' + (type || 'success');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function() {
+            el.classList.remove('show');
+        }, 3500);
+    }
+
+    // ── Init ──────────────────────────────────────────────────────────────
+    loadFromStorage();
+    updateStats();
+    renderTable();
+
+})();
+</script>
+
+{% endblock %}

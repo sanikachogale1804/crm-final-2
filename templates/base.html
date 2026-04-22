@@ -73,6 +73,18 @@
             background-color: #084298;
         }
 
+        /* IT Support nav item - subtle highlight */
+        .sidebar nav a.it-support-link {
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .sidebar nav a.it-support-link:hover,
+        .sidebar nav a.it-support-link.active {
+            background-color: #084298;
+            border-color: transparent;
+        }
+
         /* Sidebar footer (user info + logout) */
         .sidebar-footer {
             font-size: 0.9rem;
@@ -131,6 +143,10 @@
                 <a href="/dashboard" data-permission="dashboard" class="{% if request.url.path == '/dashboard' %}active{% endif %}">Dashboard</a>
                 <a href="/leads" data-permission="leads" class="{% if request.url.path == '/leads' %}active{% endif %}">Leads</a>
                 <a href="/control-panel" data-permission="control_panel" class="{% if request.url.path == '/control-panel' %}active{% endif %}">Control Panel</a>
+                <!-- IT Support - accessible to all logged-in users -->
+                <!-- <a href="/it-support" class="it-support-link {% if request.url.path == '/it-support' %}active{% endif %}">
+                    IT Support
+                </a> -->
             </nav>
         </div>
         <div class="sidebar-footer">
