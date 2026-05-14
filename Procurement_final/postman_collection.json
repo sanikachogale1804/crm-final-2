@@ -1,0 +1,447 @@
+{
+  "info": {
+    "name": "Sales + Procurement CRM API",
+    "description": "Complete API collection for testing the CRM system",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"testuser\",\n  \"email\": \"test@example.com\",\n  \"password\": \"password123\",\n  \"role\": \"user\",\n  \"department\": \"Sales\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/register",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"admin123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/auth/logout",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "logout"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Vendors",
+      "item": [
+        {
+          "name": "List Vendors",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/vendors",
+              "host": ["{{base_url}}"],
+              "path": ["api", "vendors"]
+            }
+          }
+        },
+        {
+          "name": "Create Vendor",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test Vendor Inc\",\n  \"contact_person\": \"Jane Doe\",\n  \"email\": \"jane@testvendor.com\",\n  \"phone\": \"+1-555-9999\",\n  \"address\": \"123 Vendor Street\",\n  \"gst_number\": \"GST-TEST-001\",\n  \"items_services\": \"electronics, office supplies\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/vendors",
+              "host": ["{{base_url}}"],
+              "path": ["api", "vendors"]
+            }
+          }
+        },
+        {
+          "name": "Get Vendor",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/vendors/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "vendors", "1"]
+            }
+          }
+        },
+        {
+          "name": "Approve Vendor",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/vendors/1/approve",
+              "host": ["{{base_url}}"],
+              "path": ["api", "vendors", "1", "approve"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Items",
+      "item": [
+        {
+          "name": "List Items",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/items",
+              "host": ["{{base_url}}"],
+              "path": ["api", "items"]
+            }
+          }
+        },
+        {
+          "name": "Create Item",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"MacBook Pro 16\",\n  \"description\": \"16-inch MacBook Pro with M3 chip\",\n  \"sku\": \"LAP-MBP16-M3\",\n  \"category\": \"Electronics\",\n  \"unit\": \"pcs\",\n  \"current_stock\": 5,\n  \"reorder_level\": 3,\n  \"unit_price\": 2499.99\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/items",
+              "host": ["{{base_url}}"],
+              "path": ["api", "items"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Sales Orders",
+      "item": [
+        {
+          "name": "List Sales Orders",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/sales/orders",
+              "host": ["{{base_url}}"],
+              "path": ["api", "sales", "orders"]
+            }
+          }
+        },
+        {
+          "name": "Create Sales Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customer_name\": \"XYZ Corp\",\n  \"customer_email\": \"orders@xyz.com\",\n  \"customer_phone\": \"+1-555-8888\",\n  \"expected_delivery\": \"2024-04-15\",\n  \"notes\": \"Rush order\",\n  \"items\": [\n    {\n      \"item_id\": 1,\n      \"quantity\": 20,\n      \"unit_price\": 1299.99\n    },\n    {\n      \"item_id\": 2,\n      \"quantity\": 5,\n      \"unit_price\": 399.99\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/sales/orders",
+              "host": ["{{base_url}}"],
+              "path": ["api", "sales", "orders"]
+            }
+          }
+        },
+        {
+          "name": "Get Sales Order",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/sales/orders/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "sales", "orders", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Purchase Requisitions",
+      "item": [
+        {
+          "name": "List PRs",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/procurement/requisitions",
+              "host": ["{{base_url}}"],
+              "path": ["api", "procurement", "requisitions"]
+            }
+          }
+        },
+        {
+          "name": "Create PR",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"item_id\": 1,\n  \"quantity\": 15,\n  \"expected_delivery\": \"2024-04-01\",\n  \"estimated_cost\": 19500,\n  \"department\": \"IT\",\n  \"justification\": \"New employee laptops\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/procurement/requisitions",
+              "host": ["{{base_url}}"],
+              "path": ["api", "procurement", "requisitions"]
+            }
+          }
+        },
+        {
+          "name": "Approve PR",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/procurement/requisitions/1/approve",
+              "host": ["{{base_url}}"],
+              "path": ["api", "procurement", "requisitions", "1", "approve"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Purchase Orders",
+      "item": [
+        {
+          "name": "List POs",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/procurement/purchase-orders",
+              "host": ["{{base_url}}"],
+              "path": ["api", "procurement", "purchase-orders"]
+            }
+          }
+        },
+        {
+          "name": "Create PO",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vendor_id\": 1,\n  \"requisition_id\": 1,\n  \"expected_delivery\": \"2024-04-01\",\n  \"payment_terms\": \"Net 30\",\n  \"terms_conditions\": \"Standard terms apply\",\n  \"items\": [\n    {\n      \"item_id\": 1,\n      \"quantity\": 15,\n      \"unit_price\": 1299.99\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/procurement/purchase-orders",
+              "host": ["{{base_url}}"],
+              "path": ["api", "procurement", "purchase-orders"]
+            }
+          }
+        },
+        {
+          "name": "Send PO",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/procurement/purchase-orders/1/send",
+              "host": ["{{base_url}}"],
+              "path": ["api", "procurement", "purchase-orders", "1", "send"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Goods Receipt",
+      "item": [
+        {
+          "name": "List GRNs",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/procurement/goods-receipt",
+              "host": ["{{base_url}}"],
+              "path": ["api", "procurement", "goods-receipt"]
+            }
+          }
+        },
+        {
+          "name": "Create GRN",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"po_id\": 1,\n  \"quality_check\": true,\n  \"quality_notes\": \"All items verified and in good condition\",\n  \"items\": [\n    {\n      \"item_id\": 1,\n      \"quantity_ordered\": 15,\n      \"quantity_received\": 15,\n      \"quantity_accepted\": 15,\n      \"quantity_rejected\": 0\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/procurement/goods-receipt",
+              "host": ["{{base_url}}"],
+              "path": ["api", "procurement", "goods-receipt"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Invoices",
+      "item": [
+        {
+          "name": "List Invoices",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/procurement/invoices",
+              "host": ["{{base_url}}"],
+              "path": ["api", "procurement", "invoices"]
+            }
+          }
+        },
+        {
+          "name": "Create Invoice",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"invoice_number\": \"INV-TEST-001\",\n  \"vendor_id\": 1,\n  \"po_id\": 1,\n  \"invoice_date\": \"2024-03-01\",\n  \"due_date\": \"2024-03-31\",\n  \"amount\": 19499.85,\n  \"tax_amount\": 3509.97,\n  \"total_amount\": 23009.82\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/procurement/invoices",
+              "host": ["{{base_url}}"],
+              "path": ["api", "procurement", "invoices"]
+            }
+          }
+        },
+        {
+          "name": "Verify Invoice",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/procurement/invoices/1/verify",
+              "host": ["{{base_url}}"],
+              "path": ["api", "procurement", "invoices", "1", "verify"]
+            }
+          }
+        },
+        {
+          "name": "Approve Invoice",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/procurement/invoices/1/approve",
+              "host": ["{{base_url}}"],
+              "path": ["api", "procurement", "invoices", "1", "approve"]
+            }
+          }
+        },
+        {
+          "name": "Pay Invoice",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"payment_reference\": \"TXN-20240301-12345\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/procurement/invoices/1/pay",
+              "host": ["{{base_url}}"],
+              "path": ["api", "procurement", "invoices", "1", "pay"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "item": [
+        {
+          "name": "Get Stats",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/dashboard/stats",
+              "host": ["{{base_url}}"],
+              "path": ["api", "dashboard", "stats"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

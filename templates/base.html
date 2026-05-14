@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -69,7 +70,8 @@
             transition: background-color 0.2s;
         }
 
-        .sidebar nav a:hover, .sidebar nav a.active {
+        .sidebar nav a:hover,
+        .sidebar nav a.active {
             background-color: #084298;
         }
 
@@ -83,6 +85,33 @@
         .sidebar nav a.it-support-link.active {
             background-color: #084298;
             border-color: transparent;
+        }
+
+        /* Collapsible menu parent button */
+        .menu-parent {
+            display: block;
+            text-decoration: none;
+            color: white;
+            padding: 10px 15px;
+            margin: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            text-align: left;
+            background: none;
+            border: none;
+            width: calc(100% - 20px);
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .menu-parent:hover {
+            background-color: #084298;
+        }
+
+        /* Submenu indentation */
+        .sidebar-submenu {
+            margin-left: 15px;
         }
 
         /* Sidebar footer (user info + logout) */
@@ -129,9 +158,9 @@
         .btn:hover {
             background-color: #084298;
         }
-
     </style>
 </head>
+
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
@@ -139,16 +168,44 @@
             <img src="/static/logo.png" alt="Logo">
             <p class="company-name">Cogent Safety & Security Pvt Ltd</p>
             <p class="company-tagline">Smart CRM Dashboard</p>
+
             <nav>
-                <a href="/dashboard" data-permission="dashboard" class="{% if request.url.path == '/dashboard' %}active{% endif %}">Dashboard</a>
-                <a href="/leads" data-permission="leads" class="{% if request.url.path == '/leads' %}active{% endif %}">Leads</a>
-                <a href="/control-panel" data-permission="control_panel" class="{% if request.url.path == '/control-panel' %}active{% endif %}">Control Panel</a>
-                <!-- IT Support - accessible to all logged-in users -->
+                <!-- Dashboard (top-level, always visible) -->
+                <!-- <a href="/dashboard" data-permission="dashboard"
+                    class="{% if request.url.path == '/dashboard' %}active{% endif %}">
+                    Dashboard
+                </a> -->
+
+                <!-- Sales Dashboard (collapsible parent) -->
+                <a href="javascript:void(0);" onclick="toggleSubmenu('salesSubmenu', this)" class="menu-parent">
+                       Sales Dashboard 
+                </a>
+
+                <!-- Sales submenu -->
+                <div id="salesSubmenu" class="sidebar-submenu" style="display:none;">
+                    <a href="/leads" data-permission="leads"
+                        class="{% if request.url.path == '/leads' %}active{% endif %}">
+                        Leads
+                    </a>
+                    <a href="/control-panel" data-permission="control_panel"
+                        class="{% if request.url.path == '/control-panel' %}active{% endif %}">
+                        Control Panel
+                    </a>
+                </div>
+
+                <!-- Procurement Dashboard (top-level) -->
+                <a href="/procurement" data-permission="procurement"
+                    class="{% if request.url.path == '/procurement' %}active{% endif %}">
+                    Procurement Dashboard
+                </a>
+
+                <!-- IT Support - accessible to all logged-in users (uncomment to enable) -->
                 <!-- <a href="/it-support" class="it-support-link {% if request.url.path == '/it-support' %}active{% endif %}">
                     IT Support
                 </a> -->
             </nav>
         </div>
+
         <div class="sidebar-footer">
             <div>Logged in as: <strong>{{ user.full_name }}</strong></div>
             <div>Role: {{ user.role }}</div>
@@ -162,21 +219,40 @@
         {% block content %}
         {% endblock %}
     </div>
-    
+
     <!-- Global Permission Guard Initialization -->
     <script>
-    // Run as early as possible to avoid flicker
-    document.addEventListener('DOMContentLoaded', function() {
-        if (window.PermissionManager) {
-            window.PermissionManager.init();
-            window.PermissionManager.applyGuards();
-            document.body.classList.add('perm-ready');
-            console.log('🔐 Permission system initialized');
-        } else {
-            // If PermissionManager missing, still reveal UI to avoid locked state
-            document.body.classList.add('perm-ready');
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.PermissionManager) {
+                window.PermissionManager.init();
+                window.PermissionManager.applyGuards();
+                document.body.classList.add('perm-ready');
+                console.log('🔐 Permission system initialized');
+            } else {
+                // If PermissionManager missing, still reveal UI to avoid locked state
+                document.body.classList.add('perm-ready');
+            }
+
+            // Auto-expand Sales submenu if current page is a child of it
+            const salesPaths = ['/leads', '/control-panel'];
+            if (salesPaths.includes(window.location.pathname)) {
+                document.getElementById('salesSubmenu').style.display = 'block';
+            }
+        });
+
+        /**
+         * Generic toggle for collapsible sidebar submenus.
+         * @param {string} submenuId - ID of the submenu div to toggle
+         * @param {HTMLElement} trigger - The clicked anchor element (for arrow rotation)
+         */
+        function toggleSubmenu(submenuId, trigger) {
+            const submenu = document.getElementById(submenuId);
+            const isOpen = submenu.style.display !== 'none';
+            submenu.style.display = isOpen ? 'none' : 'block';
+            // Flip arrow indicator
+            trigger.textContent = trigger.textContent.replace(isOpen ? '▴' : '▾', isOpen ? '▾' : '▴');
         }
-    });
     </script>
 </body>
+
 </html>

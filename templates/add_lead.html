@@ -94,7 +94,8 @@
 
     <!-- Lead Form -->
     <form id="leadForm">
-        <!-- Company Information -->
+
+        <!-- ===== LEAD INFORMATION ===== -->
         <div class="form-section"
             style="background: white; border-radius: 16px; padding: 30px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #dee2e6;">
             <h3
@@ -117,7 +118,7 @@
                     <div class="error-message" id="lead_date_error">Please select a valid date</div>
                 </div>
 
-                <!-- Staff Location (auto-detect) -->
+                <!-- Staff Location (dropdown with auto-detect) -->
                 <div class="form-group">
                     <label
                         style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
@@ -164,6 +165,7 @@
                     </select>
                     <div id="staff_location_status" style="font-size: 0.9em; margin-top: 6px; display: none;"></div>
                 </div>
+
                 <!-- Lead Source -->
                 <div class="form-group">
                     <label
@@ -207,8 +209,7 @@
                         <option value="">Select User</option>
                     </select>
                     <div class="error-message" id="assigned_to_error">Please select an assignee</div>
-                    <div id="assigneeDetails" style="margin-top: 10px; color: #555; font-size: 0.95em; display: none;">
-                    </div>
+                    <div id="assigneeDetails" style="margin-top: 10px; color: #555; font-size: 0.95em; display: none;"></div>
                 </div>
 
                 <!-- Designation (auto from assignee) -->
@@ -216,7 +217,7 @@
                     <label
                         style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-briefcase" style="color: #0d6efd;"></i>
-                        Designation 
+                        Designation
                     </label>
                     <input type="text" id="designation" name="designation" placeholder="Auto-filled from assign"
                         readonly
@@ -225,7 +226,7 @@
             </div>
         </div>
 
-        <!-- Company Details -->
+        <!-- ===== COMPANY DETAILS ===== -->
         <div class="form-section"
             style="background: white; border-radius: 16px; padding: 30px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #dee2e6;">
             <h3
@@ -278,7 +279,7 @@
 
             <div
                 style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 25px;">
-                <!-- System -->
+                <!-- Customer Requirement / System -->
                 <div class="form-group">
                     <label
                         style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
@@ -315,10 +316,31 @@
                     </label>
                     <input type="text" id="gstin" name="gstin" placeholder="Enter GSTIN number"
                         style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
-                    <div id="gstin_status" style="font-size: 0.9em; color: #dc3545; margin-top: 6px; display: none;">
-                    </div>
+                    <div id="gstin_status" style="font-size: 0.9em; color: #dc3545; margin-top: 6px; display: none;"></div>
                 </div>
+            </div>
 
+            <!-- ✅ PROCUREMENT ITEMS SELECTION (from Document 5) -->
+            <div class="form-group" style="margin-bottom: 25px;">
+                <label style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600;">
+                    <i class="fas fa-boxes" style="color: #0d6efd;"></i> Select Items (Procurement)
+                    <span style="font-size: 0.85em; font-weight: 400; color: #6c757d; margin-left: 8px;">— Select items that will go into Sales Order</span>
+                </label>
+                <div id="items-loading"
+                    style="padding: 12px; color: #6c757d; font-size: 0.95em; display: flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-spinner fa-spin" style="color: #0d6efd;"></i> Loading items from procurement...
+                </div>
+                <div id="items-no-items"
+                    style="display: none; padding: 12px; color: #6c757d; font-size: 0.95em; background: #f8f9fa; border-radius: 8px; border: 1px dashed #dee2e6;">
+                    <i class="fas fa-info-circle"></i> No items available in procurement. Add items from the Procurement module first.
+                </div>
+                <div id="items-container"
+                    style="display: none; border: 2px solid #dee2e6; border-radius: 8px; max-height: 250px; overflow-y: auto; background: white;">
+                </div>
+                <input type="hidden" id="selected_items" name="selected_items" value="[]">
+                <div id="selected-items-preview"
+                    style="display: none; margin-top: 8px; padding: 8px 12px; background: #d1e7dd; border-radius: 6px; font-size: 0.9em; color: #0f5132;">
+                </div>
             </div>
 
             <div
@@ -352,7 +374,7 @@
             </div>
         </div>
 
-        <!-- Address Information -->
+        <!-- ===== ADDRESS INFORMATION ===== -->
         <div class="form-section"
             style="background: white; border-radius: 16px; padding: 30px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #dee2e6;">
             <h3
@@ -363,7 +385,6 @@
 
             <div
                 style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 25px;">
-
                 <!-- PIN Code -->
                 <div class="form-group">
                     <label
@@ -374,9 +395,9 @@
                     <input type="text" id="pin_code" name="pin_code" required placeholder="Enter 6-digit PIN code"
                         style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                     <div class="error-message" id="pin_code_error">Please enter a valid 6-digit PIN code</div>
-                    <div id="pin_code_status" style="font-size: 0.9em; color: #198754; margin-top: 6px; display: none;">
-                    </div>
+                    <div id="pin_code_status" style="font-size: 0.9em; color: #198754; margin-top: 6px; display: none;"></div>
                 </div>
+
                 <!-- State -->
                 <div class="form-group">
                     <label
@@ -390,6 +411,7 @@
                     </select>
                     <div class="error-message" id="state_error">Please select state</div>
                 </div>
+
                 <!-- District -->
                 <div class="form-group">
                     <label
@@ -417,11 +439,6 @@
                     </select>
                     <div class="error-message" id="city_error">Please select city</div>
                 </div>
-
-                <!-- Region (select) -->
-
-                
-                <!-- Village Name (autofill) -->
             </div>
 
             <!-- Full Address -->
@@ -438,7 +455,7 @@
             </div>
         </div>
 
-        <!-- Contact Information -->
+        <!-- ===== CONTACT INFORMATION ===== -->
         <div class="form-section"
             style="background: white; border-radius: 16px; padding: 30px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #dee2e6;">
             <h3
@@ -488,6 +505,17 @@
                     <div id="contact_no_status"
                         style="font-size: 0.9em; color: #198754; margin-top: 6px; display: none;"></div>
                 </div>
+
+                <!-- Landline Number -->
+                <div class="form-group">
+                    <label
+                        style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-phone-alt" style="color: #0d6efd;"></i>
+                        Landline Number
+                    </label>
+                    <input type="tel" id="landline_no" name="landline_no" placeholder="Enter landline number"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                </div>
             </div>
 
             <div
@@ -502,8 +530,7 @@
                     <input type="email" id="email_id" name="email_id" required placeholder="Enter email address"
                         style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
                     <div class="error-message" id="email_id_error">Please enter a valid email address</div>
-                    <div id="email_id_status" style="font-size: 0.9em; color: #198754; margin-top: 6px; display: none;">
-                    </div>
+                    <div id="email_id_status" style="font-size: 0.9em; color: #198754; margin-top: 6px; display: none;"></div>
                 </div>
 
                 <!-- LinkedIn Profile -->
@@ -520,76 +547,60 @@
                         style="font-size: 0.9em; color: #198754; margin-top: 6px; display: none;"></div>
                 </div>
 
-
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px;">
-                    <!-- Lead Status -->
-                    <div class="form-group">
-                        <label
-                            style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
-                            <i class="fas fa-signal" style="color: #0d6efd;"></i>
-                            Lead Status
-                        </label>
-                        <select id="lead_status" name="lead_status" data-setting="statuses"
-                            style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
-                            <option value="">Select Status</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Remarks -->
-            <div class="form-section"
-                style="background: white; border-radius: 16px; padding: 30px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #dee2e6;">
-                <h3
-                    style="margin: 0 0 25px 0; font-size: 1.4em; font-weight: 700; color: #212529; display: flex; align-items: center; gap: 12px; padding-bottom: 15px; border-bottom: 2px solid #dee2e6;">
-                    <i class="fas fa-notes-medical" style="color: #0d6efd; font-size: 1.2em;"></i>
-                    Additional Notes
-                </h3>
-
+                <!-- Lead Status -->
                 <div class="form-group">
                     <label
                         style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
-                        <i class="fas fa-comment" style="color: #0d6efd;"></i>
-                        Remarks
+                        <i class="fas fa-signal" style="color: #0d6efd;"></i>
+                        Lead Status
                     </label>
-                    <textarea id="remarks" name="remarks" placeholder="Any additional remarks or notes"
-                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s; min-height: 100px; resize: vertical;"></textarea>
+                    <select id="lead_status" name="lead_status" data-setting="statuses"
+                        style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s;">
+                        <option value="">Select Status</option>
+                    </select>
                 </div>
             </div>
+        </div>
 
-            <!-- Form Actions -->
-            <div style="display: flex; justify-content: flex-end; gap: 15px; padding: 20px 0; margin-bottom: 30px;">
-                <button type="reset" class="btn-secondary" onclick="resetForm()"
-                    style="padding: 12px 30px; background: white; border: 2px solid #dee2e6; border-radius: 8px; color: #495057; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 1.1em; transition: all 0.3s;">
-                    <i class="fas fa-redo"></i> Reset Form
-                </button>
-                <button type="submit" class="btn-primary"
-                    style="padding: 12px 30px; background: #0d6efd; border: none; border-radius: 8px; color: white; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 1.1em; transition: all 0.3s;">
-                    <i class="fas fa-save"></i> Create Lead
-                </button>
+        <!-- ===== ADDITIONAL NOTES ===== -->
+        <div class="form-section"
+            style="background: white; border-radius: 16px; padding: 30px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #dee2e6;">
+            <h3
+                style="margin: 0 0 25px 0; font-size: 1.4em; font-weight: 700; color: #212529; display: flex; align-items: center; gap: 12px; padding-bottom: 15px; border-bottom: 2px solid #dee2e6;">
+                <i class="fas fa-notes-medical" style="color: #0d6efd; font-size: 1.2em;"></i>
+                Additional Notes
+            </h3>
+            <div class="form-group">
+                <label
+                    style="display: block; margin-bottom: 10px; color: #495057; font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-comment" style="color: #0d6efd;"></i>
+                    Remarks
+                </label>
+                <textarea id="remarks" name="remarks" placeholder="Any additional remarks or notes"
+                    style="width: 100%; padding: 14px 16px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1.1em; background: white; color: #212529; transition: all 0.3s; min-height: 100px; resize: vertical;"></textarea>
             </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div style="display: flex; justify-content: flex-end; gap: 15px; padding: 20px 0; margin-bottom: 30px;">
+            <button type="reset" class="btn-secondary" onclick="resetForm()"
+                style="padding: 12px 30px; background: white; border: 2px solid #dee2e6; border-radius: 8px; color: #495057; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 1.1em; transition: all 0.3s;">
+                <i class="fas fa-redo"></i> Reset Form
+            </button>
+            <button type="submit" class="btn-primary"
+                style="padding: 12px 30px; background: #0d6efd; border: none; border-radius: 8px; color: white; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 1.1em; transition: all 0.3s;">
+                <i class="fas fa-save"></i> Create Lead
+            </button>
+        </div>
+
     </form>
 </div>
 
 <style>
-    .form-section {
-        margin-bottom: 25px;
-    }
-
-    .form-group {
-        margin-bottom: 20px;
-    }
-
-    .error-message {
-        color: #dc3545;
-        font-size: 0.9em;
-        margin-top: 5px;
-        display: none;
-    }
-
-    .form-control.error {
-        border-color: #dc3545 !important;
-    }
+    .form-section { margin-bottom: 25px; }
+    .form-group { margin-bottom: 20px; }
+    .error-message { color: #dc3545; font-size: 0.9em; margin-top: 5px; display: none; }
+    .form-control.error { border-color: #dc3545 !important; }
 
     .btn-primary {
         background: #0d6efd !important;
@@ -601,12 +612,10 @@
         cursor: pointer !important;
         transition: all 0.3s !important;
     }
-
     .btn-primary:hover {
         background: #0b5ed7 !important;
         box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3) !important;
     }
-
     .btn-secondary {
         background: white !important;
         color: #495057 !important;
@@ -617,87 +626,82 @@
         cursor: pointer !important;
         transition: all 0.3s !important;
     }
-
     .btn-secondary:hover {
         background: #f8f9fa !important;
         border-color: #adb5bd !important;
+    }
 
-        @keyframes slideUp {
-            from {
-                transform: translateY(30px);
-                opacity: 0;
-            }
+    @keyframes slideUp {
+        from { transform: translateY(30px); opacity: 0; }
+        to   { transform: translateY(0);    opacity: 1; }
+    }
 
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
+    /* Procurement items list styling */
+    #items-container .item-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 14px;
+        border-bottom: 1px solid #f0f0f0;
+        transition: background 0.2s;
+    }
+    #items-container .item-row:last-child { border-bottom: none; }
+    #items-container .item-row:hover { background: #f8f9fa; }
+    #items-container .item-row input[type="checkbox"] {
+        width: 16px; height: 16px; cursor: pointer; accent-color: #0d6efd;
+    }
+    #items-container .item-qty {
+        width: 70px; padding: 5px 8px; border: 1px solid #dee2e6;
+        border-radius: 6px; font-size: 0.95em; text-align: center;
     }
 </style>
 
-<script src="/static/js/add_lead.js?v=2.1.1"></script>
 <script>
-    // --- Staff Location Auto-detect ---
+    // ===== STAFF LOCATION AUTO-DETECT (dropdown version) =====
     function detectStaffLocation() {
         const locationSelect = document.getElementById('staff_location');
         const locationStatus = document.getElementById('staff_location_status');
-
         if (!navigator.geolocation) {
             locationSelect.options[0].text = '📍 Select Location';
             return;
         }
-
-        // Detecting state
         locationSelect.options[0].text = '⏳ Detecting your location...';
         locationSelect.disabled = true;
-
         navigator.geolocation.getCurrentPosition(
             function (pos) {
-                const lat = pos.coords.latitude;
-                const lon = pos.coords.longitude;
-
-                fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`)
+                fetch(`https://nominatim.openstreetmap.org/reverse?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&format=json`)
                     .then(r => r.json())
                     .then(data => {
                         const address = data.address || {};
-
                         const detectedState = address.state || '';
-                        const detectedCity = address.city || address.town || address.village || address.county || '';
-
+                        const detectedCity = address.city || address.town || address.village || '';
                         let matched = false;
-                        const options = locationSelect.options;
-
-                        for (let i = 0; i < options.length; i++) {
-                            const optVal = options[i].value.toLowerCase();
+                        for (let i = 0; i < locationSelect.options.length; i++) {
+                            const optVal = locationSelect.options[i].value.toLowerCase();
                             const detState = detectedState.toLowerCase();
-
                             if (detState && (detState.includes(optVal) || optVal.includes(detState))) {
-                                locationSelect.value = options[i].value;
+                                locationSelect.value = locationSelect.options[i].value;
                                 matched = true;
                                 break;
                             }
                         }
-
                         locationSelect.disabled = false;
                         locationSelect.options[0].text = '📍 Select Location';
-
                         if (matched) {
                             locationStatus.style.display = 'block';
                             locationStatus.style.color = '#198754';
                             locationStatus.innerHTML = `✓ Auto-detected: <strong>${detectedCity ? detectedCity + ', ' : ''}${detectedState}</strong>`;
                         } else {
-                            locationStatus.style.display = 'none'; // 👈 no warning
+                            locationStatus.style.display = 'none';
                         }
                     })
                     .catch(() => {
                         locationSelect.disabled = false;
                         locationSelect.options[0].text = '📍 Select Location';
-                        locationStatus.style.display = 'none'; // 👈 silent fail
+                        locationStatus.style.display = 'none';
                     });
             },
             function () {
-                // 👇 SILENT fallback (no error message)
                 locationSelect.disabled = false;
                 locationSelect.options[0].text = 'Select Location';
                 locationStatus.style.display = 'none';
@@ -705,96 +709,168 @@
             { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
         );
     }
-
-    // Auto run
     document.addEventListener('DOMContentLoaded', detectStaffLocation);
 
-    // --- Address Autofill by PIN code (hierarchy, no city-village duplicate) ---
+    // ===== PIN CODE AUTOFILL =====
     function autofillAddressByPincode(pinCode) {
         fetch(`https://api.postalpincode.in/pincode/${pinCode}`)
             .then(r => r.json())
             .then(data => {
                 if (data[0].Status === 'Success') {
-                    const postOffice = data[0].PostOffice[0];
-                    // State
+                    const po = data[0].PostOffice[0];
                     const stateSelect = document.getElementById('state');
-                    if (stateSelect && postOffice.State) {
-                        let exists = Array.from(stateSelect.options).some(opt => opt.value === postOffice.State);
-                        if (!exists) stateSelect.add(new Option(postOffice.State, postOffice.State));
-                        stateSelect.value = postOffice.State;
+                    if (stateSelect && po.State) {
+                        if (!Array.from(stateSelect.options).some(o => o.value === po.State))
+                            stateSelect.add(new Option(po.State, po.State));
+                        stateSelect.value = po.State;
                         stateSelect.dispatchEvent(new Event('change'));
                     }
-                    // District
                     const districtSelect = document.getElementById('district');
-                    if (districtSelect && postOffice.District) {
-                        let exists = Array.from(districtSelect.options).some(opt => opt.value === postOffice.District);
-                        if (!exists) districtSelect.add(new Option(postOffice.District, postOffice.District));
-                        districtSelect.value = postOffice.District;
+                    if (districtSelect && po.District) {
+                        if (!Array.from(districtSelect.options).some(o => o.value === po.District))
+                            districtSelect.add(new Option(po.District, po.District));
+                        districtSelect.value = po.District;
                         districtSelect.dispatchEvent(new Event('change'));
                     }
-                    // City
                     const citySelect = document.getElementById('city');
-                    if (citySelect && postOffice.Name) {
-                        let exists = Array.from(citySelect.options).some(opt => opt.value === postOffice.Name);
-                        if (!exists) citySelect.add(new Option(postOffice.Name, postOffice.Name));
-                        citySelect.value = postOffice.Name;
+                    if (citySelect && po.Name) {
+                        if (!Array.from(citySelect.options).some(o => o.value === po.Name))
+                            citySelect.add(new Option(po.Name, po.Name));
+                        citySelect.value = po.Name;
                     }
                 }
             })
-            .catch(() => { });
+            .catch(() => {});
     }
     document.addEventListener('DOMContentLoaded', function () {
         const pinInput = document.getElementById('pin_code');
         if (pinInput) {
             pinInput.addEventListener('blur', function () {
                 const pin = this.value.replace(/\D/g, '');
-                if (pin.length === 6) {
-                    autofillAddressByPincode(pin);
-                }
+                if (pin.length === 6) autofillAddressByPincode(pin);
             });
         }
     });
-</script>
 
-<script>
+    // ===== GSTIN — optional, no validation noise =====
     document.addEventListener('DOMContentLoaded', function () {
-        // GSTIN - sab events remove, required nahi, status hamesha hide
         const gstinInput = document.getElementById('gstin');
         if (gstinInput) {
-            // Clone trick - sab existing event listeners remove
             const newGstin = gstinInput.cloneNode(true);
             gstinInput.parentNode.replaceChild(newGstin, gstinInput);
-            // Required attribute hatao
             newGstin.removeAttribute('required');
-            newGstin.removeAttribute('data-required');
-            newGstin.removeAttribute('data-validate');
         }
-
-        // Status div permanently hide
         const gstinStatus = document.getElementById('gstin_status');
         if (gstinStatus) {
             gstinStatus.style.setProperty('display', 'none', 'important');
-            gstinStatus.textContent = '';
-        }
-
-        // MutationObserver — agar koi JS baad mein gstin_status dikhane ki koshish kare toh turant hide kar do
-        const observer = new MutationObserver(function () {
-            const s = document.getElementById('gstin_status');
-            if (s && s.style.display !== 'none') {
-                s.style.setProperty('display', 'none', 'important');
-                s.textContent = '';
-            }
-        });
-        const statusEl = document.getElementById('gstin_status');
-        if (statusEl) {
-            observer.observe(statusEl, { attributes: true, childList: true, subtree: true });
+            new MutationObserver(() => {
+                if (gstinStatus.style.display !== 'none')
+                    gstinStatus.style.setProperty('display', 'none', 'important');
+            }).observe(gstinStatus, { attributes: true, childList: true, subtree: true });
         }
     });
 
-    // Form submit pe force hide
-    document.getElementById('leadForm')?.addEventListener('submit', function () {
-        const s = document.getElementById('gstin_status');
-        if (s) { s.style.setProperty('display', 'none', 'important'); s.textContent = ''; }
-    }, true);
+    // ===== PROCUREMENT ITEMS FETCH & SELECTION =====
+    let allProcurementItems = [];
+    let selectedItems = {};   // { id: { id, name, quantity } }
+
+    async function loadProcurementItems() {
+        const loading    = document.getElementById('items-loading');
+        const noItems    = document.getElementById('items-no-items');
+        const container  = document.getElementById('items-container');
+
+        try {
+            const res  = await fetch('/api/procurement/items');
+            const data = await res.json();
+
+            loading.style.display = 'none';
+
+            if (!data.success || !data.items || data.items.length === 0) {
+                noItems.style.display = 'block';
+                return;
+            }
+
+            allProcurementItems = data.items;
+            container.style.display = 'block';
+            renderItemsList(allProcurementItems);
+
+        } catch (err) {
+            loading.style.display = 'none';
+            noItems.style.display = 'block';
+            console.warn('Procurement items fetch failed:', err);
+        }
+    }
+
+    function renderItemsList(items) {
+        const container = document.getElementById('items-container');
+        container.innerHTML = '';
+
+        items.forEach(item => {
+            const itemId   = item.id || item.item_id || item.item_code;
+            const itemName = item.name || item.item_name || 'Unnamed Item';
+            const isChecked = !!selectedItems[itemId];
+
+            const row = document.createElement('div');
+            row.className = 'item-row';
+            row.innerHTML = `
+                <input type="checkbox" id="item_${itemId}" data-id="${itemId}" data-name="${itemName}"
+                    ${isChecked ? 'checked' : ''} onchange="toggleItem(this)">
+                <label for="item_${itemId}" style="flex:1; cursor:pointer; font-size:0.97em; color:#212529;">
+                    ${itemName}
+                </label>
+                <input type="number" class="item-qty" id="qty_${itemId}"
+                    min="1" value="${isChecked ? selectedItems[itemId].quantity : 1}"
+                    placeholder="Qty" title="Quantity"
+                    ${isChecked ? '' : 'disabled'}
+                    onchange="updateQty('${itemId}', this.value)"
+                    style="width:70px; padding:5px 8px; border:1px solid #dee2e6; border-radius:6px; font-size:0.95em; text-align:center;">
+                <span style="font-size:0.85em; color:#6c757d; min-width:60px;">
+                    ${item.unit || item.uom || ''}
+                </span>
+            `;
+            container.appendChild(row);
+        });
+    }
+
+    function toggleItem(checkbox) {
+        const id   = checkbox.dataset.id;
+        const name = checkbox.dataset.name;
+        const qtyInput = document.getElementById(`qty_${id}`);
+
+        if (checkbox.checked) {
+            qtyInput.disabled = false;
+            selectedItems[id] = { id, name, quantity: parseInt(qtyInput.value) || 1 };
+        } else {
+            qtyInput.disabled = true;
+            delete selectedItems[id];
+        }
+        syncSelectedItemsField();
+    }
+
+    function updateQty(id, val) {
+        if (selectedItems[id]) {
+            selectedItems[id].quantity = parseInt(val) || 1;
+            syncSelectedItemsField();
+        }
+    }
+
+    function syncSelectedItemsField() {
+        const arr = Object.values(selectedItems);
+        document.getElementById('selected_items').value = JSON.stringify(arr);
+
+        const preview = document.getElementById('selected-items-preview');
+        if (arr.length === 0) {
+            preview.style.display = 'none';
+        } else {
+            preview.style.display = 'block';
+            preview.innerHTML = `<i class="fas fa-check-circle"></i> <strong>${arr.length} item(s) selected:</strong> `
+                + arr.map(i => `${i.name} (×${i.quantity})`).join(', ');
+        }
+    }
+
+    // Load items on page ready
+    document.addEventListener('DOMContentLoaded', loadProcurementItems);
 </script>
+
+<script src="/static/js/add_lead.js?v=2.2.0"></script>
 {% endblock %}

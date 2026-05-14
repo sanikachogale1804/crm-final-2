@@ -10,15 +10,22 @@ from typing import Optional
 
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse, RedirectResponse
-# ✅ REMOVED: Procurement/vendor router imports
+from Procurement.vendors import router as vendor_router
 
 from tools.security_audit_table_api import router as security_audit_table_router
 from tools.audit_system_info_api import router as audit_system_info_router
+
+import requests
 
 app = FastAPI(title="Smart CRM System")
 
 app.include_router(security_audit_table_router)
 app.include_router(audit_system_info_router)
+app.include_router(vendor_router, prefix="/api")
+
+@app.get("/procurement")
+async def open_procurement():
+    return RedirectResponse(url="http://localhost:5500/crm_frontend.html", status_code=302)
 
 @app.get("/checkroute")
 async def checkroute():
@@ -32,7 +39,7 @@ class LeadApprovalPayload(BaseModel):
 SMTP_HOST = "smtp.mailngx.com"
 SMTP_PORT = 587
 SMTP_USER = "info@cogentsecurity.ai"
-SMTP_PASS = "Cogent@2025"
+SMTP_PASS = "Secure@2026"
 
 def send_email(to_email: str, subject: str, body: str):
     """Send a plain-text email via SMTP."""
@@ -141,6 +148,32 @@ def send_kickoff_emails(lead_id: str, cursor):
 
     except Exception as e:
         print(f"❌ send_kickoff_emails failed for lead {lead_id}: {e}")
+
+
+
+def get_procurement_service_user():
+    """
+    Procurement server se automatically Procurement department
+    ka user dhundta hai. Fallback: 'manager'
+    """
+    try:
+        response = requests.get(
+            "http://127.0.0.1:5001/api/users/",
+            timeout=3
+        )
+        if response.status_code == 200:
+            users = response.json()
+            if isinstance(users, dict):
+                users = users.get("results") or users.get("users") or []
+            for u in users:
+                dept = (u.get("department") or u.get("role") or "").lower()
+                if "procurement" in dept:
+                    print(f"\u2705 Procurement user auto-detected: {u['username']}")
+                    return u["username"]
+    except Exception as e:
+        print(f"\u26a0\ufe0f Could not auto-detect procurement user: {e}")
+    print("\u26a0\ufe0f Using fallback procurement user: manager")
+    return "manager"
 
 
 def register_lead_report_routes(app):
@@ -403,6 +436,7 @@ class LeadCreate(BaseModel):
     balance_amount: Optional[float] = None
     lead_closer_date: Optional[str] = None
     expected_lead_closer_month: Optional[str] = None
+    selected_items: Optional[str] = None
 
 
 class LeadUpdate(BaseModel):
@@ -965,7 +999,28 @@ def init_database():
         )
         ''')
 
-        # ✅ REMOVED: vendors table creation
+        cursor.execute('''
+        CREATE TABLE IF NOT EXISTS vendors (
+            vendor_id INT AUTO_INCREMENT PRIMARY KEY,
+            vendor_code VARCHAR(50) UNIQUE,
+            name VARCHAR(255) NOT NULL,
+            contact_person VARCHAR(255),
+            email VARCHAR(255),
+            phone VARCHAR(50),
+            address TEXT,
+            city VARCHAR(100),
+            state VARCHAR(100),
+            gst_number VARCHAR(50),
+            pan_number VARCHAR(50),
+            bank_name VARCHAR(100),
+            bank_account VARCHAR(100),
+            payment_terms VARCHAR(50),
+            status ENUM(\'Pending\',\'Approved\',\'Rejected\') DEFAULT \'Pending\',
+            approved_by INT,
+            approved_at DATETIME,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+        ''')
 
         for idx_sql in [
             "CREATE INDEX idx_permissions_key ON permissions(permission_key)",
@@ -1612,8 +1667,11 @@ async def create_lead(lead_data: LeadCreate, user: dict = Depends(get_current_us
                 `company_linkedin_link`, `sub_industry`, `gstin`, `customer_name`,
                 `contact_no`, `landline_no`, `email_id`, `linkedin_profile`, `designation_customer`,
                 `method_of_communication`, `lead_status`, `lead_aging`, `lead_percentage`,
-                `lead_closer_date`, `created_by`, `assigned_to`
-            ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+                `lead_closer_date`, `created_by`, `assigned_to`,
+                `selected_items`
+            ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,
+                %s
+            )
             ''', (
                 lead_id, lead_data.lead_date, lead_data.lead_source, lead_data.lead_type,
                 lead_owner_value, lead_data.staff_location, lead_data.designation, lead_data.company_name,
@@ -1623,7 +1681,8 @@ async def create_lead(lead_data: LeadCreate, user: dict = Depends(get_current_us
                 lead_data.gstin, lead_data.customer_name, lead_data.contact_no, lead_data.landline_no,
                 lead_data.email_id, lead_data.linkedin_profile, lead_data.designation_customer,
                 lead_data.method_of_communication or 'Email', status_value, lead_aging, lead_percentage,
-                lead_data.lead_closer_date, user['user_id'], assigned_to_id
+                lead_data.lead_closer_date, user['user_id'], assigned_to_id,
+                lead_data.selected_items
             ))
 
             cursor.execute('SELECT l.*, u.full_name as created_by_name FROM leads l LEFT JOIN users u ON l.created_by = u.id WHERE l.lead_id = %s', (lead_id,))
@@ -2368,7 +2427,92 @@ async def approve_lead(
                     SET lead_status = 'Won', approval_status = 'Approved', procurement_allowed = 1
                     WHERE lead_id = %s
                 """, (lead_id,))
-                print(f"✅ Lead {lead_id} marked as WON after all 4 approvals")
+                print("✅ Lead marked as WON after all approvals")
+
+                cursor.execute("SELECT * FROM leads WHERE lead_id = %s", (lead_id,))
+                fresh_lead = cursor.fetchone()
+
+                # ── Step 1: expected_delivery calculate karo ──
+                _ed = (
+                    fresh_lead.get("lead_closer_date") or
+                    fresh_lead.get("expected_lead_closer_month") or
+                    date.today().isoformat()
+                )
+                expected_delivery = _ed.isoformat() if hasattr(_ed, "isoformat") else str(_ed)
+                print(f"📅 Expected delivery: {expected_delivery}")
+
+                # ── Step 2: procurement_username resolve karo ──
+                procurement_username = get_procurement_service_user()
+                print(f"📋 Using procurement user: {procurement_username}")
+
+                # ── Step 3: selected_items padho ──
+                lead_items = []
+                selected_items_raw = fresh_lead.get("selected_items")
+                print(f"🔍 selected_items: {selected_items_raw}")
+
+                if selected_items_raw:
+                    try:
+                        parsed = json.loads(selected_items_raw)
+                        lead_items = [
+                            {
+                                "item_id": item.get("id"),
+                                "item_name": item.get("name"),
+                                "quantity": item.get("quantity", 1)
+                            }
+                            for item in parsed
+                            if item.get("id") or item.get("name")
+                        ]
+                        print(f"✅ Items for Sales Order: {lead_items}")
+                    except (json.JSONDecodeError, TypeError) as e:
+                        print(f"⚠️ Parse error: {e}")
+
+                # ── Step 4: Sales Order banao ──
+                if not lead_items:
+                    print("⚠️ No items selected in lead — skipping Sales Order creation")
+                else:
+                    try:
+                        procurement_data = {
+                            "lead_id": lead_id,
+                            "customer_name": fresh_lead.get("customer_name"),
+                            "company_name": fresh_lead.get("company_name"),
+                            "customer_email": fresh_lead.get("email_id"),
+                            "customer_phone": fresh_lead.get("contact_no"),
+                            "order_source": "CRM",
+                            "expected_delivery": expected_delivery,
+                            "items": lead_items,
+                            "username": procurement_username
+                        }
+                        print("📦 Sending to Procurement:", procurement_data)
+
+                        procurement_response = requests.post(
+                            "http://127.0.0.1:5001/api/sales/orders",
+                            json=procurement_data,
+                            headers={"Content-Type": "application/json"},
+                            timeout=5
+                        )
+                        print("✅ Procurement Status:", procurement_response.status_code)
+                        print("✅ Procurement Response:", procurement_response.text)
+
+                        if procurement_response.status_code not in (200, 201):
+                            print(f"⚠️ Procurement failed: {procurement_response.status_code}: {procurement_response.text}")
+                            cursor.execute(
+                                'INSERT INTO lead_activities (lead_id, activity_type, description, performed_by) VALUES (%s,%s,%s,%s)',
+                                (lead_id, 'procurement_failed',
+                                 f'Procurement order failed: HTTP {procurement_response.status_code}',
+                                 user['user_id'])
+                            )
+
+                    except Exception as e:
+                        print("❌ Procurement Trigger Failed:", e)
+                        try:
+                            cursor.execute(
+                                'INSERT INTO lead_activities (lead_id, activity_type, description, performed_by) VALUES (%s,%s,%s,%s)',
+                                (lead_id, 'procurement_failed',
+                                 f'Procurement trigger failed: {str(e)}',
+                                 user['user_id'])
+                            )
+                        except Exception:
+                            pass
 
             # Log activity
             cursor.execute(
@@ -2485,6 +2629,77 @@ async def reset_password(request: Request):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+
+
+
+# ============ VENDORS ============
+
+class VendorCreate(BaseModel):
+    name: str
+    email: str
+    contact_person: Optional[str] = None
+    phone: Optional[str] = None
+    city: Optional[str] = None
+
+@app.post("/api/vendors")
+def create_vendor(data: VendorCreate):
+    try:
+        with get_db_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT COUNT(*) as count FROM vendors")
+            result = cursor.fetchone()
+            vendor_code = f"VEND{(result['count'] + 1):04d}"
+            cursor.execute("""INSERT INTO vendors (vendor_code, name, contact_person, email, phone, city, status)
+                              VALUES (%s,%s,%s,%s,%s,%s,'Pending')""",
+                           (vendor_code, data.name, data.contact_person, data.email, data.phone, data.city))
+            conn.commit()
+            return {"success": True, "message": "Vendor created successfully", "vendor_code": vendor_code}
+    except Exception as e:
+        return JSONResponse(content={"success": False, "message": str(e)}, status_code=500)
+
+@app.get("/add_vendor")
+def add_vendor_page(request: Request):
+    return templates.TemplateResponse("add_vendor.html", {"request": request})
+
+@app.post("/add_vendor")
+async def add_vendor(request: Request):
+    data = await request.json()
+    vendor_name = data.get("vendor_name")
+    contact = data.get("contact")
+    if not vendor_name or not contact:
+        return JSONResponse({"message": "Both vendor name and contact are required!"}, status_code=400)
+    try:
+        with get_db_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT COUNT(*) as count FROM vendors")
+            result = cursor.fetchone()
+            vendor_code = f"VEND{(result['count'] + 1):04d}"
+            cursor.execute(
+                "INSERT INTO vendors (vendor_code, name, contact_person, status) VALUES (%s, %s, %s, 'Pending')",
+                (vendor_code, vendor_name, contact)
+            )
+            conn.commit()
+        return JSONResponse({"message": "Vendor added successfully!"})
+    except Exception as e:
+        return JSONResponse({"message": f"Error adding vendor: {str(e)}"}, status_code=500)
+
+
+# ============ PROCUREMENT ITEMS ============
+
+@app.get("/api/procurement/items")
+async def get_procurement_items(user: dict = Depends(get_current_user)):
+    try:
+        response = requests.get(
+            "http://127.0.0.1:5001/api/items",
+            timeout=5
+        )
+        if response.status_code == 200:
+            items = response.json()
+            return {"success": True, "items": items}
+        return {"success": False, "items": [], "error": f"Status {response.status_code}"}
+    except Exception as e:
+        print(f"\u26a0\ufe0f Procurement items fetch failed: {e}")
+        return {"success": False, "items": [], "error": str(e)}
 
 if __name__ == "__main__":
     import uvicorn

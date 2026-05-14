@@ -1,0 +1,50 @@
+<!-- templates/add_vendor.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Vendor</title>
+  <link rel="stylesheet" href="/static/css/add_vendor.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Add Vendor</h2>
+    <form id="vendorForm">
+
+      <div class="section-title">Basic Information</div>
+      <label>Name: <input type="text" name="name" required></label>
+      <label>Email: <input type="email" name="email"></label>
+      <label>Contact Person: <input type="text" name="contact_person"></label>
+      <label>Phone: <input type="text" name="phone"></label>
+      <label>Address: <textarea name="address"></textarea></label>
+      <label>City: <input type="text" name="city"></label>
+      <label>State: <input type="text" name="state"></label>
+
+      <div class="section-title">Tax Information</div>
+      <label>GST Number: <input type="text" name="gst_number"></label>
+      <label>PAN Number: <input type="text" name="pan_number"></label>
+
+      <div class="section-title">Bank Details</div>
+      <label>Bank Name: <input type="text" name="bank_name"></label>
+      <label>Bank Account: <input type="text" name="bank_account"></label>
+      <label>Payment Terms: <input type="text" name="payment_terms"></label>
+
+      <div class="section-title">Status</div>
+      <label>
+        Status:
+        <select name="status">
+          <option value="Pending" selected>Pending</option>
+          <option value="Approved">Approved</option>
+          <option value="Rejected">Rejected</option>
+        </select>
+      </label>
+
+      <button type="submit">Add Vendor</button>
+    </form>
+
+    <div id="message"></div>
+  </div>
+
+  <script src="/static/js/add_vendor.js"></script>
+</body>
+</html>
