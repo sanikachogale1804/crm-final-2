@@ -4,8 +4,8 @@ from email.mime.multipart import MIMEMultipart
 
 SMTP_HOST = "smtp.gmail.com"
 SMTP_PORT = 587
-SMTP_USER = "sanika@cogentsecurity.ai"      # 👈 yaha apna email
-SMTP_PASS = "San@180704"       # 👈 Gmail App Password
+SMTP_USER = "info@cogentsecurity.ai"      
+SMTP_PASS = "Secure@2026"       
 
 def send_email(to_email, subject, body):
     msg = MIMEMultipart()

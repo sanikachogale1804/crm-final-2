@@ -10,8 +10,8 @@ def get_smtp_config():
     return {
         "host":     os.environ.get("MAIL_SERVER",   "smtp.mailngx.com"),
         "port":     int(os.environ.get("MAIL_PORT", 587)),
-        "user":     os.environ.get("MAIL_USERNAME", "sanika@cogentsecurity.ai"),
-        "password": os.environ.get("MAIL_PASSWORD", "San@180704"),
+        "user":     os.environ.get("MAIL_USERNAME", "info@cogentsecurity.ai"),
+        "password": os.environ.get("MAIL_PASSWORD", "Secure@2026"),
         "use_tls":  os.environ.get("MAIL_USE_TLS",  "True") == "True",
     }
 
